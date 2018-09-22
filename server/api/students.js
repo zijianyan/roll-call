@@ -9,4 +9,17 @@ router.get('/', (req, res, next)=> {
     .catch(next);
 });
 
+router.get('/:id', (req, res, next)=> {
+  Student.findById(req.params.id, { include: [ School ]})
+    .then(student => res.send(student))
+    .catch(next);
+});
+
+router.delete('/:id', (req, res, next)=> {
+  Student.findById(req.params.id)
+    .then(student => student.destroy())
+    .then(()=> res.sendStatus(204))
+    .catch(next);
+});
+
 module.exports = router;
