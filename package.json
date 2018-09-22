@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:dev": "DATABASE_URL=postgres://localhost/senior_enrichment_project_test_db nodemon ./node_modules/mocha/bin/mocha"
+    "test:dev": "PORT=3000 DATABASE_URL=postgres://localhost/senior_enrichment_project_test_db nodemon ./node_modules/mocha/bin/mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
     "pg": "^7.4.3",
     "sequelize": "^4.38.1"
   },

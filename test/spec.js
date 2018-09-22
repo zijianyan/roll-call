@@ -3,6 +3,7 @@ const expect = require('chai').expect;
 const { syncAndSeed } = require('../server/db');
 const { School, Student } = require('../server/db').models;
 
+const app = require('supertest')(require('../server/app.js'));
 
 describe('models', ()=> {
 
@@ -21,7 +22,7 @@ describe('models', ()=> {
       ])
       expect(NYU.students.length).to.equal(2);
       expect(BU.students.length).to.equal(1);
-      expect(USC.students.length).to.equal(1  );
+      expect(USC.students.length).to.equal(1);
     });
   });
 
@@ -48,5 +49,42 @@ describe('models', ()=> {
 
   });
 
+
+});
+
+
+describe('server', ()=> {
+
+  it('serves a homepage with a root div', ()=> {
+    return app.get('/')
+      .expect(200)
+      .then(response => {
+        expect(response.text).to.contain('<div id="root"></div>')
+      })
+  });
+
+  it('/api/schools serves all the schools and eager loads their students', ()=> {
+    return app.get('/api/schools')
+      .expect(200)
+      .then(response => {
+        const schools = response.body;
+        const NYU = schools.find(school => school.name === 'NYU')
+        expect(schools.length).to.equal(3);
+        expect(NYU.students.length).to.equal(2); 
+      })
+  });
+
+  it('/api/students serves all the students', ()=> {
+    return app.get('/api/students')
+      .expect(200)
+      .then(response => {
+        const students = response.body;
+        const jane = students.find(student => student.firstName === 'Jane');
+        const nadia = students.find(student => student.firstName === 'Nadia');
+        expect(students.length).to.equal(5);
+        expect(jane.school.name).to.equal('NYU');
+        expect(nadia.school).to.equal(null);
+      })
+  });
 
 });
