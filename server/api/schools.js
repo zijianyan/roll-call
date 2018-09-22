@@ -22,4 +22,11 @@ router.delete('/:id', (req, res, next)=> {
     .catch(next);
 });
 
+router.post('/', (req, res, next)=> {
+  // console.log('schools post, req.body:', req.body);
+  School.create(req.body)
+    .then(created => res.status(201).send(created))
+    .catch(next);
+});
+
 module.exports = router;

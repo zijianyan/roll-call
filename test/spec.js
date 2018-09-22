@@ -11,7 +11,6 @@ describe('senior enrichment project', ()=> {
   beforeEach(()=> syncAndSeed());
 
   describe('models', ()=> {
-
     describe('School model', ()=> {
       it('has three schools', async ()=> {
         const schools = await School.findAll();
@@ -28,7 +27,6 @@ describe('senior enrichment project', ()=> {
         expect(USC.students.length).to.equal(1);
       });
     });
-
     describe('Student model', async ()=> {
       it('has five students', async ()=> {
         const students = await Student.findAll();
@@ -48,15 +46,11 @@ describe('senior enrichment project', ()=> {
         expect(leo.school.name).to.equal('NYU');
         expect(nadia.school).to.equal(null);
       })
-
     });
-
-
   });
 
 
   describe('server', ()=> {
-
     describe('GET routes', ()=> {
       it('serves a homepage with a root div', ()=> {
         return app.get('/')
@@ -106,9 +100,7 @@ describe('senior enrichment project', ()=> {
           });
       });
     });
-
     describe('DELETE routes', ()=> {
-
       it('deletes a school by id', ()=> {
         return app.delete('/api/schools/2')
           .expect(204)
@@ -119,7 +111,6 @@ describe('senior enrichment project', ()=> {
             expect(stillHere).to.be.ok;
           })
       });
-
       it('deletes a student by id', ()=> {
         return app.delete('/api/students/2')
           .expect(204)
@@ -130,6 +121,30 @@ describe('senior enrichment project', ()=> {
             expect(stillHere).to.be.ok;
           })
       });
+    });
+
+    describe('POST routes', ()=> {
+      it('creates a school', ()=> {
+        return app.post('/api/schools')
+          .send({ name: 'Columbia', address: 'uptown', description: 'ivy league' })
+          .expect(201)
+          .then(res => res.body)
+          .then(created => expect(created.name).to.equal('Columbia'))
+          .then( async ()=> { //double-checking that it's created
+            const columbia = await School.findOne({ where: { name: 'Columbia' }});
+            expect(columbia).to.be.ok;
+            expect(columbia.name).to.equal('Columbia');
+          })
+      });
+
+      it('creates a student', ()=> {
+        return app.post('/api/students')
+          .send({ firstName: 'Zi', lastName: 'Yan', gpa: '4' })
+          .expect(201)
+          .then(res => res.body)
+          .then(created => expect(created.firstName).to.equal('Zi'))
+      });
+
 
     });
 
