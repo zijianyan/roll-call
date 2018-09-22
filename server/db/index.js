@@ -65,10 +65,12 @@ const syncAndSeed = async ()=> {
     Student.create({ firstName: 'Nadia', lastName: 'Newson', gpa: 3 })
   ])
 
-  jane.setSchool(NYU);
-  avery.setSchool(USC);
-  sam.setSchool(BU);
-  leo.setSchool(NYU);
+  await Promise.all([
+    jane.setSchool(NYU),
+    avery.setSchool(USC),
+    sam.setSchool(BU),
+    leo.setSchool(NYU)
+  ])
 
 }
 
