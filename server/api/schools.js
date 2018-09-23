@@ -23,9 +23,15 @@ router.delete('/:id', (req, res, next)=> {
 });
 
 router.post('/', (req, res, next)=> {
-  // console.log('schools post, req.body:', req.body);
   School.create(req.body)
     .then(created => res.status(201).send(created))
+    .catch(next);
+});
+
+router.put('/:id', (req, res, next)=> {
+  School.findById(req.params.id)
+    .then(school => school.update(req.body))
+    .then(updated => res.send(updated))
     .catch(next);
 });
 

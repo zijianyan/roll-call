@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 
-const conn = new Sequelize(process.env.DATABASE_URL);
+const conn = new Sequelize(process.env.DATABASE_URL, {
+  logging: false  
+});
 
 const School = conn.define('school', {
   name: {
@@ -47,8 +49,7 @@ School.hasMany(Student);
 const syncAndSeed = async ()=> {
 
   await conn.sync({
-    force: true,
-    logging: false
+    force: true
   })
 
   const [ NYU, USC, BU ] = await Promise.all([

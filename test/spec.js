@@ -8,6 +8,8 @@ const app = require('supertest')(require('../server/app.js'));
 
 describe('senior enrichment project', ()=> {
 
+  
+
   beforeEach(()=> syncAndSeed());
 
   describe('models', ()=> {
@@ -136,7 +138,6 @@ describe('senior enrichment project', ()=> {
             expect(columbia.name).to.equal('Columbia');
           })
       });
-
       it('creates a student with no school', ()=> {
         return app.post('/api/students')
           .send({ firstName: 'Zi', lastName: 'Yan', gpa: 4 })
@@ -147,7 +148,6 @@ describe('senior enrichment project', ()=> {
             expect(student.schoolId).to.equal(null);
           })
       });
-
       it('creates a student that belongs to a school', ()=> {
         return app.post('/api/students')
           .send({ firstName: 'moe', lastName: 'moeson', gpa: 4, schoolId: 2 })
@@ -157,10 +157,101 @@ describe('senior enrichment project', ()=> {
             expect(student.schoolId).to.equal(2);
           })
       });
+    });
 
+    describe('PUT routes', ()=> {
+
+      it('edits a school', async ()=> {
+        const oldSchool = await School.findById(2);
+        return app.put('/api/schools/2')
+          .send({ name: 'New School', address: 'Manhattan', description: 'it is new' })
+          .expect(200)
+          .then(res => res.body)
+          .then(newSchool => {
+            expect(newSchool.id).to.equal(oldSchool.id);
+            expect(newSchool).to.not.equal(oldSchool);
+            expect(newSchool.name).to.equal('New School');
+          })
+      });
+
+      it('edits a student', async ()=> {
+        const oldStudent = await Student.findById(2);
+        return app.put('/api/students/2')
+          .send({ firstName: 'Moe', lastName: 'Moeson', gpa: 1 })
+          .expect(200)
+          .then(res => res.body)
+          .then(student => {
+            expect(student.id).to.equal(oldStudent.id);
+            expect(student.firstName).to.equal('Moe');
+          })
+          .then( async ()=> {
+            const newStudent = await Student.findById(2);
+            expect(newStudent.firstName).to.equal('Moe');
+          })
+
+      });
+
+      it('assigns a student to a new school', async ()=> {
+        const NYU = await School.findOne({ where: { name: 'NYU' }});
+        const USC = await School.findOne({ where: { name: 'USC' }});
+        const NYUstudent = await Student.findOne({ where: { schoolId: NYU.id }});
+        return app.put(`/api/students/${NYUstudent.id}`)
+          .send({ schoolId: USC.id })
+          .expect(200)
+          .then(res => res.body)
+          .then(student => {
+            expect(student.schoolId).to.equal(USC.id);
+            expect(student.firstName).to.equal(NYUstudent.firstName);
+          })
+      });
+
+      it('enrolls an unenrolled student', async ()=> {
+        
+      });
+
+      it('unenrolls a student', async ()=> {
+        const NYU = await School.findOne({ where: { name: 'NYU' }, include: [ Student ]});
+        const NYUstudent = await Student.findOne({ where: { schoolId: NYU.id }});
+        expect(NYU.students.length).to.equal(2);
+        return app.put(`/api/students/${NYUstudent.id}`)
+          .send({ schoolId: null })
+          .expect(200)
+          .then(res => res.body)
+          .then( async (student) => {
+            const updatedNYU = await School.findById(NYU.id, { include: [ Student ]});
+            const updatedStudent = await Student.findById(NYUstudent.id)
+            expect(student.schoolId).to.equal(null);
+            expect(updatedStudent.schoolId).to.equal(null);
+            expect(updatedNYU.students.length).to.equal(1);
+          })
+      });
 
     });
 
-  }); 
+  });
+
+
+  describe('mapper and utility functions', ()=> {
+
+    describe('findStudents', ()=> {
+      it('finds the students enrolled in a school', ()=> {}); // don't think i actually need this one, students are eagerloaded with school
+    })
+
+    describe('findUnenrolledStudents', ()=> {
+      it('returns an array of students who do not have a school', ()=> {}); //filter for those without schoolId
+    });
+
+    describe('findEnrolledStudents', ()=> {
+      it('returns an array of students who have a school', ()=> {}); //filter for those with schoolId
+    });
+
+  })
+
+
 });
 
+
+
+//disable save button if forms are empty
+
+//use actual college directory data?

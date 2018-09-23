@@ -28,4 +28,11 @@ router.post('/', (req, res, next)=> {
     .catch(next);
 });
 
+router.put('/:id', (req, res, next)=> {
+  Student.findById(req.params.id)
+    .then(student => student.update(req.body))
+    .then(updated => res.send(updated))
+    .catch(next);
+});
+
 module.exports = router;
