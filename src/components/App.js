@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadSchools_thunk, loadStudents_thunk } from '../store/thunks';
 
-import SchoolList from './SchoolList';
-import StudentList from './StudentList';
+import SchoolsList from './SchoolsList';
+import StudentsList from './StudentsList';
 import Nav from './Nav';
+import StudentsCreate from './StudentsCreate';
+import SchoolsCreate from './SchoolsCreate';
 
 class App extends Component {
   constructor() {
@@ -27,8 +29,10 @@ class App extends Component {
         <Router>
           <Fragment>
             <Nav />
-            <Route path='/schools' component={SchoolList}/>
-            <Route path='/students' component={StudentList}/>
+            <Route exact path='/schools' component={SchoolsList}/>
+            <Route exact path='/students' component={StudentsList}/>
+            <Route path='/schools/create' component={SchoolsCreate}/>
+            <Route path='/students/create' component={StudentsCreate}/>
           </Fragment>
         </Router>
       </div>

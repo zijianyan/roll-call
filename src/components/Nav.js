@@ -2,7 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Nav = ()=> {
+import { connect } from 'react-redux';
+
+const Nav = ({ schools, students })=> {
   return (
     <Fragment>
       <h2>Nav</h2>
@@ -11,14 +13,24 @@ const Nav = ()=> {
           <Link to='/'>Home</Link>
         </li>
         <li>
-          <Link to='/schools'>Schools</Link>
+          <Link to='/schools'>Schools ({schools.length})</Link>
         </li>
         <li>
-          <Link to='/students'>Students</Link>
+          <Link to='/students'>Students ({students.length})</Link>
+        </li>
+        <li>
+          <Link to='/schools/create'>Create A School</Link>
         </li>
       </ul>
     </Fragment>
   )
 }
 
-export default Nav;
+const mapStateToProps = ({ schools, students })=> {
+  return {
+    schools,
+    students
+  }
+}
+
+export default connect(mapStateToProps)(Nav);

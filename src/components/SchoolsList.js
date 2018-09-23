@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { deleteSchool_thunk } from '../store/thunks';
 
-const SchoolList = ({ schools, deleteSchool })=> {
+const SchoolsList = ({ schools, deleteSchool })=> {
   return (
     <Fragment>
       <h2>Schools</h2>
@@ -23,11 +23,11 @@ const SchoolList = ({ schools, deleteSchool })=> {
   )
 }
 
-SchoolList.propTypes = {
+SchoolsList.propTypes = {
   schools: PropTypes.array
 }
 
-SchoolList.defaultProps = {
+SchoolsList.defaultProps = {
   schools: []
 }
 
@@ -43,4 +43,4 @@ const mapDispatchToProps = (dispatch)=> {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SchoolList);
+export default connect(mapStateToProps, mapDispatchToProps)(SchoolsList);

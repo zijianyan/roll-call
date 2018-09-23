@@ -2,7 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const StudentList = ({ students })=> {
+import { deleteStudent_thunk } from '../store/thunks';
+
+const StudentsList = ({ students, deleteStudent })=> {
   return (
     <Fragment>
       <h2>Students</h2>
@@ -11,6 +13,7 @@ const StudentList = ({ students })=> {
           students.map( student => (
             <li key={student.id}>
               {student.firstName} {student.lastName}
+              <button onClick={()=> deleteStudent(student)}>x</button>
             </li>
           ))
         }
@@ -19,11 +22,11 @@ const StudentList = ({ students })=> {
   )
 }
 
-StudentList.propTypes = {
+StudentsList.propTypes = {
   students: PropTypes.array
 }
 
-StudentList.defaultProps = {
+StudentsList.defaultProps = {
   students: []
 }
 
@@ -33,4 +36,10 @@ const mapStateToProps = ({ students })=> {
   }
 }
 
-export default connect(mapStateToProps)(StudentList);
+const mapDispatchToProps = (dispatch)=> {
+  return {
+    deleteStudent: (student)=> dispatch(deleteStudent_thunk(student))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsList);

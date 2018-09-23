@@ -1,5 +1,6 @@
-import { _loadSchools, _deleteSchool} from './actionCreators';
-import { _loadStudents } from './actionCreators';
+import { _loadSchools, _deleteSchool, _createSchool } from './actionCreators';
+import { _loadStudents, _deleteStudent } from './actionCreators';
+
 import axios from 'axios';
 
 export const loadSchools_thunk = ()=> {
@@ -13,14 +14,21 @@ export const loadSchools_thunk = ()=> {
 export const deleteSchool_thunk = (school)=> {
   return (dispatch)=> {
     axios.delete(`/api/schools/${school.id}`)
-      .then(()=> {
-        dispatch(_deleteSchool(school))
-      })
+      .then(()=> dispatch(_deleteSchool(school)))
+  }
+}
+
+export const createSchool_thunk = (school)=> {
+  return (dispatch)=> {
+    axios.post('/api/schools', school)
+      .then(res => res.data)
+      .then(school => dispatch(_createSchool(school)))
   }
 }
 
 
 
+/*STUDENTS*/
 
 
 export const loadStudents_thunk = ()=> {
@@ -28,5 +36,12 @@ export const loadStudents_thunk = ()=> {
     axios.get('/api/students/')
       .then(res => res.data)
       .then(students => dispatch(_loadStudents(students)))
+  }
+}
+
+export const deleteStudent_thunk = (student)=> {
+  return (dispatch)=> {
+    axios.delete(`/api/students/${student.id}`)
+      .then(()=> dispatch(_deleteStudent(student)))
   }
 }
