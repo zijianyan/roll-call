@@ -160,7 +160,6 @@ describe('senior enrichment project', ()=> {
     });
 
     describe('PUT routes', ()=> {
-
       it('edits a school', async ()=> {
         const oldSchool = await School.findById(2);
         return app.put('/api/schools/2')
@@ -173,7 +172,6 @@ describe('senior enrichment project', ()=> {
             expect(newSchool.name).to.equal('New School');
           })
       });
-
       it('edits a student', async ()=> {
         const oldStudent = await Student.findById(2);
         return app.put('/api/students/2')
@@ -188,9 +186,7 @@ describe('senior enrichment project', ()=> {
             const newStudent = await Student.findById(2);
             expect(newStudent.firstName).to.equal('Moe');
           })
-
       });
-
       it('assigns a student to a new school', async ()=> {
         const NYU = await School.findOne({ where: { name: 'NYU' }});
         const USC = await School.findOne({ where: { name: 'USC' }});
@@ -206,7 +202,17 @@ describe('senior enrichment project', ()=> {
       });
 
       it('enrolls an unenrolled student', async ()=> {
-        
+        const unenrolled = await Student.findOne({ where: { schoolId: null } });
+        const NYU = await School.findOne({ where: { name: 'NYU' }});
+        return app.put(`/api/students/${unenrolled.id}`)
+          .send({ schoolId: NYU.id })
+          .expect(200)
+          .then(res => res.body)
+          .then( async (student) => {
+            expect(student.schoolId).to.equal(NYU.id);
+            const enrolled = await Student.findById(unenrolled.id, { include: [ School ]});
+            expect(enrolled.school.name).to.equal('NYU');
+          })
       });
 
       it('unenrolls a student', async ()=> {
