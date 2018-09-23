@@ -1,5 +1,5 @@
 import { LOAD_SCHOOLS, DELETE_SCHOOL, CREATE_SCHOOL } from './actionTypes';
-import { LOAD_STUDENTS, DELETE_STUDENT } from './actionTypes';
+import { LOAD_STUDENTS, DELETE_STUDENT, CREATE_STUDENT } from './actionTypes';
 
 export const schoolsReducer = (schools=[], action)=> {
   switch(action.type) {
@@ -19,7 +19,9 @@ export const studentsReducer = (students=[], action)=> {
     case LOAD_STUDENTS:
       return action.payload;
     case DELETE_STUDENT:
-      return students.filter( student => student.id !== action.payload.id )
+      return students.filter( student => student.id !== action.payload.id );
+    case CREATE_STUDENT:
+      return [...students, action.payload]
     default:
       return students;
   }

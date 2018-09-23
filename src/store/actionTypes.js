@@ -5,3 +5,4 @@ export const CREATE_SCHOOL = 'CREATE_SCHOOL';
 
 export const LOAD_STUDENTS = 'LOAD_STUDENTS';
 export const DELETE_STUDENT = 'DELETE_STUDENT';
+export const CREATE_STUDENT = 'CREATE_STUDENT';

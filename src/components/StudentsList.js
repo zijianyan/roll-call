@@ -10,12 +10,17 @@ const StudentsList = ({ students, deleteStudent })=> {
       <h2>Students</h2>
       <ul>
         {
-          students.map( student => (
-            <li key={student.id}>
-              {student.firstName} {student.lastName}
-              <button onClick={()=> deleteStudent(student)}>x</button>
-            </li>
-          ))
+          students.map( student => {
+            const { id, firstName, lastName, gpa } = student;
+            return (
+              <li key={id}>
+                {firstName} {lastName} - GPA: {gpa}
+                <div>
+                  <button onClick={()=> deleteStudent(student)}>x</button>
+                </div>
+              </li>
+            )
+          })
         }
       </ul>
     </Fragment>

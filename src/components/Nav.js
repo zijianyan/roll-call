@@ -21,6 +21,9 @@ const Nav = ({ schools, students })=> {
         <li>
           <Link to='/schools/create'>Create A School</Link>
         </li>
+        <li>
+          <Link to='/students/create'>Create A Student</Link>
+        </li>
       </ul>
     </Fragment>
   )
