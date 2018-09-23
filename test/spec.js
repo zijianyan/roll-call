@@ -53,7 +53,7 @@ describe('senior enrichment project', ()=> {
 
 
   describe('server', ()=> {
-    describe('GET routes', ()=> {
+    describe('static routes', ()=> {
       it('serves a homepage with a root div', ()=> {
         return app.get('/')
           .expect(200)
@@ -61,6 +61,12 @@ describe('senior enrichment project', ()=> {
             expect(response.text).to.contain('<div id="root"></div>')
           })
       });
+      it('has a static route that serves /dist/main.js', ()=> {
+        return app.get('/dist/main.js')
+          .expect(200)
+      });
+    });
+    describe('GET routes', ()=> {
       it('/api/schools serves all the schools and eager loads their students', ()=> {
         return app.get('/api/schools')
           .expect(200)

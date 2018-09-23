@@ -8,22 +8,10 @@ app.use(express.json());
 
 app.use('/api', require('./api'));
 
+app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
+
 app.get('/', (req, res, next)=> {
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
-
-// app.get('/api/schools', (req, res, next)=> {
-//   School.findAll({ include: [ Student ]})
-//     .then(schools => res.send(schools))
-//     .catch(next);
-// });
-
-// app.get('/api/students', (req, res, next)=> {
-//   Student.findAll({ include: [ School ]})
-//     .then(students => res.send(students))
-//     .catch(next);
-// });
-
-
 
 module.exports = app;
