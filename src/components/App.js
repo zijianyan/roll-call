@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -6,6 +7,7 @@ import { loadSchools_thunk, loadStudents_thunk } from '../store/thunks';
 
 import SchoolList from './SchoolList';
 import StudentList from './StudentList';
+import Nav from './Nav';
 
 class App extends Component {
   constructor() {
@@ -22,8 +24,13 @@ class App extends Component {
       <div>
         <h1>Acme Schools and Students</h1>
         <hr />
-        <SchoolList />
-        <StudentList />
+        <Router>
+          <Fragment>
+            <Nav />
+            <Route path='/schools' component={SchoolList}/>
+            <Route path='/students' component={StudentList}/>
+          </Fragment>
+        </Router>
       </div>
     )
   }

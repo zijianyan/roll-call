@@ -1,4 +1,5 @@
-import { _loadSchools, _loadStudents } from './actionCreators';
+import { _loadSchools, _deleteSchool} from './actionCreators';
+import { _loadStudents } from './actionCreators';
 import axios from 'axios';
 
 export const loadSchools_thunk = ()=> {
@@ -8,6 +9,19 @@ export const loadSchools_thunk = ()=> {
       .then(schools => dispatch(_loadSchools(schools)))
   }
 }
+
+export const deleteSchool_thunk = (school)=> {
+  return (dispatch)=> {
+    axios.delete(`/api/schools/${school.id}`)
+      .then(()=> {
+        dispatch(_deleteSchool(school))
+      })
+  }
+}
+
+
+
+
 
 export const loadStudents_thunk = ()=> {
   return (dispatch)=> {

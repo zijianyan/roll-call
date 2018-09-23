@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const StudentList = ({ students })=> {
   return (
-    <div>
+    <Fragment>
       <h2>Students</h2>
       <ul>
         {
@@ -15,8 +15,16 @@ const StudentList = ({ students })=> {
           ))
         }
       </ul>
-    </div>
+    </Fragment>
   )
+}
+
+StudentList.propTypes = {
+  students: PropTypes.array
+}
+
+StudentList.defaultProps = {
+  students: []
 }
 
 const mapStateToProps = ({ students })=> {
