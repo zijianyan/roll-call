@@ -5,10 +5,7 @@ const { School, Student } = require('../server/db').models;
 
 const app = require('supertest')(require('../server/app.js'));
 
-
 describe('senior enrichment project', ()=> {
-
-  
 
   beforeEach(()=> syncAndSeed());
 
@@ -236,9 +233,7 @@ describe('senior enrichment project', ()=> {
           })
       });
     });
-
   });
-
 
   describe('mapper and utility functions', ()=> {
 

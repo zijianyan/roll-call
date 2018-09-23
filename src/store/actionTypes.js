@@ -1,0 +1,1 @@
+export const LOAD_SCHOOLS = 'LOAD_SCHOOLS';
