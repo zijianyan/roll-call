@@ -200,7 +200,6 @@ describe('senior enrichment project', ()=> {
             expect(student.firstName).to.equal(NYUstudent.firstName);
           })
       });
-
       it('enrolls an unenrolled student', async ()=> {
         const unenrolled = await Student.findOne({ where: { schoolId: null } });
         const NYU = await School.findOne({ where: { name: 'NYU' }});
@@ -214,7 +213,6 @@ describe('senior enrichment project', ()=> {
             expect(enrolled.school.name).to.equal('NYU');
           })
       });
-
       it('unenrolls a student', async ()=> {
         const NYU = await School.findOne({ where: { name: 'NYU' }, include: [ Student ]});
         const NYUstudent = await Student.findOne({ where: { schoolId: NYU.id }});
@@ -231,7 +229,6 @@ describe('senior enrichment project', ()=> {
             expect(updatedNYU.students.length).to.equal(1);
           })
       });
-
     });
 
   });
