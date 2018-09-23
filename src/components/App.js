@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { loadSchools_thunk } from '../store/thunks';
+import { loadSchools_thunk, loadStudents_thunk } from '../store/thunks';
 
 import SchoolList from './SchoolList';
 import StudentList from './StudentList';
@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.loadSchools();
+    this.props.init();
   }
 
   render() {
@@ -41,8 +41,9 @@ App.propTypes = {
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    loadSchools: ()=> {
-      return dispatch(loadSchools_thunk())
+    init: ()=> {
+      dispatch(loadSchools_thunk()),
+      dispatch(loadStudents_thunk())
     }
   }
 }

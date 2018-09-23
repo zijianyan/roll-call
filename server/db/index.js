@@ -62,7 +62,7 @@ const syncAndSeed = async ()=> {
     Student.create({ firstName: 'Jane', lastName: 'Jackson', gpa: 4 }),
     Student.create({ firstName: 'Avery', lastName: 'Alvarez', gpa: 3 }),
     Student.create({ firstName: 'Sam', lastName: 'Smith', gpa: 4 }),
-    Student.create({ firstName: 'Leo', lastName: 'Lee', gpa: 2 }),
+    Student.create({ firstName: 'Leonard', lastName: 'Lee', gpa: 2 }),
     Student.create({ firstName: 'Nadia', lastName: 'Newson', gpa: 3 })
   ])
 

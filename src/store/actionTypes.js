@@ -1,1 +1,2 @@
 export const LOAD_SCHOOLS = 'LOAD_SCHOOLS';
+export const LOAD_STUDENTS = 'LOAD_STUDENTS';
