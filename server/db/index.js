@@ -38,7 +38,7 @@ const Student = conn.define('student', {
     type: Sequelize.STRING
   },
   gpa: {
-    type: Sequelize.INTEGER //will change to FLOAT or another data type later
+    type: Sequelize.FLOAT //will change to FLOAT or another data type later
   }
 });
 
