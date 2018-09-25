@@ -13,14 +13,17 @@ const SchoolsList = ({ schools, deleteSchool })=> {
       <h2>Schools</h2>
       <ul>
         {
-          schools.map( school => (
-            <li key={school.id}>
-              <Link to={`/schools/${school.id}`}>{school.name}</Link>
-              <div>
-                <button onClick={()=> deleteSchool(school)}>x</button>
-              </div>
-            </li>
-          ))
+          schools.map( school => {
+            const { students } = school;
+            return (
+              <li key={school.id}>
+                <Link to={`/schools/${school.id}`}>{school.name} ({students.length})</Link>
+                <div>
+                  <button onClick={()=> deleteSchool(school)}>x</button>
+                </div>
+              </li>              
+            )
+          })
         }
       </ul>
     </Fragment>

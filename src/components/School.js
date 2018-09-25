@@ -3,24 +3,41 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-const School = (ownProps)=> {
-  // console.log('School, props:', props)
-  // console.log('id:', id);
-  console.log('School, ownProps:', ownProps);
-  const id = ownProps.match.params.id
+const School = ({ id, school })=> {
   return (
     <div>
-      School id: {id}
+      <p>School id: {id}</p>
+      <p>{ school ? school.name : null }</p>
+      <p>Students:</p>
+      <ul>
+        { school ? school.students.map( student => 
+            <li key={student.id}>{student.firstName} {student.lastName} - GPA: {student.gpa}</li>
+          ) : null }      
+      </ul>
     </div>
   )
 }
 
 
-const mapStateToProps = (state, ownProps)=> {
+const getSchool = (schools, id)=> {
+  return schools.find(school => {
+    if (school.id) {
+      return school.id === id;
+    }
+  })
+}
+
+School.propTypes = {
+  id: PropTypes.number,
+  school: PropTypes.object
+}
+
+const mapStateToProps = ({ schools }, { match })=> {
+
   return {
-    // props: ownProps,
-    // id: ownProps.match.params.id
-    ownProps
+    id: match.params.id*1,
+    school: getSchool(schools, match.params.id*1),
+    // students: getSchool(schools, match.params.id*1)
   }
 }
 
