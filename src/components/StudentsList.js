@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { deleteStudent_thunk } from '../store/thunks';
 
@@ -14,7 +15,7 @@ const StudentsList = ({ students, deleteStudent })=> {
             const { id, firstName, lastName, gpa } = student;
             return (
               <li key={id}>
-                {firstName} {lastName} - GPA: {gpa}
+                <Link to={`/students/${id}`}>{firstName} {lastName}</Link> - GPA: {gpa}
                 <div>
                   <button onClick={()=> deleteStudent(student)}>x</button>
                 </div>

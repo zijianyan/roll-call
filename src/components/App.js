@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -10,6 +10,8 @@ import StudentsList from './StudentsList';
 import Nav from './Nav';
 import StudentsCreate from './StudentsCreate';
 import SchoolsCreate from './SchoolsCreate';
+import School from './School';
+import Student from './Student';
 
 class App extends Component {
   constructor() {
@@ -31,8 +33,14 @@ class App extends Component {
             <Nav />
             <Route exact path='/schools' component={SchoolsList}/>
             <Route exact path='/students' component={StudentsList}/>
-            <Route path='/schools/create' component={SchoolsCreate}/>
-            <Route path='/students/create' component={StudentsCreate}/>
+            <Switch>
+              <Route path='/schools/create' component={SchoolsCreate}/>
+              <Route path='/schools/:id' component={School}/>
+            </Switch>
+            <Switch>
+              <Route path='/students/create' component={StudentsCreate}/>
+              <Route path='/students/:id' component={Student}/>
+            </Switch>
           </Fragment>
         </Router>
       </div>
