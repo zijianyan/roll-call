@@ -42,7 +42,13 @@ class Student extends Component {
       <div>
         
         <h2>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</h2>
+        {
+          student && student.school
+          ? `Student school: ${student.school.name}`
+          : 'Student has no school'
+        }
         <p>Student id: {id}</p>
+        
 
         <h3>Edit Student</h3>
         <form onSubmit={handleSubmit}>

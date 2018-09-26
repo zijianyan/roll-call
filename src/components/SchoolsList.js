@@ -17,7 +17,7 @@ const SchoolsList = ({ schools, deleteSchool })=> {
             const { students } = school;
             return (
               <li key={school.id}>
-                <Link to={`/schools/${school.id}`}>{school.name} ({students.length})</Link>
+                <Link to={`/schools/${school.id}`}>{school.name} {students.length ? `(${students.length})` : null}</Link>
                 <div>
                   <button onClick={()=> deleteSchool(school)}>x</button>
                 </div>
@@ -34,9 +34,9 @@ SchoolsList.propTypes = {
   schools: PropTypes.array
 }
 
-SchoolsList.defaultProps = {
-  schools: []
-}
+// SchoolsList.defaultProps = {
+//   schools: []
+// }
 
 const mapStateToProps = ({ schools })=> {
   return {

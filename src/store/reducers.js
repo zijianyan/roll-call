@@ -9,6 +9,26 @@ export const schoolsReducer = (schools=[], action)=> {
       return schools.filter( school => school.id !== action.payload.id );
     case CREATE_SCHOOL:
       return [...schools, action.payload]
+    case DELETE_STUDENT:
+      //find the school that has the student
+      //remove student from that school
+      const studentId = action.payload.id;
+      const { schoolId } = action.payload;
+      // const school = schools.find(school => school.id === schoolId);
+      const updatedSchool = schools.find(school => school.id === schoolId);
+      updatedSchool.students = updatedSchool.students.filter( student => {
+        console.log('updatedSchool, student:', student);
+        console.log('updatedSchool, student.id:', student.id);
+        console.log('updatedSchool, studentId:', studentId);
+        student.id !== studentId
+      } );
+
+
+      // const updatedSchool = {
+      //   ...school,
+      //   students: students.filter( student => student.id !== studentId );
+      // }
+      return schools.map( school => school.id === updatedSchool.id ? updatedSchool : school );
     default:
       return schools;
   }
@@ -16,6 +36,7 @@ export const schoolsReducer = (schools=[], action)=> {
 
 export const studentsReducer = (students=[], action)=> {
   switch(action.type) {
+
     case LOAD_STUDENTS:
       return action.payload;
     case DELETE_STUDENT:
@@ -24,6 +45,18 @@ export const studentsReducer = (students=[], action)=> {
       return [...students, action.payload]
     case UPDATE_STUDENT:
       return students.map( student => student.id === action.payload.id ? action.payload : student )
+    
+    case DELETE_SCHOOL:
+      return students.map( student => {
+        if (student.schoolId === action.payload.id) {
+          student.schoolId = null;
+          delete student.school;
+          return student;
+        }
+        return student;
+      })
+
+    
     default:
       return students;
   }

@@ -4,7 +4,7 @@ const router = express.Router();
 const { School, Student } = require('../db').models;
 
 router.get('/', (req, res, next)=> {
-  Student.findAll({ include: [ School ]})
+  Student.findAll({include: [ School ]})
     .then(students => res.send(students))
     .catch(next);
 });
@@ -29,11 +29,11 @@ router.post('/', (req, res, next)=> {
 });
 
 router.put('/:id', (req, res, next)=> {
-  console.log('students put, req.body:', req.body);
-  console.log('students put, req.params.id:', req.params.id); 
+  // console.log('students put, req.body:', req.body);
+  // console.log('students put, req.params.id:', req.params.id); 
   Student.findById(req.params.id)
     .then(student => {
-      console.log('students put, found student:', student);
+      // console.log('students put, found student:', student);
       return student.update(req.body)
     })
     .then(updated => res.send(updated))

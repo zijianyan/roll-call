@@ -8,9 +8,9 @@ const School = ({ id, school })=> {
     <div>
       <p>School id: {id}</p>
       <p>{ school ? school.name : null }</p>
-      <p>Students:</p>
+      <p>{school && school.students.length ? 'Students:' : 'No Students'}</p>
       <ul>
-        { school ? school.students.map( student => 
+        { school && school.students ? school.students.map( student => 
             <li key={student.id}>{student.firstName} {student.lastName} - GPA: {student.gpa}</li>
           ) : null }      
       </ul>
