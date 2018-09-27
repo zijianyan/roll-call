@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { deleteSchool_thunk } from '../store/thunks';
 
-const School = ({ id, school })=> {
+const School = ({ id, school, deleteSchool })=> {
   return (
     <div>
       <p>School id: {id}</p>
@@ -14,6 +15,7 @@ const School = ({ id, school })=> {
             <li key={student.id}>{student.firstName} {student.lastName} - GPA: {student.gpa}</li>
           ) : null }      
       </ul>
+      <button onClick={()=> deleteSchool(school)}>Delete School</button>
     </div>
   )
 }
@@ -33,7 +35,6 @@ School.propTypes = {
 }
 
 const mapStateToProps = ({ schools }, { match })=> {
-
   return {
     id: match.params.id*1,
     school: getSchool(schools, match.params.id*1),
@@ -41,4 +42,14 @@ const mapStateToProps = ({ schools }, { match })=> {
   }
 }
 
-export default connect(mapStateToProps)(School);
+
+const mapDispatchToProps = (dispatch, { history })=> {
+  return {
+    deleteSchool: (school)=> {
+      dispatch(deleteSchool_thunk(school));
+      history.push('/schools');
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(School);

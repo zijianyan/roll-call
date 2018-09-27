@@ -12,7 +12,8 @@ class StudentsCreate extends Component {
     this.state = {
       firstName: '',
       lastName: '',
-      gpa: 0
+      gpa: 0,
+      schoolId: null
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -64,3 +65,7 @@ const mapDispatchToProps = (dispatch, { history })=> {
 }
 
 export default connect(null, mapDispatchToProps)(StudentsCreate);
+
+//get schools, populate select options with school id's and names
+
+//use datalist for school input, use range for gpa
