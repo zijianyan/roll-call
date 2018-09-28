@@ -37,7 +37,7 @@ class Student extends Component {
       ...this.state,
       gpa: this.state.gpa*1,
       schoolId: this.state.schoolId*1,
-      school: getSchool(this.props.schools, this.state.schoolId*1)
+      school: getSchool(this.props.schools, this.state.schoolId*1) || null
     }
     console.log('handleSubmit, student:', student);
     this.props.updateStudent(student);
