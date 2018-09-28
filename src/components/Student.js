@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { deleteStudent_thunk } from '../store/thunks';
-import { updateStudent_thunk } from '../store/thunks';
-
-import { getSchool } from '../utils';
+import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
+import { getSchool, getStudent } from '../utils';
 
 class Student extends Component {
   constructor(props) {
@@ -23,6 +21,14 @@ class Student extends Component {
 
   componentDidMount() {
     this.setState(this.props.student)
+    // const testStudent = getStudent(this.props.students, this.props.id)
+    // this.setState(testStudent)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.student !== this.props.student) {
+      this.setState(this.props.student)
+    }
   }
 
   handleChange(ev) {
@@ -36,14 +42,15 @@ class Student extends Component {
     const student = {
       ...this.state,
       gpa: this.state.gpa*1,
-      schoolId: this.state.schoolId*1,
-      school: getSchool(this.props.schools, this.state.schoolId*1) || null
+      schoolId: this.state.schoolId*1 || null,
+      school: getSchool(this.props.schools, this.state.schoolId*1) || {}
     }
     console.log('handleSubmit, student:', student);
     this.props.updateStudent(student);
   }
 
   render() {
+    console.log('Student, render, this.props:', this.props);
     const { id, student, deleteStudent, schools, updateStudent } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
@@ -52,9 +59,9 @@ class Student extends Component {
         
         <h2>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</h2>
         {
-          student && student.school
-          ? `Student school: ${student.school.name}`
-          : 'Student has no school'
+          student && student.school && student.school.name
+            ? `Student school: ${student.school.name}`
+            : 'Student has no school'
         }
         <p>Student id: {id}</p>
         
@@ -73,7 +80,7 @@ class Student extends Component {
           </div>
           <div>
             <select name='schoolId' value={schoolId} onChange={handleChange}>
-              <option>--select school--</option>
+              <option value=''>--no school--</option>
               {
                 schools.map( school => 
                   <option key={school.id} value={school.id}>{school.name}</option>
@@ -90,15 +97,14 @@ class Student extends Component {
   }
 }
 
-const getStudent = (students, id)=> {
-  return students.find(student => student.id === id)
-}
+
 
 const mapStateToProps = ({ students, schools }, { match })=> {
   return {
     id: match.params.id*1,
     student: getStudent(students, match.params.id*1),
-    schools
+    schools,
+    students
   }
 }
 
@@ -114,15 +120,3 @@ const mapDispatchToProps = (dispatch, { history })=> {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Student);
 
-
-
-
-// <label htmlFor='school-choice'>School:</label>
-//             <input type='text' id='school-choice' name='schoolId' list='school-datalist' onChange={handleChange}/>
-//             <datalist id='school-datalist' placeholder='School'>
-//               {
-//                 schools.map( school => (
-//                   <option key={school.id} value={school.id}> {school.name} </ option>
-//                 ))
-//               }
-//             </datalist>

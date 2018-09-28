@@ -5,3 +5,7 @@ export const getSchool = (schools, id)=> {
     }
   })
 }
+
+export const getStudent = (students, id)=> {
+  return students.find(student => student.id === id)
+}
