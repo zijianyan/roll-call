@@ -72,15 +72,14 @@ class Student extends Component {
             <input name='gpa' value={gpa} onChange={handleChange} placeholder='GPA'/>
           </div>
           <div>
-            <label htmlFor='school-choice'>School:</label>
-            <input type='text' id='school-choice' name='schoolId' list='school-datalist' onChange={handleChange}/>
-            <datalist id='school-datalist' placeholder='School'>
+            <select name='schoolId' value={schoolId} onChange={handleChange}>
+              <option>--select school--</option>
               {
-                schools.map( school => (
-                  <option key={school.id} value={school.id}> {school.name} </ option>
-                ))
+                schools.map( school => 
+                  <option key={school.id} value={school.id}>{school.name}</option>
+                )
               }
-            </datalist>
+            </select>
           </div>
           <button>Save</button>
         </form>
@@ -114,3 +113,16 @@ const mapDispatchToProps = (dispatch, { history })=> {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Student);
+
+
+
+
+// <label htmlFor='school-choice'>School:</label>
+//             <input type='text' id='school-choice' name='schoolId' list='school-datalist' onChange={handleChange}/>
+//             <datalist id='school-datalist' placeholder='School'>
+//               {
+//                 schools.map( school => (
+//                   <option key={school.id} value={school.id}> {school.name} </ option>
+//                 ))
+//               }
+//             </datalist>
