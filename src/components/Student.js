@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { deleteStudent_thunk } from '../store/thunks';
 
 import { updateStudent_thunk } from '../store/thunks';
 
@@ -11,8 +12,9 @@ class Student extends Component {
     this.state = {
       firstName: '',
       lastName: '',
-      gpa: 0,
-      id: this.props.id
+      gpa: null,
+      id: this.props.id,
+      schoolId: null
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,7 +37,7 @@ class Student extends Component {
   }
 
   render() {
-    const { id, student } = this.props;
+    const { id, student, deleteStudent, schools } = this.props;
     const { firstName, lastName, gpa } = this.state;
     const { handleChange, handleSubmit } = this;
     return (
@@ -52,11 +54,29 @@ class Student extends Component {
 
         <h3>Edit Student</h3>
         <form onSubmit={handleSubmit}>
-          <input name='firstName' value={firstName} onChange={handleChange}/>
-          <input name='lastName' value={lastName} onChange={handleChange}/>
-          <input name='gpa' value={gpa} onChange={handleChange}/>
+          <div>
+            <input name='firstName' value={firstName} onChange={handleChange} placeholder='First Name'/>
+          </div>
+          <div>
+            <input name='lastName' value={lastName} onChange={handleChange} placeholder='Last Name'/>
+          </div>
+          <div>
+            <input name='gpa' value={gpa} onChange={handleChange} placeholder='GPA'/>
+          </div>
+          <div>
+            <label for='school-choice'>School:</label>
+            <input id='school-choice' name='school' list='school-datalist'/>
+            <datalist id='school-datalist' placeholder='School'>
+              {
+                schools.map( school => (
+                  <option key={school.id} value={school.id}>{school.name}</option>
+                ))
+              }
+            </datalist>
+          </div>
           <button>Save</button>
         </form>
+        <button onClick={()=> deleteStudent(student)}>Delete Student</button>
       </div>
     )
   }
@@ -66,16 +86,21 @@ const getStudent = (students, id)=> {
   return students.find(student => student.id === id)
 }
 
-const mapStateToProps = ({ students }, { match })=> {
+const mapStateToProps = ({ students, schools }, { match })=> {
   return {
     id: match.params.id*1,
-    student: getStudent(students, match.params.id*1)
+    student: getStudent(students, match.params.id*1),
+    schools
   }
 }
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch, { history })=> {
   return {
-    updateStudent: (student)=> dispatch(updateStudent_thunk(student))
+    updateStudent: (student)=> dispatch(updateStudent_thunk(student)),
+    deleteStudent: (student)=> {
+      dispatch(deleteStudent_thunk(student));
+      history.push('/students');
+    }
   }
 }
 

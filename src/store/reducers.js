@@ -12,6 +12,9 @@ export const schoolsReducer = (schools=[], action)=> {
     case DELETE_STUDENT:
       //find the school that has the student
       //remove student from that school
+      if (!action.payload.schoolId) { //if the deleted student wasn't enrolled in a school, then schools are unaffected
+        return schools;
+      }
       const studentId = action.payload.id;
       const { schoolId } = action.payload;
       // const school = schools.find(school => school.id === schoolId);
