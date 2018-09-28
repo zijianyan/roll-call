@@ -57,7 +57,10 @@ export const createStudent_thunk = (student)=> {
 export const updateStudent_thunk = (student)=> {
   return (dispatch)=> {
     axios.put(`/api/students/${student.id}`, student)
-      .then(res => res.data)
+      .then(res => {
+        console.log('updateStudent_thunk, res.data:', res.data);
+        return res.data;
+      })
       .then(student => dispatch(_updateStudent(student)))
   }
 }

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { deleteSchool_thunk } from '../store/thunks';
 import { deleteStudent_thunk } from '../store/thunks';
 
+import { getSchool } from '../utils';
+
 const School = ({ id, school, deleteSchool, deleteStudent })=> {
   return (
     <div>
@@ -26,13 +28,7 @@ const School = ({ id, school, deleteSchool, deleteStudent })=> {
 
 
 
-const getSchool = (schools, id)=> {
-  return schools.find(school => {
-    if (school.id) {
-      return school.id === id;
-    }
-  })
-}
+
 
 School.propTypes = {
   id: PropTypes.number,

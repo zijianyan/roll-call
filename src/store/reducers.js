@@ -47,6 +47,8 @@ export const studentsReducer = (students=[], action)=> {
     case CREATE_STUDENT:
       return [...students, action.payload]
     case UPDATE_STUDENT:
+      console.log('studentsReducer, action.payload', action.payload);
+      // const school = getSchool(schools, action.payload.schoolId)
       return students.map( student => student.id === action.payload.id ? action.payload : student )
     
     case DELETE_SCHOOL:

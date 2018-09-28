@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { deleteStudent_thunk } from '../store/thunks';
-
 import { updateStudent_thunk } from '../store/thunks';
+
+import { getSchool } from '../utils';
 
 class Student extends Component {
   constructor(props) {
@@ -12,12 +13,16 @@ class Student extends Component {
     this.state = {
       firstName: '',
       lastName: '',
-      gpa: null,
+      gpa: '',
       id: this.props.id,
-      schoolId: null
+      schoolId: -1
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState(this.props.student)
   }
 
   handleChange(ev) {
@@ -30,15 +35,17 @@ class Student extends Component {
     ev.preventDefault();
     const student = {
       ...this.state,
-      gpa: this.state.gpa*1
+      gpa: this.state.gpa*1,
+      schoolId: this.state.schoolId*1,
+      school: getSchool(this.props.schools, this.state.schoolId*1)
     }
     console.log('handleSubmit, student:', student);
     this.props.updateStudent(student);
   }
 
   render() {
-    const { id, student, deleteStudent, schools } = this.props;
-    const { firstName, lastName, gpa } = this.state;
+    const { id, student, deleteStudent, schools, updateStudent } = this.props;
+    const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
     return (
       <div>
@@ -53,6 +60,7 @@ class Student extends Component {
         
 
         <h3>Edit Student</h3>
+
         <form onSubmit={handleSubmit}>
           <div>
             <input name='firstName' value={firstName} onChange={handleChange} placeholder='First Name'/>
@@ -64,18 +72,19 @@ class Student extends Component {
             <input name='gpa' value={gpa} onChange={handleChange} placeholder='GPA'/>
           </div>
           <div>
-            <label for='school-choice'>School:</label>
-            <input id='school-choice' name='school' list='school-datalist'/>
+            <label htmlFor='school-choice'>School:</label>
+            <input type='text' id='school-choice' name='schoolId' list='school-datalist' onChange={handleChange}/>
             <datalist id='school-datalist' placeholder='School'>
               {
                 schools.map( school => (
-                  <option key={school.id} value={school.id}>{school.name}</option>
+                  <option key={school.id} value={school.id}> {school.name} </ option>
                 ))
               }
             </datalist>
           </div>
           <button>Save</button>
         </form>
+        
         <button onClick={()=> deleteStudent(student)}>Delete Student</button>
       </div>
     )
