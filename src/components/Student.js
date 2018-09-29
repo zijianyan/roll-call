@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
-import { getSchool, getStudent } from '../utils';
+import { getSchool, getStudent, findSchoolByStudent } from '../utils';
 
 class Student extends Component {
   constructor(props) {
@@ -20,10 +20,12 @@ class Student extends Component {
   }
 
   componentDidMount() {
+    console.log('Student, componentDidMount, this.props.student:', this.props.student);
     this.setState(this.props.student)
   }
 
   componentDidUpdate(prevProps) {
+    console.log('Student, componentDidUpdate, this.props.student:', this.props.student);
     if (prevProps.student !== this.props.student) {
       this.setState(this.props.student)
     }
@@ -57,9 +59,13 @@ class Student extends Component {
         
         <h2>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</h2>
         {
-          student && student.school && student.school.name
-            ? `Student school: ${student.school.name}`
+          this.props.school
+            ? `Student school: ${this.props.school.name}`
             : 'Student has no school'
+
+          // student && student.school && student.school.name
+          //   ? `Student school: ${student.school.name}`
+          //   : 'Student has no school'
         }
         <p>Student id: {id}</p>
         
@@ -98,11 +104,14 @@ class Student extends Component {
 
 
 const mapStateToProps = ({ students, schools }, { match })=> {
+  const student = getStudent(students, match.params.id*1);
+  const school = findSchoolByStudent(schools, student);
   return {
     id: match.params.id*1,
-    student: getStudent(students, match.params.id*1),
+    student,
     schools,
-    students
+    students,
+    school
   }
 }
 

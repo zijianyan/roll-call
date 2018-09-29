@@ -13,7 +13,7 @@ class StudentsCreate extends Component {
       firstName: '',
       lastName: '',
       gpa: 0,
-      schoolId: null
+      schoolId: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,7 +27,12 @@ class StudentsCreate extends Component {
 
   handleSubmit(ev) {
     ev.preventDefault();
-    const student = this.state;
+    const student = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      gpa: this.state.gpa*1,
+      schoolId: this.state.schoolId*1
+    }
     this.props.createStudent(student)
   }
 
@@ -53,7 +58,7 @@ class StudentsCreate extends Component {
               <option value=''>--no school--</option>
               {
                 schools.map( school => 
-                  <option value={school.id}>{school.name}</option>
+                  <option value={school.id} key={school.id}>{school.name}</option>
                 )
               }
             </select>

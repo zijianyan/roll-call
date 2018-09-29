@@ -9,3 +9,7 @@ export const getSchool = (schools, id)=> {
 export const getStudent = (students, id)=> {
   return students.find(student => student.id === id)
 }
+
+export const findSchoolByStudent = (schools, student)=> {
+  return schools.find( school => school.id === student.schoolId )
+}
