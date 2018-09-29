@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { deleteStudent_thunk, updateStudent_thunk, updateSchool_thunk } from '../store/thunks';
+import { deleteStudent_thunk, updateStudent_thunk, updateSchool_thunk, unenrollStudent_thunk } from '../store/thunks';
 import { getSchool, getStudent, findSchoolByStudentSchoolId } from '../utils';
 import { Link } from 'react-router-dom';
 
@@ -21,12 +21,12 @@ class Student extends Component {
   }
 
   componentDidMount() {
-    console.log('Student, componentDidMount, this.props.student:', this.props.student);
+    // console.log('Student, componentDidMount, this.props.student:', this.props.student);
     this.setState(this.props.student)
   }
 
   componentDidUpdate(prevProps) {
-    console.log('Student, componentDidUpdate, this.props.student:', this.props.student);
+    // console.log('Student, componentDidUpdate, this.props.student:', this.props.student);
     if (prevProps.student !== this.props.student) {
       this.setState(this.props.student)
     }
@@ -48,17 +48,18 @@ class Student extends Component {
       school: getSchool(this.props.schools, this.state.schoolId*1) || {}
     }
     const previousSchool = this.props.school;
-    const nextSchool = student.school;
+    // const nextSchool = student.school;
     console.log('handleSubmit, student:', student);
 
-    this.props.unenrollStudent(previousSchool, student);
-    this.props.enrollStudent(nextSchool, student)
+    // this.props.unenrollStudent(previousSchool, student);
+    previousSchool ? this.props.unenroll(this.props.school, student) : null;
+    // this.props.enrollStudent(nextSchool, student)
     this.props.updateStudent(student);
   }
 
   render() {
     // console.log('Student, render, this.props:', this.props);
-    const { id, student, deleteStudent, schools, updateStudent, school } = this.props;
+    const { id, student, deleteStudent, schools, updateStudent, school, unenroll } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
 
@@ -137,29 +138,11 @@ const mapDispatchToProps = (dispatch, { history })=> {
       dispatch(deleteStudent_thunk(student));
       history.push('/students');
     },
-    unenrollStudent: (school, student)=> {
-      console.log('unenrollStudent, school:', school);
-      if (school) {
-        const updatedSchool = {
-          ...school,
-          students: 'THIS IS FROM UNENROLL STUDENT'
-          // students: school.students.filter( _student => _student.id !== student.id )
-        };
-        dispatch(updateSchool_thunk(updatedSchool));
-      }
-    },
-    enrollStudent: (school, student)=> {
-      console.log('enrollStudent, school:', school);
-      if (school) {
-        const updatedSchool = {
-          ...school,
-          // students: 'THIS IS FROM ENROLL STUDENT'
-          // students: [...school.students, student]
-        };
-        console.log('enrollStudent, updatedSchool:', updatedSchool);
-        dispatch(updateSchool_thunk(updatedSchool));
-      }
+    unenroll: (school, student)=> {
+      console.log('Student, unenroll, school:', school);
+      dispatch(unenrollStudent_thunk(school, student));
     }
+    
   }
 }
 

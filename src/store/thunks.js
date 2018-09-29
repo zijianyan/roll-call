@@ -1,5 +1,5 @@
 import { _loadSchools, _deleteSchool, _createSchool, _updateSchool } from './actionCreators';
-import { _loadStudents, _deleteStudent, _createStudent, _updateStudent } from './actionCreators';
+import { _loadStudents, _deleteStudent, _createStudent, _updateStudent, _unenrollStudent } from './actionCreators';
 
 import axios from 'axios';
 
@@ -70,6 +70,16 @@ export const updateStudent_thunk = (student)=> {
         return res.data;
       })
       .then(student => dispatch(_updateStudent(student)))
+  }
+}
+
+export const unenrollStudent_thunk = (school, student)=> {
+  console.log('unenrollStudent_thunk, school:', school);
+  return (dispatch)=> {
+    dispatch(_unenrollStudent(school, student))
+    // axios.put(`/api/students/${student.id}`, student)
+    //   .then(res => res.data)
+    //   .then(student => dispatch(_unenrollStudent(school, student)))
   }
 }
 

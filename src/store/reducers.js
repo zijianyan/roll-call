@@ -1,7 +1,7 @@
 import { LOAD_SCHOOLS, DELETE_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL } from './actionTypes';
-import { LOAD_STUDENTS, DELETE_STUDENT, CREATE_STUDENT, UPDATE_STUDENT } from './actionTypes';
+import { LOAD_STUDENTS, DELETE_STUDENT, CREATE_STUDENT, UPDATE_STUDENT, UNENROLL_STUDENT } from './actionTypes';
 
-import { getSchool, findSchoolByStudentId } from '../utils';
+import { getSchool, findSchoolByStudent } from '../utils';
 
 export const schoolsReducer = (schools=[], action)=> {
   switch(action.type) {
@@ -15,21 +15,27 @@ export const schoolsReducer = (schools=[], action)=> {
       return [...schools, action.payload]
 
     case UPDATE_SCHOOL:
-      console.log('UPDATE_SCHOOL, action.payload:', action.payload);
-      const updated = action.payload;
-      return schools.map( school => school.id === updated.id ? updated : school );
+      // console.log('UPDATE_SCHOOL, action.payload:', action.payload);
+      if (action.payload) {
+        const updated = action.payload;
+        return schools.map( school => school.id === updated.id ? updated : school );
+      }
+      
 
     case DELETE_STUDENT:
       if (!action.payload.schoolId) { //if the deleted student wasn't enrolled in a school, then schools are unaffected
         return schools;
+      } else {
+        const studentId = action.payload.id;
+        const { schoolId } = action.payload;
+        const updatedSchool = schools.find(school => school.id === schoolId);
+        updatedSchool.students = updatedSchool.students.filter( student => {
+          student.id !== studentId
+        } );
+        return schools.map( school => school.id === updatedSchool.id ? updatedSchool : school );
       }
-      const studentId = action.payload.id;
-      const { schoolId } = action.payload;
-      const updatedSchool = schools.find(school => school.id === schoolId);
-      updatedSchool.students = updatedSchool.students.filter( student => {
-        student.id !== studentId
-      } );
-      return schools.map( school => school.id === updatedSchool.id ? updatedSchool : school );
+
+
 
     case CREATE_STUDENT:
       return schools.map( school => {
@@ -41,6 +47,33 @@ export const schoolsReducer = (schools=[], action)=> {
       })
 
     // case UPDATE_STUDENT:
+
+
+    
+    case UNENROLL_STUDENT:
+      if (action) {
+        const student = action.student;
+        const school = action.school;
+
+        console.log('UNENROLL_STUDENT, action.school:', action.school);
+
+        const updatedSchool = {
+          ...school,
+          students: school.students.filter(_student => _student.id !== student.id)
+        }
+
+        console.log('UNENROLL_STUDENT, updatedSchool:', updatedSchool);
+
+        return schools.map(school => school.id === updatedSchool.id ? updatedSchool : school)
+      }
+      // if (action.payload) {
+      //     const student = action.payload;
+
+      //   // const student = action.payload;
+      //   // const updatedSchool = findSchoolByStudent(schools, student);
+      //   // updatedSchool.students = updatedSchool.students.filter(_student => _student.id !== student.id);
+      //   // return schools.map(school => school.id === updatedSchool.id ? updatedSchool : school)
+      // }
 
 
     default:

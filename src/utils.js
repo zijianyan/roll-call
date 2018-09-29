@@ -14,20 +14,23 @@ export const findSchoolByStudentSchoolId = (schools, student)=> {
   return schools.find( school => school.id === student.schoolId )
 }
 
-export const findSchoolByStudentId = (schools, student)=> {
-  console.log('findSchoolByStudentId running...');
-  const found = schools.find( school => {
-    console.log('examining school...');
+export const findSchoolByStudent = (schools, student)=> {
+
+  const result = schools.find( school => {
+    let found = false;
     school.students.forEach(_student => {
-      console.log('examining student...');
       if (_student.id === student.id) {
-        return school;
+        found = true;
       }
     })
+
+    if (found) {
+      return school;
+    }
 
 
   })
 
-  console.log('findSchoolByStudentId, found:', found);
-  return found;
+  console.log('findSchoolByStudentId, result:', result);
+  return result;
 }

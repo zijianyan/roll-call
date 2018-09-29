@@ -1,5 +1,5 @@
 import { LOAD_SCHOOLS, DELETE_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL } from './actionTypes';
-import { LOAD_STUDENTS, DELETE_STUDENT, CREATE_STUDENT, UPDATE_STUDENT } from './actionTypes';
+import { LOAD_STUDENTS, DELETE_STUDENT, CREATE_STUDENT, UPDATE_STUDENT, UNENROLL_STUDENT } from './actionTypes';
 
 export const _loadSchools = (schools)=> {
   return {
@@ -59,5 +59,13 @@ export const _updateStudent = (student)=> {
   return {
     type: UPDATE_STUDENT,
     payload: student
+  }
+}
+
+export const _unenrollStudent = (school, student)=> {
+  return {
+    type: UNENROLL_STUDENT,
+    school,
+    student
   }
 }
