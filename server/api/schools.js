@@ -32,7 +32,10 @@ router.put('/:id', (req, res, next)=> {
   // console.log('schools API put, req.body:', req.body);
   School.findById(req.params.id)
     .then(school => school.update(req.body))
-    .then(updated => res.send(updated))
+    .then(updated => {
+      return School.findById(updated.id, { include: [ Student ]}) //eager-load students with school
+    })
+    .then(school => res.send(school))
     .catch(next);
 });
 

@@ -39,6 +39,7 @@ class Student extends Component {
   }
 
   handleSubmit(ev) {
+    
     ev.preventDefault();
     const student = {
       ...this.state,
@@ -46,9 +47,12 @@ class Student extends Component {
       schoolId: this.state.schoolId*1 || null,
       school: getSchool(this.props.schools, this.state.schoolId*1) || {}
     }
+    const previousSchool = this.props.school;
+    const nextSchool = student.school;
     console.log('handleSubmit, student:', student);
 
-    this.props.unenrollStudent(this.props.school, this.props.student);
+    this.props.unenrollStudent(previousSchool, student);
+    this.props.enrollStudent(nextSchool, student)
     this.props.updateStudent(student);
   }
 
@@ -134,8 +138,27 @@ const mapDispatchToProps = (dispatch, { history })=> {
       history.push('/students');
     },
     unenrollStudent: (school, student)=> {
-      const updatedSchool = {...school, students: school.students.filter( _student => _student.id !== student.id )}
-      dispatch(updateSchool_thunk(updatedSchool));
+      console.log('unenrollStudent, school:', school);
+      if (school) {
+        const updatedSchool = {
+          ...school,
+          students: 'THIS IS FROM UNENROLL STUDENT'
+          // students: school.students.filter( _student => _student.id !== student.id )
+        };
+        dispatch(updateSchool_thunk(updatedSchool));
+      }
+    },
+    enrollStudent: (school, student)=> {
+      console.log('enrollStudent, school:', school);
+      if (school) {
+        const updatedSchool = {
+          ...school,
+          // students: 'THIS IS FROM ENROLL STUDENT'
+          // students: [...school.students, student]
+        };
+        console.log('enrollStudent, updatedSchool:', updatedSchool);
+        dispatch(updateSchool_thunk(updatedSchool));
+      }
     }
   }
 }
