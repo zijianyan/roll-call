@@ -1,6 +1,7 @@
 export const LOAD_SCHOOLS = 'LOAD_SCHOOLS';
 export const DELETE_SCHOOL = 'DELETE_SCHOOL';
 export const CREATE_SCHOOL = 'CREATE_SCHOOL';
+export const UPDATE_SCHOOL = 'UPDATE_SCHOOL';
 
 
 export const LOAD_STUDENTS = 'LOAD_STUDENTS';

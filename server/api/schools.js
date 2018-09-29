@@ -29,6 +29,7 @@ router.post('/', (req, res, next)=> {
 });
 
 router.put('/:id', (req, res, next)=> {
+  // console.log('schools API put, req.body:', req.body);
   School.findById(req.params.id)
     .then(school => school.update(req.body))
     .then(updated => res.send(updated))

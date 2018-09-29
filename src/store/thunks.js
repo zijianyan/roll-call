@@ -1,4 +1,4 @@
-import { _loadSchools, _deleteSchool, _createSchool } from './actionCreators';
+import { _loadSchools, _deleteSchool, _createSchool, _updateSchool } from './actionCreators';
 import { _loadStudents, _deleteStudent, _createStudent, _updateStudent } from './actionCreators';
 
 import axios from 'axios';
@@ -26,7 +26,13 @@ export const createSchool_thunk = (school)=> {
   }
 }
 
-
+export const updateSchool_thunk = (school)=> {
+  return (dispatch)=> {
+    axios.put(`/api/schools/${school.id}`, school)
+      .then(res => res.data)
+      .then(school => dispatch(_updateSchool(school)))
+  }
+}
 
 /*STUDENTS*/
 
@@ -34,7 +40,10 @@ export const createSchool_thunk = (school)=> {
 export const loadStudents_thunk = ()=> {
   return (dispatch)=> {
     axios.get('/api/students/')
-      .then(res => res.data)
+      .then(res => {
+        console.log('thunks, loadStudents_thunk, res.data:', res.data);
+        return res.data
+      })
       .then(students => dispatch(_loadStudents(students)))
   }
 }
@@ -58,7 +67,7 @@ export const updateStudent_thunk = (student)=> {
   return (dispatch)=> {
     axios.put(`/api/students/${student.id}`, student)
       .then(res => {
-        console.log('updateStudent_thunk, res.data:', res.data);
+        // console.log('updateStudent_thunk, res.data:', res.data);
         return res.data;
       })
       .then(student => dispatch(_updateStudent(student)))

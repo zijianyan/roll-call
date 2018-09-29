@@ -31,9 +31,11 @@ router.post('/', (req, res, next)=> {
 router.put('/:id', (req, res, next)=> {
   // console.log('students put, req.body:', req.body);
   // console.log('students put, req.params.id:', req.params.id); 
-  Student.findById(req.params.id, { include: [ School ]})
+  Student.findById(req.params.id, {
+      // include: [ School ]
+     })
     .then(student => {
-      // console.log('students put, found student:', student);
+      // console.log('students put, found student:', student.dataValues);
       return student.update(req.body)
     })
     .then(updated => res.send(updated))

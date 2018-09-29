@@ -15,9 +15,13 @@ const SchoolsList = ({ schools, deleteSchool })=> {
         {
           schools.map( school => {
             const { students } = school;
+            console.log('SchoolsList, students:', students);
             return (
               <li key={school.id}>
-                <Link to={`/schools/${school.id}`}>{school.name} {students.length ? `(${students.length})` : null}</Link>
+                <Link to={`/schools/${school.id}`}>
+                  {school.name}
+                  {students && students.length ? `(${students.length})` : null}
+                </Link>
                 <div>
                   <button onClick={()=> deleteSchool(school)}>x</button>
                 </div>

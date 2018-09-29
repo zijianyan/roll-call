@@ -1,4 +1,4 @@
-import { LOAD_SCHOOLS, DELETE_SCHOOL, CREATE_SCHOOL } from './actionTypes';
+import { LOAD_SCHOOLS, DELETE_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL } from './actionTypes';
 import { LOAD_STUDENTS, DELETE_STUDENT, CREATE_STUDENT, UPDATE_STUDENT } from './actionTypes';
 
 export const schoolsReducer = (schools=[], action)=> {
@@ -10,14 +10,11 @@ export const schoolsReducer = (schools=[], action)=> {
     case CREATE_SCHOOL:
       return [...schools, action.payload]
     case DELETE_STUDENT:
-      //find the school that has the student
-      //remove student from that school
       if (!action.payload.schoolId) { //if the deleted student wasn't enrolled in a school, then schools are unaffected
         return schools;
       }
       const studentId = action.payload.id;
       const { schoolId } = action.payload;
-      // const school = schools.find(school => school.id === schoolId);
       const updatedSchool = schools.find(school => school.id === schoolId);
       updatedSchool.students = updatedSchool.students.filter( student => {
         console.log('updatedSchool, student:', student);
@@ -25,13 +22,10 @@ export const schoolsReducer = (schools=[], action)=> {
         console.log('updatedSchool, studentId:', studentId);
         student.id !== studentId
       } );
-
-
-      // const updatedSchool = {
-      //   ...school,
-      //   students: students.filter( student => student.id !== studentId );
-      // }
       return schools.map( school => school.id === updatedSchool.id ? updatedSchool : school );
+    case UPDATE_SCHOOL:
+      const updated = action.payload;
+      return schools.map( school => school.id === updated.id ? updated : school );
     default:
       return schools;
   }
@@ -47,9 +41,19 @@ export const studentsReducer = (students=[], action)=> {
     case CREATE_STUDENT:
       return [...students, action.payload]
     case UPDATE_STUDENT:
-      console.log('studentsReducer, action.payload', action.payload);
+      // console.log('studentsReducer, action.payload', action.payload);
       // const school = getSchool(schools, action.payload.schoolId)
+
+
+      // if () {
+
+      // }
+
       return students.map( student => student.id === action.payload.id ? action.payload : student )
+
+      //if student.id exists in school's students, return a new students array with student filtered out
+
+
     
     case DELETE_SCHOOL:
       return students.map( student => {
