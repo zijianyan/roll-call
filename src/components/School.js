@@ -6,7 +6,7 @@ import { deleteSchool_thunk, deleteStudent_thunk, updateStudent_thunk, updateSch
 
 import { getSchool } from '../utils';
 
-const School = ({ id, school, deleteSchool, unenroll })=> {
+const School = ({ id, school, deleteSchool, unenroll, otherStudents })=> {
   return (
     <div>
       <p>School id: {id}</p>
@@ -20,10 +20,18 @@ const School = ({ id, school, deleteSchool, unenroll })=> {
             </li>
           ) : null }      
       </ul>
-
-      
-
       <button onClick={()=> deleteSchool(school)}>Delete School</button>
+
+      <hr/>
+
+      <h3>Other Students</h3>
+      <ul>
+        {
+          otherStudents.map( student =>
+            <li key={student.id}>{student.firstName} {student.lastName} { student.school ? `- ${student.school.name}` : '- no school' }</li>
+          )
+        }
+      </ul>
     </div>
   )
 }
@@ -37,11 +45,11 @@ School.propTypes = {
   school: PropTypes.object
 }
 
-const mapStateToProps = ({ schools }, { match })=> {
+const mapStateToProps = ({ schools, students }, { match })=> {
   return {
     id: match.params.id*1,
     school: getSchool(schools, match.params.id*1),
-    // students: getSchool(schools, match.params.id*1)
+    otherStudents: students.filter (student => student.schoolId !== match.params.id*1)
   }
 }
 
