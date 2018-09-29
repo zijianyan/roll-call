@@ -15,7 +15,7 @@ const SchoolsList = ({ schools, deleteSchool })=> {
         {
           schools.map( school => {
             const { students } = school;
-            console.log('SchoolsList, students:', students);
+            // console.log('SchoolsList, students:', students);
             return (
               <li key={school.id}>
                 <Link to={`/schools/${school.id}`}>

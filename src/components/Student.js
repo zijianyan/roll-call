@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { getSchool, getStudent, findSchoolByStudent } from '../utils';
+import { Link } from 'react-router-dom';
 
 class Student extends Component {
   constructor(props) {
@@ -50,22 +51,27 @@ class Student extends Component {
   }
 
   render() {
-    console.log('Student, render, this.props:', this.props);
-    const { id, student, deleteStudent, schools, updateStudent } = this.props;
+    // console.log('Student, render, this.props:', this.props);
+    const { id, student, deleteStudent, schools, updateStudent, school } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
+
+    if (!student) {
+      return (
+        <div>
+          Student not found
+        </div>
+      )
+    }
+
     return (
       <div>
         
         <h2>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</h2>
         {
-          this.props.school
-            ? `Student school: ${this.props.school.name}`
+          school
+            ? (<p>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link></p>)
             : 'Student has no school'
-
-          // student && student.school && student.school.name
-          //   ? `Student school: ${student.school.name}`
-          //   : 'Student has no school'
         }
         <p>Student id: {id}</p>
         
@@ -105,7 +111,7 @@ class Student extends Component {
 
 const mapStateToProps = ({ students, schools }, { match })=> {
   const student = getStudent(students, match.params.id*1);
-  const school = findSchoolByStudent(schools, student);
+  const school = student ? findSchoolByStudent(schools, student) : null;
   return {
     id: match.params.id*1,
     student,

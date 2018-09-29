@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { deleteSchool_thunk, deleteStudent_thunk, updateStudent_thunk, updateSchool_thunk } from '../store/thunks';
 
 import { getSchool } from '../utils';
 
 const School = ({ id, school, deleteSchool, unenroll, otherStudents })=> {
-  console.log('School, school:', school);
+  // console.log('School, school:', school);
   return (
-    <div>
-      <h2>School Detail</h2>
-      <p>School id: {id}</p>
-      <p>{ school ? school.name : null }</p>
-      <p>{school && school.students && school.students.length ? 'Students:' : 'No Students'}</p>
+    <div> 
+      <h2>School Detail: { school ? school.name : null }</h2>
+      <h3>{school && school.students && school.students.length ? 'Students' : 'No Students'}</h3>
       <ul>
         { school && school.students ? school.students.map( student =>
             <li key={student.id}>
-              {student.firstName} {student.lastName} - GPA: {student.gpa}
+              <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link> - GPA: {student.gpa}
             </li>
           ) : null }      
       </ul>
@@ -53,7 +53,7 @@ School.propTypes = {
 }
 
 const mapStateToProps = ({ schools, students }, { match })=> {
-  console.log('School, mapStateToProps, schools:', schools);
+  // console.log('School, mapStateToProps, schools:', schools);
   return {
     id: match.params.id*1,
     school: getSchool(schools, match.params.id*1),

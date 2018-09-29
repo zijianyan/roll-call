@@ -24,10 +24,7 @@ router.delete('/:id', (req, res, next)=> {
 
 router.post('/', (req, res, next)=> {
   Student.create(req.body)
-    .then(created => {
-      console.log('student POST, created:', created);
-      res.status(201).send(created)
-    })
+    .then(created => res.status(201).send(created))
     .catch(next);
 });
 
