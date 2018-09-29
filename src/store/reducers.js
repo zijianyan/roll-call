@@ -44,46 +44,46 @@ export const schoolsReducer = (schools=[], action)=> {
         return school;
       })
 
-    case UPDATE_STUDENT:
-      const student = action.payload;
-      console.log('UPDATE_STUDENT, student/action.payload:', student);
-      const previousSchool = findSchoolByStudentId(schools, student); 
-      console.log('UPDATE_STUDENT, previousSchool:', previousSchool);
-      console.log('UPDATE_STUDENT, student.schoolId:', student.schoolId);
+    // case UPDATE_STUDENT:
+    //   const student = action.payload;
+    //   console.log('UPDATE_STUDENT, student/action.payload:', student);
+    //   const previousSchool = findSchoolByStudentId(schools, student); 
+    //   console.log('UPDATE_STUDENT, previousSchool:', previousSchool);
+    //   console.log('UPDATE_STUDENT, student.schoolId:', student.schoolId);
 
 
-      //ENROLLING
-      if (!previousSchool && student.schoolId) {
-        return schools.map( school => {
-          if (school.id === student.schoolId) {
-            return {...school, students: [...school.students, student]}
-          }
-          return school;
-        })
-      }
+    //   //ENROLLING
+    //   if (!previousSchool && student.schoolId) {
+    //     return schools.map( school => {
+    //       if (school.id === student.schoolId) {
+    //         return {...school, students: [...school.students, student]}
+    //       }
+    //       return school;
+    //     })
+    //   }
 
-      //UNEROLLING
-      if (previousSchool && !student.schoolId) {
-        return schools.map( school => {
-          if (school.id === previousSchool.id) {
-            return {...school, students: school.students.filter(_student => _student.id !== action.payload.id)}
-          }
-          return school;
-        })
-      }
+    //   //UNEROLLING
+    //   if (previousSchool && !student.schoolId) {
+    //     return schools.map( school => {
+    //       if (school.id === previousSchool.id) {
+    //         return {...school, students: school.students.filter(_student => _student.id !== action.payload.id)}
+    //       }
+    //       return school;
+    //     })
+    //   }
 
-      //TRANSFERING
-      if (previousSchool && student.schoolId) {
-        return schools.map(school => {
-          if (school.id === previousSchool.id) {
-            return {...school, students: school.students.filter(_student => _student.id !== action.payload.id)}
-          }
-          if (school.id === schoolId) {
-            return {...school, students: [...school.students, student]}
-          }
-          return school;
-        })
-      }
+    //   //TRANSFERING
+    //   if (previousSchool && student.schoolId) {
+    //     return schools.map(school => {
+    //       if (school.id === previousSchool.id) {
+    //         return {...school, students: school.students.filter(_student => _student.id !== action.payload.id)}
+    //       }
+    //       if (school.id === schoolId) {
+    //         return {...school, students: [...school.students, student]}
+    //       }
+    //       return school;
+    //     })
+    //   }
 
     default:
       return schools;

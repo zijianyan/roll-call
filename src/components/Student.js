@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
+import { deleteStudent_thunk, updateStudent_thunk, updateSchool_thunk } from '../store/thunks';
 import { getSchool, getStudent, findSchoolByStudentSchoolId } from '../utils';
 import { Link } from 'react-router-dom';
 
@@ -47,6 +47,8 @@ class Student extends Component {
       school: getSchool(this.props.schools, this.state.schoolId*1) || {}
     }
     console.log('handleSubmit, student:', student);
+
+    this.props.unenrollStudent(this.props.school, this.props.student);
     this.props.updateStudent(student);
   }
 
@@ -130,6 +132,10 @@ const mapDispatchToProps = (dispatch, { history })=> {
     deleteStudent: (student)=> {
       dispatch(deleteStudent_thunk(student));
       history.push('/students');
+    },
+    unenrollStudent: (school, student)=> {
+      const updatedSchool = {...school, students: school.students.filter( _student => _student.id !== student.id )}
+      dispatch(updateSchool_thunk(updatedSchool));
     }
   }
 }
