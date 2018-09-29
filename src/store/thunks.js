@@ -73,3 +73,15 @@ export const updateStudent_thunk = (student)=> {
   }
 }
 
+
+/**OTHER**/
+
+export const reset_thunk = ()=> {
+  return (dispatch)=> {
+    axios.post('/api/reset')
+      .then(()=> {
+        dispatch(loadSchools_thunk());
+        dispatch(loadStudents_thunk());
+      })
+  }
+}

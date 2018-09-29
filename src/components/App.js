@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { loadSchools_thunk, loadStudents_thunk } from '../store/thunks';
+import { loadSchools_thunk, loadStudents_thunk, reset_thunk } from '../store/thunks';
 
 import SchoolsList from './SchoolsList';
 import StudentsList from './StudentsList';
@@ -24,9 +24,11 @@ class App extends Component {
   }
 
   render() {
+    const { reset } = this.props;
     return (
       <div>
         <h1>Acme Schools and Students</h1>
+        <button onClick={reset}>Reset Database</button>
         <hr />
         <Router>
           <Fragment>
@@ -63,6 +65,9 @@ const mapDispatchToProps = (dispatch)=> {
     init: ()=> {
       dispatch(loadSchools_thunk()),
       dispatch(loadStudents_thunk())
+    },
+    reset: ()=> {
+      dispatch(reset_thunk())
     }
   }
 }

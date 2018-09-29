@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
-import { getSchool, getStudent, findSchoolByStudent } from '../utils';
+import { getSchool, getStudent, findSchoolByStudentSchoolId } from '../utils';
 import { Link } from 'react-router-dom';
 
 class Student extends Component {
@@ -14,7 +14,7 @@ class Student extends Component {
       lastName: '',
       gpa: '',
       id: this.props.id,
-      schoolId: -1
+      schoolId: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -89,7 +89,7 @@ class Student extends Component {
             <input name='gpa' value={gpa} onChange={handleChange} placeholder='GPA'/>
           </div>
           <div>
-            <select name='schoolId' value={schoolId} onChange={handleChange}>
+            <select name='schoolId' value={schoolId || ''} onChange={handleChange}>
               <option value=''>--no school--</option>
               {
                 schools.map( school => 
@@ -111,7 +111,7 @@ class Student extends Component {
 
 const mapStateToProps = ({ students, schools }, { match })=> {
   const student = getStudent(students, match.params.id*1);
-  const school = student ? findSchoolByStudent(schools, student) : null;
+  const school = student ? findSchoolByStudentSchoolId(schools, student) : null;
   return {
     id: match.params.id*1,
     student,
@@ -123,7 +123,10 @@ const mapStateToProps = ({ students, schools }, { match })=> {
 
 const mapDispatchToProps = (dispatch, { history })=> {
   return {
-    updateStudent: (student)=> dispatch(updateStudent_thunk(student)),
+    updateStudent: (student)=> {
+      dispatch(updateStudent_thunk(student));
+      //need to update old school (if any) and update new school (if any)
+    },
     deleteStudent: (student)=> {
       dispatch(deleteStudent_thunk(student));
       history.push('/students');
