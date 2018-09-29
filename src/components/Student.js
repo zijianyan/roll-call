@@ -21,8 +21,6 @@ class Student extends Component {
 
   componentDidMount() {
     this.setState(this.props.student)
-    // const testStudent = getStudent(this.props.students, this.props.id)
-    // this.setState(testStudent)
   }
 
   componentDidUpdate(prevProps) {

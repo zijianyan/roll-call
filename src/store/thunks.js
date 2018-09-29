@@ -27,6 +27,7 @@ export const createSchool_thunk = (school)=> {
 }
 
 export const updateSchool_thunk = (school)=> {
+  console.log('updateSchool_thunk, school:', school);
   return (dispatch)=> {
     axios.put(`/api/schools/${school.id}`, school)
       .then(res => res.data)
@@ -41,7 +42,6 @@ export const loadStudents_thunk = ()=> {
   return (dispatch)=> {
     axios.get('/api/students/')
       .then(res => {
-        console.log('thunks, loadStudents_thunk, res.data:', res.data);
         return res.data
       })
       .then(students => dispatch(_loadStudents(students)))
@@ -67,9 +67,9 @@ export const updateStudent_thunk = (student)=> {
   return (dispatch)=> {
     axios.put(`/api/students/${student.id}`, student)
       .then(res => {
-        // console.log('updateStudent_thunk, res.data:', res.data);
         return res.data;
       })
       .then(student => dispatch(_updateStudent(student)))
   }
 }
+

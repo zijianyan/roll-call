@@ -32,7 +32,8 @@ class StudentsCreate extends Component {
   }
 
   render() {
-    const { firstName, lastName, gpa } = this.state;
+    const { schools } = this.props;
+    const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
     return (
       <div>
@@ -47,12 +48,28 @@ class StudentsCreate extends Component {
           <div>
             <input name='gpa' value={gpa} placeholder='GPA' onChange={handleChange}/>
           </div>
+          <div>
+            <select name='schoolId' value={schoolId} onChange={handleChange}>
+              <option value=''>--no school--</option>
+              {
+                schools.map( school => 
+                  <option value={school.id}>{school.name}</option>
+                )
+              }
+            </select>
+          </div>
           <button>Save</button> 
         </form>
       </div>
     )
   }
 
+}
+
+const mapStateToProps = ({ schools })=> {
+  return {
+    schools
+  }
 }
 
 const mapDispatchToProps = (dispatch, { history })=> {
@@ -64,8 +81,4 @@ const mapDispatchToProps = (dispatch, { history })=> {
   }
 }
 
-export default connect(null, mapDispatchToProps)(StudentsCreate);
-
-//get schools, populate select options with school id's and names
-
-//use datalist for school input, use range for gpa
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreate);

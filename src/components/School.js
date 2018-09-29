@@ -7,8 +7,10 @@ import { deleteSchool_thunk, deleteStudent_thunk, updateStudent_thunk, updateSch
 import { getSchool } from '../utils';
 
 const School = ({ id, school, deleteSchool, unenroll, otherStudents })=> {
+  console.log('School, school:', school);
   return (
     <div>
+      <h2>School Detail</h2>
       <p>School id: {id}</p>
       <p>{ school ? school.name : null }</p>
       <p>{school && school.students && school.students.length ? 'Students:' : 'No Students'}</p>
@@ -16,7 +18,6 @@ const School = ({ id, school, deleteSchool, unenroll, otherStudents })=> {
         { school && school.students ? school.students.map( student =>
             <li key={student.id}>
               {student.firstName} {student.lastName} - GPA: {student.gpa}
-              <button onClick={()=> unenroll(student, school)}>Unenroll</button>
             </li>
           ) : null }      
       </ul>
@@ -28,7 +29,13 @@ const School = ({ id, school, deleteSchool, unenroll, otherStudents })=> {
       <ul>
         {
           otherStudents.map( student =>
-            <li key={student.id}>{student.firstName} {student.lastName} { student.school ? `- ${student.school.name}` : '- no school' }</li>
+            <li key={student.id}>
+              {student.firstName}
+              {student.lastName}
+              { student.school ? `- ${student.school.name}` : '- no school' }
+              <div>
+              </div>
+            </li>
           )
         }
       </ul>
@@ -46,6 +53,7 @@ School.propTypes = {
 }
 
 const mapStateToProps = ({ schools, students }, { match })=> {
+  console.log('School, mapStateToProps, schools:', schools);
   return {
     id: match.params.id*1,
     school: getSchool(schools, match.params.id*1),
@@ -54,19 +62,13 @@ const mapStateToProps = ({ schools, students }, { match })=> {
 }
 
 
-const mapDispatchToProps = (dispatch, { history })=> {
+const mapDispatchToProps = (dispatch, { match, history })=> {
+  const id = match.params.id*1;
   return {
     deleteSchool: (school)=> {
         dispatch(deleteSchool_thunk(school));
         history.push('/schools');
       },
-    unenroll: (student, school)=> {
-      // const _student = {...student, schoolId: null};
-      // console.log('School, unenroll, _student:', _student);
-      dispatch(updateStudent_thunk({...student, schoolId: null}));
-      const students = school.students.filter( _student => _student.id !== student.id);
-      dispatch(updateSchool_thunk({...school, students}))
-    }
   }
 }
 
