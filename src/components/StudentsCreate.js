@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { createStudent_thunk } from '../store/thunks';
 
+import { getSchool } from '../utils';
+
 class StudentsCreate extends Component {
 
   constructor() {
@@ -17,6 +19,10 @@ class StudentsCreate extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.schoolId ? this.setState({ schoolId: this.props.schoolId }) : null;
   }
 
   handleChange(ev) {
@@ -71,9 +77,11 @@ class StudentsCreate extends Component {
 
 }
 
-const mapStateToProps = ({ schools })=> {
+const mapStateToProps = ({ schools }, { match } )=> {
   return {
-    schools
+    schools,
+    schoolId: match.params.schoolId*1,
+    school: getSchool(schools, match.params.schoolId*1)
   }
 }
 

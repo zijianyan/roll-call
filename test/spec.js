@@ -287,7 +287,6 @@ describe('senior enrichment project', ()=> {
 
 /schools/:id 
 
- A school can be edited in this view. 
 
  There should also be a link to add a new student to this school which will navigate to /students/create/:schoolId where the schoolId can be used to pre-populate the school.
 

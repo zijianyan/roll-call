@@ -88,10 +88,11 @@ class School extends Component {
                 <button onClick={()=> unenrollStudent(school, student)}>Unenroll</button>
               </li>
             ) : null
-          }      
+          }
+          <li><Link to={`/students/create/${school.id}`}><button>Add New Student</button></Link></li>      
         </ul>
+        <hr/>
         <button onClick={()=> deleteSchool(school)}>Delete School</button>
-
         <hr/>
 
         <h3>Other Students</h3>

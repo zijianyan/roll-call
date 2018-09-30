@@ -39,6 +39,7 @@ class App extends Component {
               <Route path='/schools/:id' component={School}/>
             </Switch>
             <Switch>
+              <Route path='/students/create/:schoolId' component={StudentsCreate}/>
               <Route path='/students/create' component={StudentsCreate}/>
               <Route path='/students/:id' component={Student}/>
             </Switch>
