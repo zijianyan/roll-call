@@ -13,7 +13,6 @@ class Student extends Component {
       firstName: '',
       lastName: '',
       gpa: '',
-      id: this.props.id,
       schoolId: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -41,9 +40,9 @@ class Student extends Component {
     ev.preventDefault();
     const student = {
       ...this.state,
+      id: this.props.student.id,
       gpa: this.state.gpa*1,
-      schoolId: this.state.schoolId*1 || null,
-      school: getSchool(this.props.schools, this.state.schoolId*1) || {}
+      schoolId: this.state.schoolId*1 || null
     };
     this.props.updateStudent(student);
   }
@@ -106,14 +105,10 @@ class Student extends Component {
 
 
 const mapStateToProps = ({ students, schools }, { match })=> {
-  const student = getStudent(students, match.params.id*1);
-  const school = student ? getSchool(schools, student.schoolId) : null;
   return {
-    id: match.params.id*1,
-    student,
-    schools,
-    students,
-    school
+    student: getStudent(students, match.params.id*1),
+    school: getSchool(schools, getStudent(students, match.params.id*1).schoolId),
+    schools
   };
 };
 
