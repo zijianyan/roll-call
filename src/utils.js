@@ -10,9 +10,9 @@ export const getStudent = (students, id)=> {
   return students.find(student => student.id === id)
 }
 
-export const findSchoolByStudentSchoolId = (schools, student)=> {
-  return schools.find( school => school.id === student.schoolId )
-}
+// export const findSchoolByStudentSchoolId = (schools, student)=> {
+//   return schools.find( school => school.id === student.schoolId )
+// }
 
 export const findSchoolByStudent = (schools, student)=> {
 

@@ -46,11 +46,24 @@ export const schoolsReducer = (schools=[], action)=> {
         return school;
       })
 
-    // case UPDATE_STUDENT:
+    case UPDATE_STUDENT:
+      if (action.payload.schoolId) {
+        const student = action.payload;
+        return schools.map(school => {
+          console.log('UPDATE_STUDENT, school:', school);
+          if (school.id === student.schoolId) {
+            return {...school, students: [...school.students, student]}
+          } else {
+            return school;
+          }
+        })
+      }
+      return schools;
 
 
     
     case UNENROLL_STUDENT:
+      console.log('UNENROLL STUDENT, action:', action);
       if (action) {
         const student = action.student;
         const school = action.school;
@@ -74,7 +87,7 @@ export const schoolsReducer = (schools=[], action)=> {
       //   // updatedSchool.students = updatedSchool.students.filter(_student => _student.id !== student.id);
       //   // return schools.map(school => school.id === updatedSchool.id ? updatedSchool : school)
       // }
-
+      return schools;
 
     default:
       return schools;

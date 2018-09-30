@@ -12,10 +12,16 @@ const StudentsList = ({ students, deleteStudent })=> {
       <ul>
         {
           students.map( student => {
-            const { id, firstName, lastName, gpa } = student;
+            const { id, firstName, lastName, gpa, school } = student;
             return (
               <li key={id}>
-                <Link to={`/students/${id}`}>{firstName} {lastName}</Link> - GPA: {gpa}
+                <Link to={`/students/${id}`}>{firstName} {lastName}</Link>
+                - gpa: {gpa}
+                {
+                  school
+                    ? (<span> - school: {<Link to={`/schools/${school.id}`}>{school.name}</Link>}</span>) 
+                    : null
+                }
                 <div>
                   <button onClick={()=> deleteStudent(student)}>x</button>
                 </div>

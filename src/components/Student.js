@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { deleteStudent_thunk, updateStudent_thunk, updateSchool_thunk, unenrollStudent_thunk } from '../store/thunks';
-import { getSchool, getStudent, findSchoolByStudentSchoolId } from '../utils';
+import { getSchool, getStudent } from '../utils';
 import { Link } from 'react-router-dom';
 
 class Student extends Component {
@@ -52,7 +52,7 @@ class Student extends Component {
     console.log('handleSubmit, student:', student);
 
     // this.props.unenrollStudent(previousSchool, student);
-    previousSchool ? this.props.unenroll(this.props.school, student) : null;
+    this.props.school ? this.props.unenroll(this.props.school, student) : null;
     // this.props.enrollStudent(nextSchool, student)
     this.props.updateStudent(student);
   }
@@ -118,7 +118,7 @@ class Student extends Component {
 
 const mapStateToProps = ({ students, schools }, { match })=> {
   const student = getStudent(students, match.params.id*1);
-  const school = student ? findSchoolByStudentSchoolId(schools, student) : null;
+  const school = student ? getSchool(schools, student.schoolId) : null;
   return {
     id: match.params.id*1,
     student,

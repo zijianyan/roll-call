@@ -32,7 +32,7 @@ const School = ({ id, school, deleteSchool, unenroll, otherStudents })=> {
             <li key={student.id}>
               {student.firstName}
               {student.lastName}
-              { student.school ? `- ${student.school.name}` : '- no school' }
+              { student.school ? ` - ${student.school.name}` : '- no school' }
               <div>
               </div>
             </li>
