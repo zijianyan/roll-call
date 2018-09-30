@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk, unenrollStudent_thunk } from '../store/thunks';
+import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk } from '../store/thunks';
 
 import { getSchool, findEnrolled } from '../utils';
 
@@ -39,13 +39,13 @@ class School extends Component {
     ev.preventDefault();
     const school = {
       ...this.state,
-      id: this.props.id
+      id: this.props.school.id
     };
     this.props.updateSchool(school);
   }
 
   render() {
-    const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, transferStudentFrom, enrolledStudents } = this.props;
+    const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, enrolledStudents } = this.props;
     const { handleChange, handleSubmit } = this;
     const { name, address, description } = this.state;
 
@@ -60,7 +60,7 @@ class School extends Component {
 
     return (
       <div> 
-        <h2>School Detail: { school ? school.name : null }</h2>
+        <h2>School Detail: {school.name}</h2>
         <h3>Address</h3>
         <p>{school.address}</p>
         <h3>Description</h3>
@@ -85,7 +85,7 @@ class School extends Component {
             enrolledStudents ? enrolledStudents.map( student =>
               <li key={student.id}>
                 <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link> - GPA: {student.gpa}
-                <button onClick={()=> unenrollStudent(school, student)}>Unenroll</button>
+                <button onClick={()=> unenrollStudent(student)}>Unenroll</button>
               </li>
             ) : null
           }
@@ -105,7 +105,7 @@ class School extends Component {
                   <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
                   {
                     otherSchool
-                      ? (<span> - {otherSchool.name} - <button onClick={()=> transferStudentFrom(otherSchool, student)}>Transfer In</button></span>)
+                      ? (<span> - {otherSchool.name} - <button onClick={()=> enrollStudent(student)}>Transfer In</button></span>)
                       : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
                   }
                   <div>
@@ -127,11 +127,9 @@ School.propTypes = {
 
 const mapStateToProps = ({ schools, students }, { match })=> {
   return {
-    id: match.params.id*1,
+    schools,
     school: getSchool(schools, match.params.id*1),
     otherStudents: students.filter (student => student.schoolId !== match.params.id*1),
-    schools,
-    students,
     enrolledStudents: findEnrolled(students, match.params.id*1)
   };
 };
@@ -146,19 +144,13 @@ const mapDispatchToProps = (dispatch, { match, history })=> {
     updateStudent: (student)=> {
       dispatch(updateStudent_thunk(student));
     },
-    unenrollStudent: (school, student)=> {
+    unenrollStudent: (student)=> {
       const _student = {...student, schoolId: null};
       dispatch(updateStudent_thunk(_student));
-      dispatch(unenrollStudent_thunk(school, student));
     },
     enrollStudent: (student)=> {
       const _student = {...student, schoolId: match.params.id*1};
       dispatch(updateStudent_thunk(_student));
-    },
-    transferStudentFrom: (school, student)=> {
-      const _student = {...student, schoolId: match.params.id*1};
-      dispatch(updateStudent_thunk(_student));
-      dispatch(unenrollStudent_thunk(school, student));
     },
     updateSchool: (school)=> {
       dispatch(updateSchool_thunk(school));
