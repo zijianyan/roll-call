@@ -39,11 +39,11 @@ const StudentsList = ({ students, deleteStudent, schools })=> {
 
 StudentsList.propTypes = {
   students: PropTypes.array
-}
+};
 
 StudentsList.defaultProps = {
   students: []
-}
+};
 
 const mapStateToProps = ({ students, schools })=> {
   return {

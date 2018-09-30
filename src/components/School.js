@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
@@ -8,50 +8,60 @@ import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk, unenrollSt
 
 import { getSchool, findEnrolled } from '../utils';
 
-const School = ({ id, school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, transferStudentFrom, students })=> {
-  const enrolledStudents = findEnrolled(students, id)
-  return (
-    <div> 
-      <h2>School Detail: { school ? school.name : null }</h2>
 
-      <h3>{enrolledStudents ? 'Students' : 'No Students'}</h3>
-      <ul>
-        {
-          enrolledStudents ? enrolledStudents.map( student =>
-            <li key={student.id}>
-              <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link> - GPA: {student.gpa}
-              <button onClick={()=> unenrollStudent(school, student)}>Unenroll</button>
-            </li>
-          ) : null
-        }      
-      </ul>
-      <button onClick={()=> deleteSchool(school)}>Delete School</button>
+class School extends Component {
+  constructor() {
+    super();
+    this.state = {
 
-      <hr/>
+    };
+  }
 
-      <h3>Other Students</h3>
-      <ul>
-        {
-          otherStudents.map( student => {
-            const otherSchool = getSchool(schools, student.schoolId);
-            return (
+  render() {
+    const { id, school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, transferStudentFrom, students, enrolledStudents } = this.props;
+    return (
+      <div> 
+        <h2>School Detail: { school ? school.name : null }</h2>
+
+        <h3>{enrolledStudents.length ? 'Students' : 'No Students'}</h3>
+        <ul>
+          {
+            enrolledStudents ? enrolledStudents.map( student =>
               <li key={student.id}>
-                <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
-                {
-                  otherSchool
-                    ? (<span> - {otherSchool.name} - <button onClick={()=> transferStudentFrom(otherSchool, student)}>Transfer In</button></span>)
-                    : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
-                }
-                <div>
-                </div>
+                <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link> - GPA: {student.gpa}
+                <button onClick={()=> unenrollStudent(school, student)}>Unenroll</button>
               </li>
-            );
-          })
-        }
-      </ul>
-    </div>
-  );
-};
+            ) : null
+          }      
+        </ul>
+        <button onClick={()=> deleteSchool(school)}>Delete School</button>
+
+        <hr/>
+
+        <h3>Other Students</h3>
+        <ul>
+          {
+            otherStudents.map( student => {
+              const otherSchool = getSchool(schools, student.schoolId);
+              return (
+                <li key={student.id}>
+                  <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
+                  {
+                    otherSchool
+                      ? (<span> - {otherSchool.name} - <button onClick={()=> transferStudentFrom(otherSchool, student)}>Transfer In</button></span>)
+                      : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
+                  }
+                  <div>
+                  </div>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    ); 
+  }
+}
 
 School.propTypes = {
   id: PropTypes.number,
@@ -64,7 +74,9 @@ const mapStateToProps = ({ schools, students }, { match })=> {
     school: getSchool(schools, match.params.id*1),
     otherStudents: students.filter (student => student.schoolId !== match.params.id*1),
     schools,
-    students
+    students,
+    enrolledStudents: findEnrolled(students, match.params.id*1)
+    // const enrolledStudents = findEnrolled(students, id);
   };
 };
 
