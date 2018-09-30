@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { deleteStudent_thunk, updateStudent_thunk, updateSchool_thunk, unenrollStudent_thunk } from '../store/thunks';
+import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { getSchool, getStudent } from '../utils';
 import { Link } from 'react-router-dom';
 
@@ -21,12 +21,12 @@ class Student extends Component {
   }
 
   componentDidMount() {
-    this.setState(this.props.student)
+    this.setState(this.props.student);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.student !== this.props.student) {
-      this.setState(this.props.student)
+      this.setState(this.props.student);
     }
   }
 
@@ -49,7 +49,7 @@ class Student extends Component {
   }
 
   render() {
-    const { id, student, deleteStudent, schools, updateStudent, school, unenroll } = this.props;
+    const { student, deleteStudent, schools, school, unenroll } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
 
@@ -114,14 +114,13 @@ const mapStateToProps = ({ students, schools }, { match })=> {
     schools,
     students,
     school
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch, { history })=> {
   return {
     updateStudent: (student)=> {
       dispatch(updateStudent_thunk(student));
-      //need to update old school (if any) and update new school (if any)
     },
     deleteStudent: (student)=> {
       dispatch(deleteStudent_thunk(student));
@@ -130,14 +129,8 @@ const mapDispatchToProps = (dispatch, { history })=> {
     unenroll: (student)=> {
       dispatch(updateStudent_thunk({...student, schoolId: null}))
     }
-    // unenrollStudent: (school, student)=> {
-    //   console.log('Student, unenroll, school:', school);
-    //   dispatch(unenrollStudent_thunk(school, student));
-    // }
-    
-    //i think i can remove unenroll student thunks and actions now...
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Student);
 

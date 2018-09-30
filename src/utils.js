@@ -16,22 +16,17 @@ export const findEnrolled = (students, schoolId)=> {
 };
 
 
-export const findSchoolByStudent = (schools, student)=> {
-
-  const result = schools.find( school => {
-    let found = false;
-    school.students.forEach(_student => {
-      if (_student.id === student.id) {
-        found = true;
-      }
-    });
-
-    if (found) {
-      return school;
-    }
-
-
-  });
-
-  return result;
-};
+// export const findSchoolByStudent = (schools, student)=> {
+//   const result = schools.find( school => {
+//     let found = false;
+//     school.students.forEach(_student => {
+//       if (_student.id === student.id) {
+//         found = true;
+//       }
+//     });
+//     if (found) {
+//       return school;
+//     }
+//   });
+//   return result;
+// };

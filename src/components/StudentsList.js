@@ -29,13 +29,13 @@ const StudentsList = ({ students, deleteStudent, schools })=> {
                   <button onClick={()=> deleteStudent(student)}>x</button>
                 </div>
               </li>
-            )
+            );
           })
         }
       </ul>
     </Fragment>
-  )
-}
+  );
+};
 
 StudentsList.propTypes = {
   students: PropTypes.array
@@ -49,13 +49,13 @@ const mapStateToProps = ({ students, schools })=> {
   return {
     students,
     schools
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch)=> {
   return {
     deleteStudent: (student)=> dispatch(deleteStudent_thunk(student))
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsList);

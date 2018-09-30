@@ -16,7 +16,7 @@ class StudentsCreate extends Component {
       lastName: '',
       gpa: 0,
       schoolId: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -82,8 +82,8 @@ const mapStateToProps = ({ schools }, { match } )=> {
     schools,
     schoolId: match.params.schoolId*1,
     school: getSchool(schools, match.params.schoolId*1)
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch, { history })=> {
   return {

@@ -133,7 +133,6 @@ const mapStateToProps = ({ schools, students }, { match })=> {
     schools,
     students,
     enrolledStudents: findEnrolled(students, match.params.id*1)
-    // const enrolledStudents = findEnrolled(students, id);
   };
 };
 
