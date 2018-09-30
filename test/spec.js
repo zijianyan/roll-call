@@ -254,8 +254,6 @@ describe('senior enrichment project', ()=> {
 
 //disable save button if forms are empty
 
-//use actual college directory data?
-
 //use unsplash photo API
 //or lightweight version: https://source.unsplash.com/random?water
 
@@ -278,10 +276,9 @@ describe('senior enrichment project', ()=> {
 
 
 
-//TODO: 2018-09-30: add form to edit school in School.js, add link to "add new student" in School.js, which will go to students/create with the schoolId prepopulated.
 
 
-
+//data list in School for students?
 
 
 

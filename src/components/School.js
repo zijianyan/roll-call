@@ -38,11 +38,15 @@ class School extends Component {
   handleSubmit(ev) {
     ev.preventDefault();
     const school = {
-      ...this.state,
-      id: this.props.school.id
+      id: this.props.school.id,
+      name: this.state.name,
+      address: this.state.address,
+      description: this.state.description
     };
     this.props.updateSchool(school);
   }
+
+
 
   render() {
     const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, enrolledStudents } = this.props;
@@ -78,6 +82,7 @@ class School extends Component {
           </div>
           <button>Save</button>
         </form>
+
 
         <h3>{enrolledStudents.length ? 'Students' : 'No Students'}</h3>
         <ul>

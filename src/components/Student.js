@@ -36,11 +36,11 @@ class Student extends Component {
   }
 
   handleSubmit(ev) {
-    
     ev.preventDefault();
     const student = {
-      ...this.state,
       id: this.props.student.id,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       gpa: this.state.gpa*1,
       schoolId: this.state.schoolId*1 || null
     };

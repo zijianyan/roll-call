@@ -16,6 +16,7 @@ export const findEnrolled = (students, schoolId)=> {
 };
 
 
+
 // export const findSchoolByStudent = (schools, student)=> {
 //   const result = schools.find( school => {
 //     let found = false;

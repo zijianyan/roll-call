@@ -26,8 +26,9 @@ class SchoolsCreate extends Component {
   handleSubmit(ev) {
     ev.preventDefault();
     const school = {
-      ...this.state,
-      students: []
+      name: this.state.name,
+      address: this.state.address,
+      description: this.state.description
     };
     this.props.createSchool(school);
   }
