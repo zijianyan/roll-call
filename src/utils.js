@@ -3,23 +3,17 @@ export const getSchool = (schools, id)=> {
     if (school.id) {
       return school.id === id;
     }
-  })
-}
+  });
+};
 
 export const getStudent = (students, id)=> {
   return students.find(student => student.id === id)
-}
-
-// export const findSchoolByStudentSchoolId = (schools, student)=> {
-//   return schools.find( school => school.id === student.schoolId )
-// }
+};
 
 
 export const findEnrolled = (students, schoolId)=> {
-  // console.log('findStudents, students:', students);
-  // console.log('findStudents, school:', school);
   return students.filter(student => student.schoolId === schoolId)
-}
+};
 
 
 export const findSchoolByStudent = (schools, student)=> {
@@ -30,15 +24,14 @@ export const findSchoolByStudent = (schools, student)=> {
       if (_student.id === student.id) {
         found = true;
       }
-    })
+    });
 
     if (found) {
       return school;
     }
 
 
-  })
+  });
 
-  console.log('findSchoolByStudentId, result:', result);
   return result;
-}
+};

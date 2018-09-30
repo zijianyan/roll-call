@@ -20,7 +20,7 @@ describe('senior enrichment project', ()=> {
           School.findOne({ where: { name: 'NYU' }, include: [ Student ]}),
           School.findOne({ where: { name: 'BU' }, include: [ Student ]}),
           School.findOne({ where: { name: 'USC' }, include: [ Student ]})
-        ])
+        ]);
         expect(NYU.students.length).to.equal(2);
         expect(BU.students.length).to.equal(1);
         expect(USC.students.length).to.equal(1);
@@ -38,26 +38,15 @@ describe('senior enrichment project', ()=> {
           Student.findOne({ where: { firstName: 'Sam' }, include: [ School ]}),
           Student.findOne({ where: { firstName: 'Leo' }, include: [ School ]}),
           Student.findOne({ where: { firstName: 'Nadia' }, include: [ School ]})
-        ])
-
-        // [ jane, avery, sam, leo, nadia ].forEach(student => console.log(student.school))
-
-        // console.log('jane school:', jane.school.name)
-        // console.log('avery school:', avery.school.name)
-        // console.log('sam school:', sam.school.name)
-        console.log('leo school:')
-        // console.log('nadia school:', nadia.school.name)
-
-
+        ]);
         expect(jane.school.name).to.equal('NYU');
         expect(avery.school.name).to.equal('USC');
         expect(sam.school.name).to.equal('BU');
-        // expect(leo.school.name).to.equal('NYU'); //why is this breaking?
+        expect(leo.school.name).to.equal('NYU'); //why is this breaking?
         expect(nadia.school).to.equal(null);
-      })
+      });
     });
   });
-
 
   describe('server', ()=> {
     describe('static routes', ()=> {
@@ -66,11 +55,11 @@ describe('senior enrichment project', ()=> {
           .expect(200)
           .then(response => {
             expect(response.text).to.contain('<div id="root"></div>')
-          })
+          });
       });
       it('has a static route that serves /dist/main.js', ()=> {
         return app.get('/dist/main.js')
-          .expect(200)
+          .expect(200);
       });
     });
     describe('GET routes', ()=> {
@@ -81,7 +70,7 @@ describe('senior enrichment project', ()=> {
             const schools = response.body;
             const NYU = schools.find(school => school.name === 'NYU')
             expect(schools.length).to.equal(3);
-          })
+          });
       });
       it('/api/students serves all the students', ()=> {
         return app.get('/api/students')
@@ -91,7 +80,7 @@ describe('senior enrichment project', ()=> {
             const jane = students.find(student => student.firstName === 'Jane');
             const nadia = students.find(student => student.firstName === 'Nadia');
             expect(students.length).to.equal(5);
-          })
+          });
       });
       it('gets a school by id', ()=> {
         return app.get('/api/schools/2')
@@ -100,7 +89,7 @@ describe('senior enrichment project', ()=> {
             const school = response.body;
             expect(school).to.be.ok;
             expect(school.id).to.equal(2);
-          })
+          });
       });
       it('gets a student by id', ()=> {
         return app.get('/api/students/2')
@@ -121,7 +110,7 @@ describe('senior enrichment project', ()=> {
             const stillHere = await School.findById(1);
             expect(deleted).to.equal(null);
             expect(stillHere).to.be.ok;
-          })
+          });
       });
       it('deletes a student by id', ()=> {
         return app.delete('/api/students/2')
@@ -131,7 +120,7 @@ describe('senior enrichment project', ()=> {
             const stillHere = await Student.findById(1);
             expect(deleted).to.equal(null);
             expect(stillHere).to.be.ok;
-          })
+          });
       });
     });
 
@@ -146,7 +135,7 @@ describe('senior enrichment project', ()=> {
             const columbia = await School.findOne({ where: { name: 'Columbia' }});
             expect(columbia).to.be.ok;
             expect(columbia.name).to.equal('Columbia');
-          })
+          });
       });
       it('creates a student with no school', ()=> {
         return app.post('/api/students')
@@ -156,7 +145,7 @@ describe('senior enrichment project', ()=> {
           .then(student => {
             expect(student.firstName).to.equal('Zi');
             expect(student.schoolId).to.equal(null);
-          })
+          });
       });
       it('creates a student that belongs to a school', ()=> {
         return app.post('/api/students')
@@ -165,7 +154,7 @@ describe('senior enrichment project', ()=> {
           .then(res => res.body)
           .then(student => {
             expect(student.schoolId).to.equal(2);
-          })
+          });
       });
     });
 
@@ -180,7 +169,7 @@ describe('senior enrichment project', ()=> {
             expect(newSchool.id).to.equal(oldSchool.id);
             expect(newSchool).to.not.equal(oldSchool);
             expect(newSchool.name).to.equal('New School');
-          })
+          });
       });
       it('edits a student', async ()=> {
         const oldStudent = await Student.findById(2);
@@ -195,7 +184,7 @@ describe('senior enrichment project', ()=> {
           .then( async ()=> {
             const newStudent = await Student.findById(2);
             expect(newStudent.firstName).to.equal('Moe');
-          })
+          });
       });
       it('assigns a student to a new school', async ()=> {
         const NYU = await School.findOne({ where: { name: 'NYU' }});
@@ -208,7 +197,7 @@ describe('senior enrichment project', ()=> {
           .then(student => {
             expect(student.schoolId).to.equal(USC.id);
             expect(student.firstName).to.equal(NYUstudent.firstName);
-          })
+          });
       });
       it('enrolls an unenrolled student', async ()=> {
         const unenrolled = await Student.findOne({ where: { schoolId: null } });
@@ -221,7 +210,7 @@ describe('senior enrichment project', ()=> {
             expect(student.schoolId).to.equal(NYU.id);
             const enrolled = await Student.findById(unenrolled.id, { include: [ School ]});
             expect(enrolled.school.name).to.equal('NYU');
-          })
+          });
       });
       it('unenrolls a student', async ()=> {
         const NYU = await School.findOne({ where: { name: 'NYU' }, include: [ Student ]});
@@ -237,7 +226,7 @@ describe('senior enrichment project', ()=> {
             expect(student.schoolId).to.equal(null);
             expect(updatedStudent.schoolId).to.equal(null);
             expect(updatedNYU.students.length).to.equal(1);
-          })
+          });
       });
     });
   });
@@ -246,7 +235,7 @@ describe('senior enrichment project', ()=> {
 
     describe('findStudents', ()=> {
       it('finds the students enrolled in a school', ()=> {}); // don't think i actually need this one, students are eagerloaded with school
-    })
+    });
 
     describe('findUnenrolledStudents', ()=> {
       it('returns an array of students who do not have a school', ()=> {}); //filter for those without schoolId
@@ -256,7 +245,7 @@ describe('senior enrichment project', ()=> {
       it('returns an array of students who have a school', ()=> {}); //filter for those with schoolId
     });
 
-  })
+  });
 
 
 });
@@ -287,3 +276,27 @@ describe('senior enrichment project', ()=> {
 
 //maybe use GUUID for student id's
 
+
+
+//TODO: 2018-09-30: add form to edit school in School.js, add link to "add new student" in School.js, which will go to students/create with the schoolId prepopulated.
+
+
+
+
+/*
+
+
+
+
+
+/students - a listing of all students and the name of their school (if they have one). Clicking on a student will navigate to /students/:id
+
+/schools/create - a school can be created in this view.
+
+/student/create - a student can be created in this view.
+
+/schools/:id shows the details for the school along with all the students in that school. A school can be edited in this view. A student can be removed from the school in this view and a student can be added to a school in this view. A school can also be deleted in this view. There should also be a link to add a new student to this school which will navigate to /students/create/:schoolId where the schoolId can be used to pre-populate the school.
+
+/students/:id - shows the details for the student and gives the ability to modify the student and set/remove their school. A student can be deleted in this view.
+
+ */

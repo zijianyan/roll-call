@@ -35,27 +35,23 @@ const School = ({ id, school, schools, deleteSchool, otherStudents, unenrollStud
           otherStudents.map( student => {
             const otherSchool = getSchool(schools, student.schoolId);
             return (
-            <li key={student.id}>
-              <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
-              {
-                otherSchool
-                  ? (<span> - {otherSchool.name} - <button onClick={()=> transferStudentFrom(otherSchool, student)}>Transfer In</button></span>)
-                  : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
-              }
-              <div>
-              </div>
-            </li>
-            )
+              <li key={student.id}>
+                <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
+                {
+                  otherSchool
+                    ? (<span> - {otherSchool.name} - <button onClick={()=> transferStudentFrom(otherSchool, student)}>Transfer In</button></span>)
+                    : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
+                }
+                <div>
+                </div>
+              </li>
+            );
           })
         }
       </ul>
     </div>
-  )
-}
-
-
-
-
+  );
+};
 
 School.propTypes = {
   id: PropTypes.number,

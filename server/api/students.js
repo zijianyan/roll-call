@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { School, Student } = require('../db').models;
+const { Student } = require('../db').models;
 
 router.get('/', (req, res, next)=> {
   Student.findAll()

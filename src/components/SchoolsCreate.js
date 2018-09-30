@@ -12,7 +12,7 @@ class SchoolsCreate extends Component {
       name: '',
       address: '',
       description: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,8 +28,7 @@ class SchoolsCreate extends Component {
     const school = {
       ...this.state,
       students: []
-    }
-    console.log('handleSubmit, this.state:', this.state);
+    };
     this.props.createSchool(school);
   }
 
@@ -52,7 +51,7 @@ class SchoolsCreate extends Component {
           <button>Save</button>
         </form>
       </Fragment>
-    )
+    );
   }
 }
 
@@ -62,7 +61,7 @@ const mapDispatchToProps = (dispatch, { history })=> {
       dispatch(createSchool_thunk(school));
       history.push('/schools');
     }
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(SchoolsCreate);

@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-const { School, Student } = require('./db').models;
-
 app.use(express.json());
 
 app.use('/api', require('./api'));

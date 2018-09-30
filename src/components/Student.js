@@ -15,7 +15,7 @@ class Student extends Component {
       gpa: '',
       id: this.props.id,
       schoolId: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -44,18 +44,11 @@ class Student extends Component {
       gpa: this.state.gpa*1,
       schoolId: this.state.schoolId*1 || null,
       school: getSchool(this.props.schools, this.state.schoolId*1) || {}
-    }
-    const previousSchool = this.props.school;
-    console.log('handleSubmit, student:', student);
-
-    // this.props.unenrollStudent(previousSchool, student);
-    // this.props.school ? this.props.unenrollStudent(this.props.school, student) : null;
-    // this.props.enrollStudent(nextSchool, student)
+    };
     this.props.updateStudent(student);
   }
 
   render() {
-    // console.log('Student, render, this.props:', this.props);
     const { id, student, deleteStudent, schools, updateStudent, school, unenroll } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;

@@ -5,14 +5,17 @@ import { Link } from 'react-router-dom';
 
 import { deleteStudent_thunk } from '../store/thunks';
 
-const StudentsList = ({ students, deleteStudent })=> {
+import { getSchool } from '../utils';
+
+const StudentsList = ({ students, deleteStudent, schools })=> {
   return (
     <Fragment>
       <h2>Students</h2>
       <ul>
         {
           students.map( student => {
-            const { id, firstName, lastName, gpa, school } = student;
+            const { id, firstName, lastName, gpa, schoolId } = student;
+            const school = getSchool(schools, schoolId);
             return (
               <li key={id}>
                 <Link to={`/students/${id}`}>{firstName} {lastName}</Link>
@@ -42,9 +45,10 @@ StudentsList.defaultProps = {
   students: []
 }
 
-const mapStateToProps = ({ students })=> {
+const mapStateToProps = ({ students, schools })=> {
   return {
-    students
+    students,
+    schools
   }
 }
 

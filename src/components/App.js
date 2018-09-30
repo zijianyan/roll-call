@@ -16,7 +16,6 @@ import Student from './Student';
 class App extends Component {
   constructor() {
     super();
-    this.state = {}
   }
 
   componentDidMount() {
@@ -46,30 +45,31 @@ class App extends Component {
           </Fragment>
         </Router>
       </div>
-    )
+    );
   }
 }
 
 App.defaultProps = {
   schools: [],
   students: []
-}
+};
+
 App.propTypes = {
   schools: PropTypes.array,
   students: PropTypes.array
-}
+};
 
 
 const mapDispatchToProps = (dispatch)=> {
   return {
     init: ()=> {
-      dispatch(loadSchools_thunk()),
-      dispatch(loadStudents_thunk())
+      dispatch(loadSchools_thunk());
+      dispatch(loadStudents_thunk());
     },
     reset: ()=> {
-      dispatch(reset_thunk())
+      dispatch(reset_thunk());
     }
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(App);

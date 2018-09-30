@@ -26,14 +26,14 @@ const Nav = ({ schools, students })=> {
         </li>
       </ul>
     </Fragment>
-  )
-}
+  );
+};
 
 const mapStateToProps = ({ schools, students })=> {
   return {
     schools,
     students
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Nav);

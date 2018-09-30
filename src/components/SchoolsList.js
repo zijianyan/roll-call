@@ -10,7 +10,6 @@ import { deleteSchool_thunk } from '../store/thunks';
 import { findEnrolled } from '../utils';
 
 const SchoolsList = ({ schools, deleteSchool, students })=> {
-  console.log('SchoolsList, students:', students);
   return (
     <Fragment>
       <h2>Schools</h2>
@@ -28,33 +27,29 @@ const SchoolsList = ({ schools, deleteSchool, students })=> {
                   <button onClick={()=> deleteSchool(school)}>x</button>
                 </div>
               </li>              
-            )
+            );
           })
         }
       </ul>
     </Fragment>
-  )
-}
+  );
+};
 
 SchoolsList.propTypes = {
   schools: PropTypes.array
-}
-
-// SchoolsList.defaultProps = {
-//   schools: []
-// }
+};
 
 const mapStateToProps = ({ schools, students })=> {
   return {
     schools,
     students
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    deleteSchool: (school)=> { dispatch(deleteSchool_thunk(school)) }
-  }
-}
+    deleteSchool: (school)=> { dispatch(deleteSchool_thunk(school));}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SchoolsList);
