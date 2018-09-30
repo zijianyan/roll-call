@@ -21,12 +21,10 @@ class Student extends Component {
   }
 
   componentDidMount() {
-    // console.log('Student, componentDidMount, this.props.student:', this.props.student);
     this.setState(this.props.student)
   }
 
   componentDidUpdate(prevProps) {
-    // console.log('Student, componentDidUpdate, this.props.student:', this.props.student);
     if (prevProps.student !== this.props.student) {
       this.setState(this.props.student)
     }
@@ -48,11 +46,10 @@ class Student extends Component {
       school: getSchool(this.props.schools, this.state.schoolId*1) || {}
     }
     const previousSchool = this.props.school;
-    // const nextSchool = student.school;
     console.log('handleSubmit, student:', student);
 
     // this.props.unenrollStudent(previousSchool, student);
-    this.props.school ? this.props.unenroll(this.props.school, student) : null;
+    // this.props.school ? this.props.unenrollStudent(this.props.school, student) : null;
     // this.props.enrollStudent(nextSchool, student)
     this.props.updateStudent(student);
   }
@@ -77,10 +74,9 @@ class Student extends Component {
         <h2>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</h2>
         {
           school
-            ? (<p>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link></p>)
-            : 'Student has no school'
+            ? (<p>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link> <button onClick={()=> unenroll(student)}>Unenroll</button></p>)
+            : 'Not enrolled'
         }
-        <p>Student id: {id}</p>
         
 
         <h3>Edit Student</h3>
@@ -107,7 +103,7 @@ class Student extends Component {
           </div>
           <button>Save</button>
         </form>
-        
+        <hr/>
         <button onClick={()=> deleteStudent(student)}>Delete Student</button>
       </div>
     )
@@ -138,11 +134,15 @@ const mapDispatchToProps = (dispatch, { history })=> {
       dispatch(deleteStudent_thunk(student));
       history.push('/students');
     },
-    unenroll: (school, student)=> {
-      console.log('Student, unenroll, school:', school);
-      dispatch(unenrollStudent_thunk(school, student));
+    unenroll: (student)=> {
+      dispatch(updateStudent_thunk({...student, schoolId: null}))
     }
+    // unenrollStudent: (school, student)=> {
+    //   console.log('Student, unenroll, school:', school);
+    //   dispatch(unenrollStudent_thunk(school, student));
+    // }
     
+    //i think i can remove unenroll student thunks and actions now...
   }
 }
 

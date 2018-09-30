@@ -14,6 +14,14 @@ export const getStudent = (students, id)=> {
 //   return schools.find( school => school.id === student.schoolId )
 // }
 
+
+export const findEnrolled = (students, schoolId)=> {
+  // console.log('findStudents, students:', students);
+  // console.log('findStudents, school:', school);
+  return students.filter(student => student.schoolId === schoolId)
+}
+
+
 export const findSchoolByStudent = (schools, student)=> {
 
   const result = schools.find( school => {

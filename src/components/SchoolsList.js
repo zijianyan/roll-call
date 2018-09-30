@@ -7,20 +7,22 @@ import { connect } from 'react-redux';
 
 import { deleteSchool_thunk } from '../store/thunks';
 
-const SchoolsList = ({ schools, deleteSchool })=> {
+import { findEnrolled } from '../utils';
+
+const SchoolsList = ({ schools, deleteSchool, students })=> {
+  console.log('SchoolsList, students:', students);
   return (
     <Fragment>
       <h2>Schools</h2>
       <ul>
         {
           schools.map( school => {
-            const { students } = school;
-            // console.log('SchoolsList, students:', students);
+            const enrolledStudents = findEnrolled(students, school.id);
             return (
               <li key={school.id}>
                 <Link to={`/schools/${school.id}`}>
                   {school.name}
-                  {students && students.length ? `(${students.length})` : null}
+                  {enrolledStudents.length ? ` (${enrolledStudents.length})` : null}
                 </Link>
                 <div>
                   <button onClick={()=> deleteSchool(school)}>x</button>
@@ -42,9 +44,10 @@ SchoolsList.propTypes = {
 //   schools: []
 // }
 
-const mapStateToProps = ({ schools })=> {
+const mapStateToProps = ({ schools, students })=> {
   return {
-    schools
+    schools,
+    students
   }
 }
 

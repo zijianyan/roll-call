@@ -4,13 +4,13 @@ const router = express.Router();
 const { School, Student } = require('../db').models;
 
 router.get('/', (req, res, next)=> {
-  School.findAll({ include: [ Student ]})
+  School.findAll()
     .then(schools => res.send(schools))
     .catch(next);
 });
 
 router.get('/:id', (req, res, next)=> {
-  School.findById(req.params.id, { include: [ Student ]})
+  School.findById(req.params.id)
     .then(school => res.send(school))
     .catch(next);
 });
@@ -33,7 +33,7 @@ router.put('/:id', (req, res, next)=> {
   School.findById(req.params.id)
     .then(school => school.update(req.body))
     .then(updated => {
-      return School.findById(updated.id, { include: [ Student ]}) //eager-load students with school
+      return School.findById(updated.id)
     })
     .then(school => res.send(school))
     .catch(next);

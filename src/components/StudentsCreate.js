@@ -31,7 +31,7 @@ class StudentsCreate extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       gpa: this.state.gpa*1,
-      schoolId: this.state.schoolId*1
+      schoolId: this.state.schoolId*1 || null
     }
     this.props.createStudent(student)
   }

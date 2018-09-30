@@ -74,14 +74,13 @@ describe('senior enrichment project', ()=> {
       });
     });
     describe('GET routes', ()=> {
-      it('/api/schools serves all the schools and eager loads their students', ()=> {
+      it('/api/schools serves all the schools', ()=> {
         return app.get('/api/schools')
           .expect(200)
           .then(response => {
             const schools = response.body;
             const NYU = schools.find(school => school.name === 'NYU')
             expect(schools.length).to.equal(3);
-            expect(NYU.students.length).to.equal(2); 
           })
       });
       it('/api/students serves all the students', ()=> {
@@ -92,8 +91,6 @@ describe('senior enrichment project', ()=> {
             const jane = students.find(student => student.firstName === 'Jane');
             const nadia = students.find(student => student.firstName === 'Nadia');
             expect(students.length).to.equal(5);
-            expect(jane.school.name).to.equal('NYU');
-            expect(nadia.school).to.equal(null);
           })
       });
       it('gets a school by id', ()=> {
@@ -285,3 +282,8 @@ describe('senior enrichment project', ()=> {
 
 
 //Color University seems like the best option right now
+
+//maybe a newsfeed
+
+//maybe use GUUID for student id's
+
