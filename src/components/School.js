@@ -25,6 +25,12 @@ class School extends Component {
     this.setState(this.props.school);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.school !== this.props.school) {
+      this.setState(this.props.school);
+    }
+  }
+
   handleChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
@@ -55,12 +61,11 @@ class School extends Component {
     return (
       <div> 
         <h2>School Detail: { school ? school.name : null }</h2>
-        
         <h3>Address</h3>
-        <p>{address}</p>
+        <p>{school.address}</p>
         <h3>Description</h3>
-        <p>{description}</p>
-        
+        <p>{school.description}</p>
+        <h3>Edit School</h3>
         <form onSubmit={handleSubmit}>
           <div>
             <input name='name' placeholder='School Name' value={name} onChange={handleChange}/>
