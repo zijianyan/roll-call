@@ -53,9 +53,21 @@ const syncAndSeed = async ()=> {
   });
 
   const [ NYU, USC, BU ] = await Promise.all([
-    School.create({ name: 'NYU', address: 'new york', description: 'the big apple'}),
-    School.create({ name: 'USC', address: 'los angeles', description: 'sunny weather'}),
-    School.create({ name: 'BU', address: 'boston', description: 'not to be confused with BC'})
+    School.create({
+      name: 'NYU',
+      address: '12345 Broadway, New York, NY 12345',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    }),
+    School.create({
+      name: 'USC',
+      address: '12345 Pacific Hwy, Los Angeles, CA 12345',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    }),
+    School.create({
+      name: 'BU',
+      address: '12345 Main St, Boston, MA 12345',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    })
   ]);
 
   const [ jane, avery, sam, leo, nadia ] = await Promise.all([

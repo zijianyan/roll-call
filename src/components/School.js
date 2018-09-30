@@ -13,15 +13,66 @@ class School extends Component {
   constructor() {
     super();
     this.state = {
-
+      name: '',
+      address: '',
+      description: ''
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState(this.props.school);
+  }
+
+  handleChange(ev) {
+    this.setState({ [ev.target.name]: ev.target.value });
+  }
+
+  handleSubmit(ev) {
+    ev.preventDefault();
+    const school = {
+      ...this.state,
+      id: this.props.id
+    };
+    this.props.updateSchool(school);
   }
 
   render() {
-    const { id, school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, transferStudentFrom, students, enrolledStudents } = this.props;
+    const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, transferStudentFrom, enrolledStudents } = this.props;
+    const { handleChange, handleSubmit } = this;
+    const { name, address, description } = this.state;
+
+    if (!school) {
+      return (
+        <div>
+          <h3>School Not Found</h3>
+          <Link to='/schools'>See Schools</Link>
+        </div>
+      );
+    }
+
     return (
       <div> 
         <h2>School Detail: { school ? school.name : null }</h2>
+        
+        <h3>Address</h3>
+        <p>{address}</p>
+        <h3>Description</h3>
+        <p>{description}</p>
+        
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input name='name' placeholder='School Name' value={name} onChange={handleChange}/>
+          </div>
+          <div>
+            <input name='address' placeholder='Address' value={address} onChange={handleChange}/>
+          </div>
+          <div>
+            <input name='description' placeholder='Description' value={description} onChange={handleChange}/>
+          </div>
+          <button>Save</button>
+        </form>
 
         <h3>{enrolledStudents.length ? 'Students' : 'No Students'}</h3>
         <ul>
@@ -103,6 +154,9 @@ const mapDispatchToProps = (dispatch, { match, history })=> {
       const _student = {...student, schoolId: match.params.id*1};
       dispatch(updateStudent_thunk(_student));
       dispatch(unenrollStudent_thunk(school, student));
+    },
+    updateSchool: (school)=> {
+      dispatch(updateSchool_thunk(school));
     }
   };
 };
