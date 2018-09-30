@@ -283,11 +283,7 @@ describe('senior enrichment project', ()=> {
 
 
 
-/*
-
-/schools/:id 
 
 
- There should also be a link to add a new student to this school which will navigate to /students/create/:schoolId where the schoolId can be used to pre-populate the school.
 
- */  
+ //maybe use an undo button as a feature?

@@ -81,7 +81,6 @@ const mapStateToProps = ({ schools }, { match } )=> {
   return {
     schools,
     schoolId: match.params.schoolId*1,
-    school: getSchool(schools, match.params.schoolId*1)
   };
 };
 
@@ -91,7 +90,7 @@ const mapDispatchToProps = (dispatch, { history })=> {
       dispatch(createStudent_thunk(student));
       history.push('/students');
     }
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreate);
