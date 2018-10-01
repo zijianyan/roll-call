@@ -241,23 +241,6 @@ describe('senior enrichment project', ()=> {
     });
   });
 
-  describe('mapper and utility functions', ()=> {
-
-    describe('findEnrolled', ()=> {
-      it('finds the students enrolled in a school', ()=> {});
-    });
-
-    describe('findUnenrolledStudents', ()=> {
-      it('returns an array of students who do not have a school', ()=> {}); //filter for those without schoolId
-    });
-
-    describe('findEnrolledStudents', ()=> {
-      it('returns an array of students who have a school', ()=> {}); //filter for those with schoolId
-    });
-
-  });
-
-
 });
 
 
