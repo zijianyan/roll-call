@@ -53,7 +53,6 @@ class StudentsCreate extends Component {
     const isEmpty = firstName && lastName ? false : true;
     return (
       <div>
-        <Input placeholder='Test firstName...' value={firstName}/>
         <h2>Create A Student</h2>
         <form onSubmit={handleSubmit}>
           <div>
