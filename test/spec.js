@@ -272,7 +272,6 @@ describe('senior enrichment project', ()=> {
 
 //maybe a newsfeed
 
-//maybe use GUUID for student id's
 
 
 
@@ -283,10 +282,5 @@ describe('senior enrichment project', ()=> {
 
 
 
- //maybe use an undo button as a feature?
-
-
-
  //TODO: 2018-09-30 - add validation, a proper address format, use a range for the GPA.
 
- //add a create random school and create random student button

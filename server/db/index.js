@@ -8,6 +8,7 @@ const faker = require('faker');
 
 const axios = require('axios');
 
+
 const randomSchoolNoun = ()=> {
   const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'Clinic', 'Association', 'League', 'Division', 'Camp', 'Club', 'Society', 'Foundation', 'Conservatory'];
   const index = Math.floor(Math.random() * schoolNouns.length);
@@ -18,6 +19,11 @@ const randomSchoolNoun = ()=> {
 
 
 const School = conn.define('school', {
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true
+  },
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -60,6 +66,11 @@ const School = conn.define('school', {
 });
 
 const Student = conn.define('student', {
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true
+  },
   firstName: {
     type: Sequelize.STRING
   },
