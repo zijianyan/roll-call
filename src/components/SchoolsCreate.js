@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { createSchool_thunk } from '../store/thunks';
+import { createSchool_thunk, createSchoolRandom_thunk } from '../store/thunks';
 
 class SchoolsCreate extends Component {
   constructor() {
@@ -36,6 +36,7 @@ class SchoolsCreate extends Component {
   render() {
     const { name, address, description } = this.state;
     const { handleChange, handleSubmit } = this;
+    const { createSchoolRandom } = this.props;
     return (
       <Fragment>
         <h2>Create A School</h2>
@@ -51,6 +52,8 @@ class SchoolsCreate extends Component {
           </div>
           <button>Save</button>
         </form>
+        <hr/>
+          <button onClick={createSchoolRandom}>Create Random School</button>
       </Fragment>
     );
   }
@@ -60,6 +63,10 @@ const mapDispatchToProps = (dispatch, { history })=> {
   return {
     createSchool: (school)=> {
       dispatch(createSchool_thunk(school));
+      history.push('/schools');
+    },
+    createSchoolRandom: ()=> {
+      dispatch(createSchoolRandom_thunk())
       history.push('/schools');
     }
   };

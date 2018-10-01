@@ -1,4 +1,4 @@
-import { LOAD_SCHOOLS, DELETE_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL } from './actionTypes';
+import { LOAD_SCHOOLS, DELETE_SCHOOL, CREATE_SCHOOL, CREATE_SCHOOL_RANDOM, UPDATE_SCHOOL } from './actionTypes';
 import { LOAD_STUDENTS, DELETE_STUDENT, CREATE_STUDENT, UPDATE_STUDENT } from './actionTypes';
 
 export const _loadSchools = (schools)=> {

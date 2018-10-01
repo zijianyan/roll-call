@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { createStudent_thunk } from '../store/thunks';
+import { createStudent_thunk, createStudentRandom_thunk } from '../store/thunks';
 
 import { getSchool } from '../utils';
 
@@ -43,7 +43,7 @@ class StudentsCreate extends Component {
   }
 
   render() {
-    const { schools } = this.props;
+    const { schools, createStudentRandom } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
     return (
@@ -75,6 +75,8 @@ class StudentsCreate extends Component {
           </div>
           <button>Save</button> 
         </form>
+        <hr/>
+        <button onClick={createStudentRandom}>Create Random Student</button>
       </div>
     )
   }
@@ -92,6 +94,10 @@ const mapDispatchToProps = (dispatch, { history })=> {
   return {
     createStudent: (student)=> {
       dispatch(createStudent_thunk(student));
+      history.push('/students');
+    },
+    createStudentRandom: ()=> {
+      dispatch(createStudentRandom_thunk());
       history.push('/students');
     }
   };

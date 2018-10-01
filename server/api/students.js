@@ -28,6 +28,12 @@ router.post('/', (req, res, next)=> {
     .catch(next);
 });
 
+router.post('/random', (req, res, next)=> {
+  Student.createRandom()
+    .then(created => res.status(201).send(created))
+    .catch(next);
+});
+
 router.put('/:id', (req, res, next)=> {
 
   Student.findById(req.params.id)

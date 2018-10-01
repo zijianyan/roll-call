@@ -83,9 +83,12 @@ class Student extends Component {
           <div>
             <input name='lastName' value={lastName} onChange={handleChange} placeholder='Last Name'/>
           </div>
+
           <div>
-            <input name='gpa' value={gpa} onChange={handleChange} placeholder='GPA'/>
+            <input name='gpa' type='range' value={gpa} min='0' max='4' step='.01' onChange={handleChange}/>
+            GPA: {gpa}
           </div>
+
           <div>
             <select name='schoolId' value={schoolId || ''} onChange={handleChange}>
               <option value=''>--no school--</option>

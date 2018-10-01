@@ -51,14 +51,11 @@ const School = conn.define('school', {
   hooks: {
     beforeCreate: (school)=> {
       school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
-      school.imageUrl = `http://source.unsplash.com/random?$random`
-
+      school.imageUrl = 'http://source.unsplash.com/random?city'
     },
-    // beforeUpdate: (school)=> {
-    //   school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
-    //   const firstWord = school.name.split(' ')[0]
-    //   // school.imageUrl = `http://source.unsplash.com/random?${firstWord}`
-    // }
+    beforeUpdate: (school)=> {
+      school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
+    }
   }
 });
 
@@ -100,7 +97,7 @@ School.createRandom = function() {
   return School.create({
     name: `${faker.address.city()} ${randomSchoolNoun()}`,
     address: faker.address.streetAddress(),
-    description: faker.lorem.paragraph(),
+    description: faker.lorem.paragraphs(3),
     imageUrl: `http://source.unsplash.com/random?`
   });
 };

@@ -75,13 +75,17 @@ class School extends Component {
         <h3>Edit School</h3>
         <form onSubmit={handleSubmit}>
           <div>
-            <input name='name' placeholder='School Name' value={name} onChange={handleChange}/>
+            <label for='school-name'>Name</label>
+            <input id='school-name' name='name' placeholder='School Name' value={name} onChange={handleChange}/>
           </div>
           <div>
-            <input name='address' placeholder='Address' value={address} onChange={handleChange}/>
+            <label for='school-address'>Address</label>
+            <input id='school-address' name='address' placeholder='Address' value={address} onChange={handleChange}/>
           </div>
           <div>
-            <input name='description' placeholder='Description' value={description} onChange={handleChange}/>
+            <label for='school-description'>Description</label>
+            <textarea id='school-description' name='description' placeholder='Description' value={description} onChange={handleChange}>
+            </textarea>
           </div>
           <button>Save</button>
         </form>
@@ -167,3 +171,7 @@ const mapDispatchToProps = (dispatch, { match, history })=> {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(School);
+
+
+
+              // <input name='description' placeholder='Description' value={description} onChange={handleChange}/>

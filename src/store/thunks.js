@@ -26,6 +26,14 @@ export const createSchool_thunk = (school)=> {
   };
 };
 
+export const createSchoolRandom_thunk = ()=> {
+  return (dispatch)=> {
+    axios.post('/api/schools/random')
+      .then(res => res.data)
+      .then(school => dispatch(_createSchool(school)))
+  };
+};
+
 export const updateSchool_thunk = (school)=> {
   return (dispatch)=> {
     axios.put(`/api/schools/${school.id}`, school)
@@ -55,6 +63,14 @@ export const deleteStudent_thunk = (student)=> {
 export const createStudent_thunk = (student)=> {
   return (dispatch)=> {
     axios.post('/api/students', student)
+      .then(res => res.data)
+      .then(student => dispatch(_createStudent(student)))
+  };
+};
+
+export const createStudentRandom_thunk = ()=> {
+  return (dispatch)=> {
+    axios.post('/api/students/random')
       .then(res => res.data)
       .then(student => dispatch(_createStudent(student)))
   };
