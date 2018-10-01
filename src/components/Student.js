@@ -70,6 +70,10 @@ class Student extends Component {
             : 'Not enrolled'
         }
         
+        <h3>Student Image</h3>
+        <div id='student-image-container'>
+          <img src={school.imageUrl} id='student-image'/>
+        </div>
 
         <h3>Edit Student</h3>
 
