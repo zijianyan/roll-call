@@ -39,8 +39,8 @@ class SchoolsCreate extends Component {
     const { createSchoolRandom, history } = this.props;
     return (
       <Fragment>
+      
         <h2>Create A School</h2>
-
         <SchoolForm type='create' history={history}/>
    
         <hr/>

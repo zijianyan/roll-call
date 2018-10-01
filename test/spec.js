@@ -261,6 +261,5 @@ describe('senior enrichment project', ()=> {
 
  //TODO: 2018-09-30 - add validation, a proper address format
 
-//DRY up forms into components
 
 //maybe create components to simplify School and Student

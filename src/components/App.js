@@ -12,7 +12,8 @@ import StudentsCreate from './StudentsCreate';
 import SchoolsCreate from './SchoolsCreate';
 import School from './School';
 import Student from './Student';
-import NewStudents from './NewStudents';
+// import NewStudents from './NewStudents';
+import Footer from './Footer';
 
 class App extends Component {
   constructor() {
@@ -28,7 +29,7 @@ class App extends Component {
     return (
       <div>
         <h1>Acme Schools and Students</h1>
-        <button onClick={reset}>Reset Database</button>
+
         <hr />
         <Router>
           <Fragment>
@@ -44,6 +45,7 @@ class App extends Component {
               <Route path='/students/create' component={StudentsCreate}/>
               <Route path='/students/:id' component={Student}/>
             </Switch>
+            <Route path ='/' component={Footer}/>
           </Fragment>
         </Router>
       </div>
@@ -62,7 +64,7 @@ App.propTypes = {
 };
 
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch, { hs})=> {
   return {
     init: ()=> {
       dispatch(loadSchools_thunk());

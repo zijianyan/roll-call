@@ -10,13 +10,10 @@ const axios = require('axios');
 
 
 const randomSchoolNoun = ()=> {
-  const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'Clinic', 'Association', 'League', 'Division', 'Camp', 'Club', 'Society', 'Foundation', 'Conservatory'];
+  const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'League', 'Division', 'Camp', 'Club', 'Society', 'Foundation', 'Conservatory'];
   const index = Math.floor(Math.random() * schoolNouns.length);
   return schoolNouns[index];
 };
-
-
-
 
 const School = conn.define('school', {
   id: {
@@ -129,17 +126,26 @@ Student.createRandom = function() {
     .then(student => Student.create({ firstName: student.name.first, lastName: student.name.last, gpa: (Math.random()*(4-2.7)+2.7).toFixed(2), imageUrl: student.picture.large }));
 }
 
+const createSchools = (num)=> {
+  const schools = [];
+  for (var i = 0; i < num; i++) { schools.push(School.createRandom())};
+  return schools;
+}
+
+const createStudents = (num)=> {
+  const students = [];
+  for (var i = 0; i < num; i++) { students.push(Student.createRandom())};
+  return students;
+}
+
 const syncAndSeed = async ()=> {
 
   await conn.sync({
     force: true
   });
 
-  const [ sch01, sch02, sch03 ] = await Promise.all([
-    School.createRandom(),
-    School.createRandom(),
-    School.createRandom()
-  ]);
+  const [ sch01, sch02, sch03 ] = await Promise.all(createSchools(3));
+
 
   /* FOR TESTING
   // const [ sch01, sch02, sch03 ] = await Promise.all([
@@ -161,13 +167,7 @@ const syncAndSeed = async ()=> {
   // ]);
   */
 
-  const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all([
-    Student.createRandom(),
-    Student.createRandom(),
-    Student.createRandom(),
-    Student.createRandom(),
-    Student.createRandom()
-  ]);
+  const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all(createStudents(5));
 
   /* FOR TESTING
   // const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all([
