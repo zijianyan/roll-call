@@ -6,9 +6,9 @@ import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk } from '../
 import { getSchool, findEnrolled, findOtherStudents } from '../utils';
 import SchoolForm from './SchoolForm';
 
+import OtherStudentsList from './OtherStudentsList';
 
-
-const School = ({ school, schools, otherStudents, enrolledStudents, history, deleteSchool, unenrollStudent, enrollStudent })=> {
+const School = ({ school, schools, otherStudents, enrolledStudents, history, deleteSchool, unenrollStudent, enrollStudent, match })=> {
   if (!school) {
     return (
       <div>
@@ -46,26 +46,13 @@ const School = ({ school, schools, otherStudents, enrolledStudents, history, del
       <button onClick={()=> deleteSchool(school)}>Delete School</button>
       <hr/>
 
-      <h3>Other Students</h3>
-      <ul>
-        {
-          otherStudents.map( student => {
-            const otherSchool = getSchool(schools, student.schoolId);
-            return (
-              <li key={student.id}>
-                <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
-                {
-                  otherSchool
-                    ? (<span> - {otherSchool.name} - <button onClick={()=> enrollStudent(student)}>Transfer In</button></span>)
-                    : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
-                }
-                <div>
-                </div>
-              </li>
-            );
-          })
-        }
-      </ul>
+
+      <OtherStudentsList match={match}/>
+
+      
+
+
+
     </div>
   );
 }
@@ -74,7 +61,7 @@ const mapStateToProps = ({ schools, students }, { match })=> {
   return {
     schools,
     school: getSchool(schools, match.params.id),
-    otherStudents: findOtherStudents(students, match.params.id),
+    // otherStudents: findOtherStudents(students, match.params.id),
     enrolledStudents: findEnrolled(students, match.params.id)
   };
 };
@@ -93,10 +80,10 @@ const mapDispatchToProps = (dispatch, { match, history })=> {
       const _student = {...student, schoolId: null};
       dispatch(updateStudent_thunk(_student));
     },
-    enrollStudent: (student)=> {
-      const _student = {...student, schoolId: match.params.id};
-      dispatch(updateStudent_thunk(_student));
-    },
+    // enrollStudent: (student)=> {
+    //   const _student = {...student, schoolId: match.params.id};
+    //   dispatch(updateStudent_thunk(_student));
+    // },
     updateSchool: (school)=> {
       dispatch(updateSchool_thunk(school));
     }
@@ -106,4 +93,27 @@ const mapDispatchToProps = (dispatch, { match, history })=> {
 export default connect(mapStateToProps, mapDispatchToProps)(School);
 
 
+
+
+
+// <h3>Other Students</h3>
+//       <ul>
+//         {
+//           otherStudents.map( student => {
+//             const otherSchool = getSchool(schools, student.schoolId);
+//             return (
+//               <li key={student.id}>
+//                 <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
+//                 {
+//                   otherSchool
+//                     ? (<span> - {otherSchool.name} - <button onClick={()=> enrollStudent(student)}>Transfer In</button></span>)
+//                     : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
+//                 }
+//                 <div>
+//                 </div>
+//               </li>
+//             );
+//           })
+//         }
+//       </ul>
 
