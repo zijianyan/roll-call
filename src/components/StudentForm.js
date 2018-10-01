@@ -21,6 +21,12 @@ class StudentForm extends Component {
     this.props.student ? this.setState(this.props.student) : null; // when updating, prefill student
   }
 
+  // componentDidUpdate(prevProps) { //unecessary now that this.props.student is being sent in from Student with each render?
+  //   if (prevProps.student !== this.props.student) {
+  //     this.setState(this.props.student);
+  //   }
+  // }
+
   handleChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
