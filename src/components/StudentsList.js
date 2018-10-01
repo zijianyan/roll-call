@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -35,14 +34,6 @@ const StudentsList = ({ students, deleteStudent, schools })=> {
       </ul>
     </Fragment>
   );
-};
-
-StudentsList.propTypes = {
-  students: PropTypes.array
-};
-
-StudentsList.defaultProps = {
-  students: []
 };
 
 const mapStateToProps = ({ students, schools })=> {

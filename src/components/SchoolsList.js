@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
@@ -33,10 +32,6 @@ const SchoolsList = ({ schools, deleteSchool, students })=> {
       </ul>
     </Fragment>
   );
-};
-
-SchoolsList.propTypes = {
-  schools: PropTypes.array
 };
 
 const mapStateToProps = ({ schools, students })=> {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';

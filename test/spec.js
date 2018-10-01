@@ -275,3 +275,6 @@ describe('senior enrichment project', ()=> {
 //data list in School for students
 
 //error handling/validation
+
+
+//proptypes?

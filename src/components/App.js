@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
+
 import { loadSchools_thunk, loadStudents_thunk, reset_thunk } from '../store/thunks';
 
 import SchoolsList from './SchoolsList';
@@ -12,12 +11,8 @@ import StudentsCreate from './StudentsCreate';
 import SchoolsCreate from './SchoolsCreate';
 import School from './School';
 import Student from './Student';
-// import NewStudents from './NewStudents';
 import Footer from './Footer';
 import AppBar from './AppBar';
-
-
-
 
 class App extends Component {
   constructor() {
@@ -54,17 +49,6 @@ class App extends Component {
     );
   }
 }
-
-App.defaultProps = {
-  schools: [],
-  students: []
-};
-
-App.propTypes = {
-  schools: PropTypes.array,
-  students: PropTypes.array
-};
-
 
 const mapDispatchToProps = (dispatch)=> {
   return {
