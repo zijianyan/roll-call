@@ -37,7 +37,7 @@ class StudentsCreate extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       gpa: this.state.gpa*1,
-      schoolId: this.state.schoolId*1 || null
+      schoolId: this.state.schoolId || null
     }
     this.props.createStudent(student)
   }
@@ -86,7 +86,7 @@ class StudentsCreate extends Component {
 const mapStateToProps = ({ schools }, { match } )=> {
   return {
     schools,
-    schoolId: match.params.schoolId*1,
+    schoolId: match.params.schoolId,
   };
 };
 

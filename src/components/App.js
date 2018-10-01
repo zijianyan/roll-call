@@ -12,6 +12,7 @@ import StudentsCreate from './StudentsCreate';
 import SchoolsCreate from './SchoolsCreate';
 import School from './School';
 import Student from './Student';
+import NewStudents from './NewStudents';
 
 class App extends Component {
   constructor() {

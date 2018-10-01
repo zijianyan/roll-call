@@ -75,15 +75,15 @@ class School extends Component {
         <h3>Edit School</h3>
         <form onSubmit={handleSubmit}>
           <div>
-            <label for='school-name'>Name</label>
+            <label htmlFor='school-name'>Name</label>
             <input id='school-name' name='name' placeholder='School Name' value={name} onChange={handleChange}/>
           </div>
           <div>
-            <label for='school-address'>Address</label>
+            <label htmlFor='school-address'>Address</label>
             <input id='school-address' name='address' placeholder='Address' value={address} onChange={handleChange}/>
           </div>
           <div>
-            <label for='school-description'>Description</label>
+            <label htmlFor='school-description'>Description</label>
             <textarea id='school-description' name='description' placeholder='Description' value={description} onChange={handleChange}>
             </textarea>
           </div>
@@ -140,9 +140,9 @@ School.propTypes = {
 const mapStateToProps = ({ schools, students }, { match })=> {
   return {
     schools,
-    school: getSchool(schools, match.params.id*1),
-    otherStudents: students.filter (student => student.schoolId !== match.params.id*1),
-    enrolledStudents: findEnrolled(students, match.params.id*1)
+    school: getSchool(schools, match.params.id), //remove *1 typecoercion if using UUID for all match.params.id's
+    otherStudents: students.filter (student => student.schoolId !== match.params.id),
+    enrolledStudents: findEnrolled(students, match.params.id)
   };
 };
 

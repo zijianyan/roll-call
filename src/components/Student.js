@@ -42,7 +42,7 @@ class Student extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       gpa: this.state.gpa*1,
-      schoolId: this.state.schoolId*1 || null
+      schoolId: this.state.schoolId || null
     };
     this.props.updateStudent(student);
   }
@@ -111,7 +111,7 @@ class Student extends Component {
 
 
 const mapStateToProps = ({ students, schools }, { match })=> {
-  const student = getStudent(students, match.params.id*1);
+  const student = getStudent(students, match.params.id); //remove *1 type coercion if using UUID
   // if (student) {
   //   const school = getSchool(schools, student.schoolId);
   // }

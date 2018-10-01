@@ -270,11 +270,8 @@ describe('senior enrichment project', ()=> {
 
 //Color University seems like the best option right now
 
+
 //maybe a newsfeed
-
-
-
-
 
 
 //data list in School for students?
