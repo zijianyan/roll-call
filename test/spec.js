@@ -243,8 +243,8 @@ describe('senior enrichment project', ()=> {
 
   describe('mapper and utility functions', ()=> {
 
-    describe('findStudents', ()=> {
-      it('finds the students enrolled in a school', ()=> {}); // don't think i actually need this one, students are eagerloaded with school
+    describe('findEnrolled', ()=> {
+      it('finds the students enrolled in a school', ()=> {});
     });
 
     describe('findUnenrolledStudents', ()=> {

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk } from '../store/thunks';
 
-import { getSchool, findEnrolled } from '../utils';
+import { getSchool, findEnrolled, findOtherStudents } from '../utils';
 
 import SchoolForm from './SchoolForm';
 
@@ -134,7 +134,8 @@ const mapStateToProps = ({ schools, students }, { match })=> {
   return {
     schools,
     school: getSchool(schools, match.params.id), //remove *1 typecoercion if using UUID for all match.params.id's
-    otherStudents: students.filter (student => student.schoolId !== match.params.id),
+    otherStudents: findOtherStudents(students, match.params.id),
+    // otherStudents: students.filter (student => student.schoolId !== match.params.id),
     enrolledStudents: findEnrolled(students, match.params.id)
   };
 };
