@@ -6,6 +6,8 @@ const conn = new Sequelize(process.env.DATABASE_URL, {
 
 const faker = require('faker');
 
+const axios = require('axios');
+
 const randomSchoolNoun = ()=> {
   const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'Clinic', 'Association', 'League', 'Division', 'Department', 'Camp', 'Club', 'Society', 'Foundation', 'Conservatory'];
   const index = Math.floor(Math.random() * schoolNouns.length);
@@ -69,6 +71,12 @@ const Student = conn.define('student', {
   },
   gpa: {
     type: Sequelize.FLOAT //will change to FLOAT or another data type later
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    validate: {
+      isUrl: true
+    }
   }
 }, {
   hooks: {
@@ -97,7 +105,12 @@ School.createRandom = function() {
 };
 
 Student.createRandom = function() {
-  return Student.create({ firstName: faker.name.firstName(), lastName: faker.name.lastName(), gpa: Math.ceil(Math.random()*4) })
+  return axios.get('https://randomuser.me/api/')
+    .then(res => res.data)
+    .then(data => data.results[0].picture.large)
+    .then(imageUrl => Student.create({ firstName: faker.name.firstName(), lastName: faker.name.lastName(), gpa: Math.ceil(Math.random()*4), imageUrl }))
+
+  // return Student.create({ firstName: faker.name.firstName(), lastName: faker.name.lastName(), gpa: Math.ceil(Math.random()*4) })
 }
 
 const syncAndSeed = async ()=> {

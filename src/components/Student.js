@@ -72,7 +72,7 @@ class Student extends Component {
         
         <h3>Student Image</h3>
         <div id='student-image-container'>
-          <img src={school.imageUrl} id='student-image'/>
+          <img src={student.imageUrl} id='student-image'/>
         </div>
 
         <h3>Edit Student</h3>
@@ -109,9 +109,10 @@ class Student extends Component {
 
 
 const mapStateToProps = ({ students, schools }, { match })=> {
+  const student = getStudent(students, match.params.id*1);
   return {
-    student: getStudent(students, match.params.id*1),
-    school: getSchool(schools, getStudent(students, match.params.id*1).schoolId),
+    student,
+    school: getSchool(schools, student),
     schools
   };
 };
