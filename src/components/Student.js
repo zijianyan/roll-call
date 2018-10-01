@@ -113,14 +113,7 @@ class Student extends Component {
 
 
 const mapStateToProps = ({ students, schools }, { match })=> {
-  const student = getStudent(students, match.params.id); //remove *1 type coercion if using UUID
-  // if (student) {
-  //   const school = getSchool(schools, student.schoolId);
-  // }
-  // const school = student ? getSchool(schools, student.schoolId) : null
-  // console.log('Student, mapStateToProps, schools:', schools);
-  // console.log('Student, mapStateToProps, match.params.id*1:', match.params.id*1);
-  // console.log('Student, mapStateToProps, school:', school);
+  const student = getStudent(students, match.params.id);
   return {
     student,
     school: student ? getSchool(schools, student.schoolId) : null,

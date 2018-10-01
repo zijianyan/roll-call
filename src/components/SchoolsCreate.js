@@ -7,7 +7,6 @@ import { createSchool_thunk, createSchoolRandom_thunk } from '../store/thunks';
 import SchoolForm from './SchoolForm';
 
 
-
 class SchoolsCreate extends Component {
   constructor() {
     super();

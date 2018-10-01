@@ -1,7 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-
 
 const SchoolInfo = ({ school })=> {
   return (
@@ -17,11 +14,4 @@ const SchoolInfo = ({ school })=> {
   );
 };
 
-const mapStateToProps = ()=> {
-  return {
-
-  };
-};
-
-
-export default connect(mapStateToProps)(SchoolInfo);
+export default SchoolInfo;
