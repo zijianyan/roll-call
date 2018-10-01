@@ -252,11 +252,6 @@ describe('senior enrichment project', ()=> {
 
 
 
-//disable save button if forms are empty
-
-
-
-//maybe a newsfeed
 
 
 //data list in School for students?
@@ -264,5 +259,8 @@ describe('senior enrichment project', ()=> {
 //error handling/validation
 
 
- //TODO: 2018-09-30 - add validation, a proper address format, use a range for the GPA.
+ //TODO: 2018-09-30 - add validation, a proper address format
 
+//DRY up forms into components
+
+//maybe create components to simplify School and Student

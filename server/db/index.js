@@ -68,13 +68,21 @@ const Student = conn.define('student', {
     primaryKey: true
   },
   firstName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   lastName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   gpa: {
-    type: Sequelize.FLOAT //will change to FLOAT or another data type later
+    type: Sequelize.FLOAT
   },
   imageUrl: {
     type: Sequelize.STRING,

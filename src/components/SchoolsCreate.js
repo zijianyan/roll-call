@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { createSchool_thunk, createSchoolRandom_thunk } from '../store/thunks';
 
+import SchoolForm from './SchoolForm';
+
 class SchoolsCreate extends Component {
   constructor() {
     super();
@@ -34,25 +36,22 @@ class SchoolsCreate extends Component {
   }
 
   render() {
-    const { name, address, description } = this.state;
     const { handleChange, handleSubmit } = this;
-    const { createSchoolRandom } = this.props;
+    const { name, address, description } = this.state;
+    
+    const { createSchoolRandom, history } = this.props;
     const isEmpty = name || address || description ? false : true;
     return (
       <Fragment>
         <h2>Create A School</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <input name='name' value={name} placeholder='Name' onChange={handleChange}/>
-          </div>
-          <div>
-            <input name='address' value={address} placeholder='Address' onChange={handleChange}/>
-          </div>
-          <div>
-            <input name='description' value={description} placeholder='Description' onChange={handleChange}/>
-          </div>
-          <button disabled={isEmpty}>Save</button>
-        </form>
+
+
+        
+        <SchoolForm type='create' history={history}/>
+
+
+
+   
         <hr/>
         <button onClick={createSchoolRandom}>Create Random School</button>
       </Fragment>
@@ -62,10 +61,6 @@ class SchoolsCreate extends Component {
 
 const mapDispatchToProps = (dispatch, { history })=> {
   return {
-    createSchool: (school)=> {
-      dispatch(createSchool_thunk(school));
-      history.push('/schools');
-    },
     createSchoolRandom: ()=> {
       dispatch(createSchoolRandom_thunk())
       history.push('/schools');
@@ -74,3 +69,5 @@ const mapDispatchToProps = (dispatch, { history })=> {
 };
 
 export default connect(null, mapDispatchToProps)(SchoolsCreate);
+
+

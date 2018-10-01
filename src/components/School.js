@@ -49,9 +49,12 @@ class School extends Component {
 
 
   render() {
-    const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, enrolledStudents } = this.props;
     const { handleChange, handleSubmit } = this;
     const { name, address, description } = this.state;
+
+    const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, enrolledStudents } = this.props;
+    
+    const isEmpty = name || address || description ? false : true;
 
     if (!school) {
       return (
@@ -94,7 +97,7 @@ class School extends Component {
             <textarea id='school-description' name='description' placeholder='Description' value={description} onChange={handleChange}>
             </textarea>
           </div>
-          <button>Save</button>
+          <button disabled={isEmpty}>Save</button>
         </form>
 
 
@@ -159,9 +162,6 @@ const mapDispatchToProps = (dispatch, { match, history })=> {
     deleteSchool: (school)=> {
       dispatch(deleteSchool_thunk(school));
       history.push('/schools');
-    },
-    updateStudent: (student)=> {
-      dispatch(updateStudent_thunk(student));
     },
     unenrollStudent: (student)=> {
       const _student = {...student, schoolId: null};

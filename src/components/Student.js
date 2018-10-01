@@ -51,6 +51,9 @@ class Student extends Component {
     const { student, deleteStudent, schools, school, unenroll } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
+
+    const isEmpty = firstName && lastName ? false : true;
+
     if (!student) {
       return (
         <div>
@@ -99,7 +102,7 @@ class Student extends Component {
               }
             </select>
           </div>
-          <button>Save</button>
+          <button disabled={isEmpty}>Save</button>
         </form>
         <hr/>
         <button onClick={()=> deleteStudent(student)}>Delete Student</button>
