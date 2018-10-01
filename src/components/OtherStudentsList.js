@@ -32,17 +32,17 @@ const OtherStudentsList = ({ otherStudents, enrollStudent, schools })=> {
   );
 };
 
-const mapStateToProps = ({ students, schools }, { match }) => {
+const mapStateToProps = ({ students, schools }, { schoolId }) => {
   return {
-    otherStudents: findOtherStudents(students, match.params.id),
+    otherStudents: findOtherStudents(students, schoolId),
     schools
   };
 };
 
-const mapDispatchToProps = (dispatch, { match })=> {
+const mapDispatchToProps = (dispatch, { schoolId })=> {
   return {
     enrollStudent: (student)=> {
-      const _student = {...student, schoolId: match.params.id};
+      const _student = {...student, schoolId };
       dispatch(updateStudent_thunk(_student));
     }
   };
