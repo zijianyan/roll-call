@@ -254,21 +254,6 @@ describe('senior enrichment project', ()=> {
 
 //disable save button if forms are empty
 
-//use unsplash photo API
-//or lightweight version: https://source.unsplash.com/random?water
-
-//use faker, chance, or similar api to generate random adjectives that will most likely retrieve relevant photos
-//account for edge case in which an adjective search term may return no results
-
-//some ideas for adjectives: color, state or city, 
-
-//create an array of synonyms for 'college', 'school', 'university' etc.
-
-//use random user API for students: https://github.com/RandomAPI/Randomuser.me-Node
-
-
-
-//Color University seems like the best option right now
 
 
 //maybe a newsfeed
@@ -276,7 +261,7 @@ describe('senior enrichment project', ()=> {
 
 //data list in School for students?
 
-
+//error handling/validation
 
 
  //TODO: 2018-09-30 - add validation, a proper address format, use a range for the GPA.

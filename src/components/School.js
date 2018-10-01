@@ -70,8 +70,15 @@ class School extends Component {
         </div>
         <h3>Address</h3>
         <p>{school.address}</p>
-        <h3>Description</h3>
-        <p>{school.description}</p>
+
+        {
+          school.description
+            ? (<div><h3>Description</h3>
+              <p>{school.description}</p></div>)
+            : null
+        }
+
+
         <h3>Edit School</h3>
         <form onSubmit={handleSubmit}>
           <div>

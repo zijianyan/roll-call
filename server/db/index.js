@@ -41,11 +41,7 @@ const School = conn.define('school', {
     }
   },
   description: {
-    type: Sequelize.TEXT,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.TEXT
   },
   imageUrl: {
     type: Sequelize.STRING,

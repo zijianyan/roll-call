@@ -37,6 +37,7 @@ class SchoolsCreate extends Component {
     const { name, address, description } = this.state;
     const { handleChange, handleSubmit } = this;
     const { createSchoolRandom } = this.props;
+    const isEmpty = name || address || description ? false : true;
     return (
       <Fragment>
         <h2>Create A School</h2>
@@ -50,10 +51,10 @@ class SchoolsCreate extends Component {
           <div>
             <input name='description' value={description} placeholder='Description' onChange={handleChange}/>
           </div>
-          <button>Save</button>
+          <button disabled={isEmpty}>Save</button>
         </form>
         <hr/>
-          <button onClick={createSchoolRandom}>Create Random School</button>
+        <button onClick={createSchoolRandom}>Create Random School</button>
       </Fragment>
     );
   }

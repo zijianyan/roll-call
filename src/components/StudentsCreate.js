@@ -46,6 +46,7 @@ class StudentsCreate extends Component {
     const { schools, createStudentRandom } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
+    const isEmpty = firstName && lastName ? false : true;
     return (
       <div>
         <h2>Create A Student</h2>
@@ -73,7 +74,7 @@ class StudentsCreate extends Component {
               }
             </select>
           </div>
-          <button>Save</button> 
+          <button disabled={isEmpty}>Save</button> 
         </form>
         <hr/>
         <button onClick={createStudentRandom}>Create Random Student</button>
