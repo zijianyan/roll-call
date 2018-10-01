@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
+
 import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk } from '../store/thunks';
-
 import { getSchool, findEnrolled, findOtherStudents } from '../utils';
-
 import SchoolForm from './SchoolForm';
 
 class School extends Component {
@@ -18,40 +15,39 @@ class School extends Component {
       address: '',
       description: ''
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /*LIFECYCLE METHODS*/
   componentDidMount() {
     this.setState(this.props.school);
   }
-
   componentDidUpdate(prevProps) {
     if (prevProps.school !== this.props.school) {
       this.setState(this.props.school);
     }
   }
 
-  handleChange(ev) {
-    this.setState({ [ev.target.name]: ev.target.value });
-  }
+  // /*FORM HANDLERS*/
+  // handleChange(ev) {
+  //   this.setState({ [ev.target.name]: ev.target.value });
+  // }
+  // handleSubmit(ev) {
+  //   ev.preventDefault();
+  //   const school = {
+  //     id: this.props.school.id,
+  //     name: this.state.name,
+  //     address: this.state.address,
+  //     description: this.state.description
+  //   };
+  //   this.props.updateSchool(school);
+  // }
 
-  handleSubmit(ev) {
-    ev.preventDefault();
-    const school = {
-      id: this.props.school.id,
-      name: this.state.name,
-      address: this.state.address,
-      description: this.state.description
-    };
-    this.props.updateSchool(school);
-  }
-
-
-
+  /*RENDER*/
   render() {
-    const { handleChange, handleSubmit } = this;
-    const { name, address, description } = this.state;
+    // const { handleChange, handleSubmit } = this;
+    // const { name, address, description } = this.state;
 
     const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, enrolledStudents, history } = this.props;
     
@@ -133,9 +129,8 @@ School.propTypes = {
 const mapStateToProps = ({ schools, students }, { match })=> {
   return {
     schools,
-    school: getSchool(schools, match.params.id), //remove *1 typecoercion if using UUID for all match.params.id's
+    school: getSchool(schools, match.params.id),
     otherStudents: findOtherStudents(students, match.params.id),
-    // otherStudents: students.filter (student => student.schoolId !== match.params.id),
     enrolledStudents: findEnrolled(students, match.params.id)
   };
 };
@@ -168,4 +163,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(School);
 
 
 
-              // <input name='description' placeholder='Description' value={description} onChange={handleChange}/>

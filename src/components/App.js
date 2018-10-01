@@ -14,8 +14,6 @@ import School from './School';
 import Student from './Student';
 // import NewStudents from './NewStudents';
 import Footer from './Footer';
-
-
 import AppBar from './AppBar';
 
 
@@ -68,7 +66,7 @@ App.propTypes = {
 };
 
 
-const mapDispatchToProps = (dispatch, { hs})=> {
+const mapDispatchToProps = (dispatch)=> {
   return {
     init: ()=> {
       dispatch(loadSchools_thunk());

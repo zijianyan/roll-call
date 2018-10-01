@@ -1,5 +1,6 @@
 import { _loadSchools, _deleteSchool, _createSchool, _updateSchool } from './actionCreators';
 import { _loadStudents, _deleteStudent, _createStudent, _updateStudent } from './actionCreators';
+
 import axios from 'axios';
 
 /*SCHOOLS*/
@@ -41,28 +42,23 @@ export const loadStudents_thunk = ()=>
       .then(res => res.data)
       .then(students => dispatch(_loadStudents(students)));
   };
-
 export const deleteStudent_thunk = student => 
   dispatch => {
     axios.delete(`/api/students/${student.id}`)
       .then(()=> dispatch(_deleteStudent(student)));
   };
-
 export const createStudent_thunk = student => 
   dispatch => {
     axios.post('/api/students', student)
       .then(res => res.data)
       .then(student => dispatch(_createStudent(student)));
   };
-
-
 export const createStudentRandom_thunk = ()=>
   dispatch => {
     axios.post('/api/students/random')
       .then(res => res.data)
       .then(student => dispatch(_createStudent(student)));
   };
-
 export const updateStudent_thunk = student =>
   dispatch => {
     axios.put(`/api/students/${student.id}`, student)

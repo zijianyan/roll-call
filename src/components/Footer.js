@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import { reset_thunk } from '../store/thunks';
 
 const Footer = ({ reset })=> {
@@ -10,8 +8,8 @@ const Footer = ({ reset })=> {
       <hr/>
       <button onClick={reset}>Reset Server</button>
     </div>
-  )
-}
+  );
+};
 
 const mapDispatchToProps = (dispatch, { history })=> {
   return {
@@ -19,7 +17,7 @@ const mapDispatchToProps = (dispatch, { history })=> {
       dispatch(reset_thunk());
       history.push('/');
     }
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(Footer);
