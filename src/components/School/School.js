@@ -10,6 +10,7 @@ import SchoolInfo from './SchoolInfo';
 import EnrolledStudentsList from './EnrolledStudentsList';
 import OtherStudentsList from './OtherStudentsList';
 
+
 const School = ({ school, history, deleteSchool })=> {
   if (!school) {
     return (

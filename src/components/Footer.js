@@ -2,11 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reset_thunk } from '../store/thunks';
 
+
+import { Button } from '@material-ui/core'
+
+
+
 const Footer = ({ reset })=> {
   return (
     <div>
       <hr/>
-      <button onClick={reset}>Reset Server</button>
+      <Button onClick={reset} align='right'>Reset Server</Button>
     </div>
   );
 };

@@ -252,22 +252,6 @@ describe('senior enrichment project', ()=> {
 
 
 
-
-
-
-//separate out actionTypes, reducers, actionCreators, and thunks for schools and students
-
-//maybe in a thunks folder, use an index.js file with this syntax:
-
-// export {default as Comp1} from './Comp1.jsx';
-// export {default as Comp2} from './Comp2.jsx';
-// export {default as Comp3} from './Comp3.jsx';
-
-//that ponts to separate studentThunks and schoolThunks files
-
-
-//StudentForm component
-
 //separate db file into conn and models
 
 //full Address, City, State, Zipcode fields for School

@@ -12,7 +12,18 @@ import SchoolsCreate from './SchoolsCreate';
 import School from './School';
 import Student from './Student';
 import Footer from './Footer';
-import AppBar from './AppBar';
+
+import { Typography, Paper } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  root: {
+    margin: 20,
+    padding: 20,
+    maxWidth: 800
+  }
+};
+
 
 class App extends Component {
   constructor() {
@@ -24,27 +35,30 @@ class App extends Component {
   }
 
   render() {
-    const { reset } = this.props;
+    const { classes } = this.props;
     return (
       <Fragment>
-        <AppBar />
-        <Router>
-          <Fragment>
-            <Nav />
-            <Route exact path='/schools' component={SchoolsList}/>
-            <Route exact path='/students' component={StudentsList}/>
-            <Switch>
-              <Route path='/schools/create' component={SchoolsCreate}/>
-              <Route path='/schools/:id' component={School}/>
-            </Switch>
-            <Switch>
-              <Route path='/students/create/:schoolId' component={StudentsCreate}/>
-              <Route path='/students/create' component={StudentsCreate}/>
-              <Route path='/students/:id' component={Student}/>
-            </Switch>
-            <Route path ='/' component={Footer}/>
-          </Fragment>
-        </Router>
+        <Paper className={classes.root}>
+          <Typography variant='display2' align='center' gutterBottom>Acme Schools and Students</Typography>
+
+          <Router>
+            <Fragment>
+              <Nav />
+              <Route exact path='/schools' component={SchoolsList}/>
+              <Route exact path='/students' component={StudentsList}/>
+              <Switch>
+                <Route path='/schools/create' component={SchoolsCreate}/>
+                <Route path='/schools/:id' component={School}/>
+              </Switch>
+              <Switch>
+                <Route path='/students/create/:schoolId' component={StudentsCreate}/>
+                <Route path='/students/create' component={StudentsCreate}/>
+                <Route path='/students/:id' component={Student}/>
+              </Switch>
+              <Route path ='/' component={Footer}/>
+            </Fragment>
+          </Router>
+        </Paper>
       </Fragment>
     );
   }
@@ -62,4 +76,4 @@ const mapDispatchToProps = (dispatch)=> {
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(App));

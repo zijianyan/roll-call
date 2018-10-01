@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 import StudentForm from './StudentForm';
 
-
 const Student = ({ student, deleteStudent, school, unenroll, history })=> {
   if (!student) {
     return (
@@ -41,8 +40,7 @@ const mapStateToProps = ({ students, schools }, { match })=> {
   const student = getStudent(students, match.params.id);
   return {
     student,
-    school: student ? getSchool(schools, student.schoolId) : null,
-    schools
+    school: student ? getSchool(schools, student.schoolId) : null
   };
 };
 

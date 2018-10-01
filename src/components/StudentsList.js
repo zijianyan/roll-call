@@ -6,6 +6,8 @@ import { deleteStudent_thunk } from '../store/thunks';
 
 import { getSchool } from '../utils';
 
+
+
 const StudentsList = ({ students, deleteStudent, schools })=> {
   return (
     <Fragment>
