@@ -15,6 +15,12 @@ import Student from './Student';
 // import NewStudents from './NewStudents';
 import Footer from './Footer';
 
+
+import AppBar from './AppBar';
+
+
+
+
 class App extends Component {
   constructor() {
     super();
@@ -27,10 +33,8 @@ class App extends Component {
   render() {
     const { reset } = this.props;
     return (
-      <div>
-        <h1>Acme Schools and Students</h1>
-
-        <hr />
+      <Fragment>
+        <AppBar />
         <Router>
           <Fragment>
             <Nav />
@@ -48,7 +52,7 @@ class App extends Component {
             <Route path ='/' component={Footer}/>
           </Fragment>
         </Router>
-      </div>
+      </Fragment>
     );
   }
 }

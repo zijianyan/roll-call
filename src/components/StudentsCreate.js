@@ -7,6 +7,11 @@ import { createStudent_thunk, createStudentRandom_thunk } from '../store/thunks'
 
 import { getSchool } from '../utils';
 
+
+import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+
+
 class StudentsCreate extends Component {
 
   constructor() {
@@ -49,6 +54,7 @@ class StudentsCreate extends Component {
     const isEmpty = firstName && lastName ? false : true;
     return (
       <div>
+        <Input placeholder='Test firstName...' value={firstName}/>
         <h2>Create A Student</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -106,9 +112,3 @@ const mapDispatchToProps = (dispatch, { history })=> {
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreate);
 
-
-
-
-          // <div>
-          //   <input name='gpa' value={gpa} placeholder='GPA' onChange={handleChange}/>
-          // </div>

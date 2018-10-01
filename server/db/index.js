@@ -10,7 +10,7 @@ const axios = require('axios');
 
 
 const randomSchoolNoun = ()=> {
-  const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'League', 'Division', 'Camp', 'Club', 'Society', 'Foundation', 'Conservatory'];
+  const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'League', 'Division', 'Camp', 'Society', 'Foundation', 'Conservatory'];
   const index = Math.floor(Math.random() * schoolNouns.length);
   return schoolNouns[index];
 };
@@ -116,7 +116,6 @@ School.createRandom = function() {
 
 Student.createRandom = function() {
   const female = Math.floor(Math.random()*2);
-
   return axios.get( female 
     ? 'https://randomuser.me/api/?results=1&nat=US&gender=female'
     : 'https://randomuser.me/api/?results=1&nat=US&gender=male'
@@ -139,57 +138,55 @@ const createStudents = (num)=> {
 }
 
 const syncAndSeed = async ()=> {
-
-  await conn.sync({
-    force: true
-  });
-
+  await conn.sync({ force: true });
   const [ sch01, sch02, sch03 ] = await Promise.all(createSchools(3));
-
-
-  /* FOR TESTING
-  // const [ sch01, sch02, sch03 ] = await Promise.all([
-  //   School.create({
-  //     name: 'NYU',
-  //     address: '12345 Broadway, New York, NY 12345',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  //   }),
-  //   School.create({
-  //     name: 'USC',
-  //     address: '12345 Pacific Hwy, Los Angeles, CA 12345',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  //   }),
-  //   School.create({
-  //     name: 'BU',
-  //     address: '12345 Main St, Boston, MA 12345',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  //   })
-  // ]);
-  */
-
-  const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all(createStudents(5));
-
-  /* FOR TESTING
-  // const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all([
-  //   Student.create({ firstName: 'Jane', lastName: 'Jackson', gpa: 4 }),
-  //   Student.create({ firstName: 'Avery', lastName: 'Alvarez', gpa: 3 }),
-  //   Student.create({ firstName: 'Sam', lastName: 'Smith', gpa: 4 }),
-  //   Student.create({ firstName: 'Leo', lastName: 'Lee', gpa: 2 }),
-  //   Student.create({ firstName: 'Nadia', lastName: 'Newson', gpa: 3 })
-  // ]);
-  */
-
+  const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all(createStudents(10));
   await Promise.all([
     stu01.setSchool(sch01),
     stu02.setSchool(sch02),
     stu03.setSchool(sch03),
     stu04.setSchool(sch01)
   ]);
+};
 
+
+const syncAndSeedTest = async ()=> {
+  await conn.sync({ force: true });
+  const [ sch01, sch02, sch03 ] = await Promise.all([
+    School.create({
+      name: 'NYU',
+      address: '12345 Broadway, New York, NY 12345',
+      description: faker.lorem.paragraphs(3)
+    }),
+    School.create({
+      name: 'USC',
+      address: '12345 Pacific Hwy, Los Angeles, CA 12345',
+      description: faker.lorem.paragraphs(3)
+    }),
+    School.create({
+      name: 'BU',
+      address: '12345 Main St, Boston, MA 12345',
+      description: faker.lorem.paragraphs(3)
+    })
+  ]);
+  const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all([
+    Student.create({ firstName: 'Jane', lastName: 'Jackson', gpa: 4 }),
+    Student.create({ firstName: 'Avery', lastName: 'Alvarez', gpa: 3 }),
+    Student.create({ firstName: 'Sam', lastName: 'Smith', gpa: 4 }),
+    Student.create({ firstName: 'Leo', lastName: 'Lee', gpa: 2 }),
+    Student.create({ firstName: 'Nadia', lastName: 'Newson', gpa: 3 })
+  ]);
+  await Promise.all([
+    stu01.setSchool(sch01),
+    stu02.setSchool(sch02),
+    stu03.setSchool(sch03),
+    stu04.setSchool(sch01)
+  ]);
 };
 
 module.exports = {
   syncAndSeed,
+  syncAndSeedTest,
   models: {
     Student,
     School

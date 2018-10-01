@@ -7,6 +7,8 @@ import { createSchool_thunk, createSchoolRandom_thunk } from '../store/thunks';
 
 import SchoolForm from './SchoolForm';
 
+
+
 class SchoolsCreate extends Component {
   constructor() {
     super();
@@ -39,7 +41,6 @@ class SchoolsCreate extends Component {
     const { createSchoolRandom, history } = this.props;
     return (
       <Fragment>
-      
         <h2>Create A School</h2>
         <SchoolForm type='create' history={history}/>
    
