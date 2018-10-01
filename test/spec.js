@@ -246,16 +246,14 @@ describe('senior enrichment project', ()=> {
 
 
 
-//full Address, City, State, Zipcode fields for School
-//StudentForm component
-//data list in School for students
+
+
 //material UI
-//error handling/validation
 
 
 
-//separate db file into conn and models
-//create separate test syncing and seeding file
+
+
 
 //separate out actionTypes, reducers, actionCreators, and thunks for schools and students
 
@@ -266,3 +264,14 @@ describe('senior enrichment project', ()=> {
 // export {default as Comp3} from './Comp3.jsx';
 
 //that ponts to separate studentThunks and schoolThunks files
+
+
+//StudentForm component
+
+//separate db file into conn and models
+
+//full Address, City, State, Zipcode fields for School
+
+//data list in School for students
+
+//error handling/validation
