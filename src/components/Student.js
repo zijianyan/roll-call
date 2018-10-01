@@ -52,6 +52,8 @@ class Student extends Component {
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
 
+    console.log('Student, school:', school);
+
     if (!student) {
       return (
         <div>
@@ -110,9 +112,16 @@ class Student extends Component {
 
 const mapStateToProps = ({ students, schools }, { match })=> {
   const student = getStudent(students, match.params.id*1);
+  // if (student) {
+  //   const school = getSchool(schools, student.schoolId);
+  // }
+  // const school = student ? getSchool(schools, student.schoolId) : null
+  // console.log('Student, mapStateToProps, schools:', schools);
+  // console.log('Student, mapStateToProps, match.params.id*1:', match.params.id*1);
+  // console.log('Student, mapStateToProps, school:', school);
   return {
     student,
-    school: getSchool(schools, student),
+    school: student ? getSchool(schools, student.schoolId) : null,
     schools
   };
 };

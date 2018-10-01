@@ -9,7 +9,7 @@ const faker = require('faker');
 const axios = require('axios');
 
 const randomSchoolNoun = ()=> {
-  const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'Clinic', 'Association', 'League', 'Division', 'Department', 'Camp', 'Club', 'Society', 'Foundation', 'Conservatory'];
+  const schoolNouns = ['School', 'College', 'University', 'Institute', 'Academy', 'Guild', 'Clinic', 'Association', 'League', 'Division', 'Camp', 'Club', 'Society', 'Foundation', 'Conservatory'];
   const index = Math.floor(Math.random() * schoolNouns.length);
   return schoolNouns[index];
 };
@@ -51,14 +51,16 @@ const School = conn.define('school', {
   hooks: {
     beforeCreate: (school)=> {
       school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
-      const firstWord = school.name.split(' ')[0]
-      school.imageUrl = `http://source.unsplash.com/random?${firstWord}`
+      // const firstWord = school.name.split(' ')[0]
+      // school.imageUrl = `http://source.unsplash.com/random?${firstWord}`
+      school.imageUrl = `http://source.unsplash.com/random?$random`
+
     },
-    beforeUpdate: (school)=> {
-      school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
-      const firstWord = school.name.split(' ')[0]
-      school.imageUrl = `http://source.unsplash.com/random?${firstWord}`
-    }
+    // beforeUpdate: (school)=> {
+    //   school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
+    //   const firstWord = school.name.split(' ')[0]
+    //   // school.imageUrl = `http://source.unsplash.com/random?${firstWord}`
+    // }
   }
 });
 
@@ -97,7 +99,7 @@ School.hasMany(Student);
 
 School.createRandom = function() {
   return School.create({
-    name: `${faker.commerce.color()} ${randomSchoolNoun()}`,
+    name: `${faker.address.city()} ${randomSchoolNoun()}`,
     address: faker.address.streetAddress(),
     description: faker.lorem.paragraph(),
     imageUrl: `http://source.unsplash.com/random?`
@@ -105,12 +107,15 @@ School.createRandom = function() {
 };
 
 Student.createRandom = function() {
-  return axios.get('https://randomuser.me/api/')
-    .then(res => res.data)
-    .then(data => data.results[0].picture.large)
-    .then(imageUrl => Student.create({ firstName: faker.name.firstName(), lastName: faker.name.lastName(), gpa: Math.ceil(Math.random()*4), imageUrl }))
+  const female = Math.floor(Math.random()*2);
 
-  // return Student.create({ firstName: faker.name.firstName(), lastName: faker.name.lastName(), gpa: Math.ceil(Math.random()*4) })
+  return axios.get( female 
+    ? 'https://randomuser.me/api/?results=1&nat=US&gender=female'
+    : 'https://randomuser.me/api/?results=1&nat=US&gender=male'
+  )
+    .then(res => res.data)
+    .then(data => data.results[0])
+    .then(student => Student.create({ firstName: student.name.first, lastName: student.name.last, gpa: (Math.random()*(4-2.7)+2.7).toFixed(2), imageUrl: student.picture.large }));
 }
 
 const syncAndSeed = async ()=> {
