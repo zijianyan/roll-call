@@ -51,9 +51,6 @@ class Student extends Component {
     const { student, deleteStudent, schools, school, unenroll } = this.props;
     const { firstName, lastName, gpa, schoolId } = this.state;
     const { handleChange, handleSubmit } = this;
-
-    console.log('Student, school:', school);
-
     if (!student) {
       return (
         <div>
@@ -66,17 +63,17 @@ class Student extends Component {
       <div>
         
         <h2>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</h2>
+
+        <div id='student-image-container'>
+          <img src={student.imageUrl} id='student-image'/>
+        </div>
+
         {
           school
             ? (<p>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link> <button onClick={()=> unenroll(student)}>Unenroll</button></p>)
             : 'Not enrolled'
         }
         
-        <h3>Student Image</h3>
-        <div id='student-image-container'>
-          <img src={student.imageUrl} id='student-image'/>
-        </div>
-
         <h3>Edit Student</h3>
 
         <form onSubmit={handleSubmit}>

@@ -51,8 +51,6 @@ const School = conn.define('school', {
   hooks: {
     beforeCreate: (school)=> {
       school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
-      // const firstWord = school.name.split(' ')[0]
-      // school.imageUrl = `http://source.unsplash.com/random?${firstWord}`
       school.imageUrl = `http://source.unsplash.com/random?$random`
 
     },
@@ -85,6 +83,7 @@ const Student = conn.define('student', {
     beforeCreate: (student)=> {
       student.firstName = student.firstName.slice(0,1).toUpperCase() + student.firstName.slice(1, student.firstName.length);
       student.lastName = student.lastName.slice(0,1).toUpperCase() + student.lastName.slice(1, student.lastName.length);
+      !student.imageUrl ? student.imageUrl = 'http://source.unsplash.com/random?animal' : null
     },
     beforeUpdate: (student)=> {
       student.firstName = student.firstName.slice(0,1).toUpperCase() + student.firstName.slice(1, student.firstName.length);

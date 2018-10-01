@@ -56,9 +56,13 @@ class StudentsCreate extends Component {
           <div>
             <input name='lastName' value={lastName} placeholder='Last Name' onChange={handleChange}/>
           </div>
+          
           <div>
-            <input name='gpa' value={gpa} placeholder='GPA' onChange={handleChange}/>
+            <input type='range' min='0' max='4' step='.01' name='gpa' value={gpa} onChange={handleChange}/>
+            GPA: {gpa}
           </div>
+
+
           <div>
             <select name='schoolId' value={schoolId} onChange={handleChange}>
               <option value=''>--no school--</option>
@@ -94,3 +98,10 @@ const mapDispatchToProps = (dispatch, { history })=> {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreate);
+
+
+
+
+          // <div>
+          //   <input name='gpa' value={gpa} placeholder='GPA' onChange={handleChange}/>
+          // </div>
