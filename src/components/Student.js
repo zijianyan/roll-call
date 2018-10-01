@@ -5,6 +5,8 @@ import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { getSchool, getStudent } from '../utils';
 import { Link } from 'react-router-dom';
 
+import StudentForm from './StudentForm';
+
 class Student extends Component {
   constructor(props) {
     super(props);
@@ -78,31 +80,11 @@ class Student extends Component {
         
         <h3>Edit Student</h3>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <input name='firstName' value={firstName} onChange={handleChange} placeholder='First Name'/>
-          </div>
-          <div>
-            <input name='lastName' value={lastName} onChange={handleChange} placeholder='Last Name'/>
-          </div>
+        <StudentForm type='update' student={student}/>
 
-          <div>
-            <input name='gpa' type='range' value={gpa} min='0' max='4' step='.01' onChange={handleChange}/>
-            GPA: {gpa}
-          </div>
 
-          <div>
-            <select name='schoolId' value={schoolId || ''} onChange={handleChange}>
-              <option value=''>--no school--</option>
-              {
-                schools.map( school => 
-                  <option key={school.id} value={school.id}>{school.name}</option>
-                )
-              }
-            </select>
-          </div>
-          <button disabled={isEmpty}>Save</button>
-        </form>
+
+
         <hr/>
         <button onClick={()=> deleteStudent(student)}>Delete Student</button>
       </div>
@@ -138,3 +120,30 @@ const mapDispatchToProps = (dispatch, { history })=> {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Student);
 
+
+
+
+
+        // <form onSubmit={handleSubmit}>
+        //   <div>
+        //     <input name='firstName' value={firstName} onChange={handleChange} placeholder='First Name'/>
+        //   </div>
+        //   <div>
+        //     <input name='lastName' value={lastName} onChange={handleChange} placeholder='Last Name'/>
+        //   </div>
+        //   <div>
+        //     <input name='gpa' type='range' value={gpa} min='0' max='4' step='.01' onChange={handleChange}/>
+        //     GPA: {gpa}
+        //   </div>
+        //   <div>
+        //     <select name='schoolId' value={schoolId || ''} onChange={handleChange}>
+        //       <option value=''>--no school--</option>
+        //       {
+        //         schools.map( school => 
+        //           <option key={school.id} value={school.id}>{school.name}</option>
+        //         )
+        //       }
+        //     </select>
+        //   </div>
+        //   <button disabled={isEmpty}>Save</button>
+        // </form>

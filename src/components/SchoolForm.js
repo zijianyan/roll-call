@@ -28,8 +28,8 @@ class SchoolForm extends Component {
     const school = this.props.school
       ? { ...this.state, id: this.props.school.id } // update school by id
       : { ...this.state }; // create new school
-    const { type, createSchool, updateSchool } = this.props;
-    type === 'create' ? createSchool(school, this.props.history) : null; // push to history when creating
+    const { type, createSchool, updateSchool, history } = this.props;
+    type === 'create' ? createSchool(school, history) : null; // push to history when creating
     type === 'update' ? updateSchool(school) : null; // stay in same view when updating
   }
 
