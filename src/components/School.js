@@ -65,6 +65,10 @@ class School extends Component {
     return (
       <div> 
         <h2>School Detail: {school.name}</h2>
+        <h3>School Image</h3>
+        <div id='school-image-container'>
+          <img src={school.imageUrl} id='school-image'/>
+        </div>
         <h3>Address</h3>
         <p>{school.address}</p>
         <h3>Description</h3>

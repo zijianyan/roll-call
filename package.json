@@ -20,6 +20,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "express": "^4.16.3",
+    "faker": "^4.1.0",
     "pg": "^7.4.3",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
