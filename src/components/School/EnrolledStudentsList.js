@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { findEnrolled } from '../utils';
-import { updateStudent_thunk } from '../store/thunks';
+import { findEnrolled } from '../../utils';
+import { updateStudent_thunk } from '../../store/thunks';
 import { Link } from 'react-router-dom';
 
 const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=> {

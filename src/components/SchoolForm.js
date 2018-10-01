@@ -16,13 +16,8 @@ class SchoolForm extends Component {
   }
 
   componentDidMount() {
-    //pass school in as a property and setstate with it, if there is a school property
     this.props.school ? this.setState(this.props.school) : null;
   }
-
-  // componentDidUpdate() {
-
-  // }
 
   handleChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
@@ -30,15 +25,12 @@ class SchoolForm extends Component {
 
   handleSubmit(ev) {
     ev.preventDefault();
-
-  
-
     const school = this.props.school
-      ? { ...this.state, id: this.props.school.id }
-      : { ...this.state };
+      ? { ...this.state, id: this.props.school.id } // update school by id
+      : { ...this.state }; // create new school
     const { type, createSchool, updateSchool } = this.props;
-    type === 'create' ? createSchool(school, this.props.history) : null;
-    type === 'update' ? updateSchool(school) : null;
+    type === 'create' ? createSchool(school, this.props.history) : null; // push to history when creating
+    type === 'update' ? updateSchool(school) : null; // stay in same view when updating
   }
 
   render() {
@@ -70,18 +62,7 @@ class SchoolForm extends Component {
   }
 }
 
-
-
-const mapStateToProps = ({ schools, students }, { match })=> {
-  return {
-    // schools,
-    // school: getSchool(schools, match.params.id), //remove *1 typecoercion if using UUID for all match.params.id's
-  };
-};
-
-
-const mapDispatchToProps = (dispatch, ownProps)=> {
-  // console.log('SchoolForm, ownProps:', ownProps);
+const mapDispatchToProps = (dispatch)=> {
   return {
     createSchool: (school, history)=> {
       dispatch(createSchool_thunk(school));
@@ -97,4 +78,4 @@ const mapDispatchToProps = (dispatch, ownProps)=> {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SchoolForm);
+export default connect(null, mapDispatchToProps)(SchoolForm);

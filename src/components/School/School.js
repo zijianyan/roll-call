@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk } from '../store/thunks';
-import { getSchool, findEnrolled, findOtherStudents } from '../utils';
-import SchoolForm from './SchoolForm';
+import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk } from '../../store/thunks';
+import { getSchool, findEnrolled, findOtherStudents } from '../../utils';
+import SchoolForm from '../SchoolForm';
 
-import OtherStudentsList from './OtherStudentsList';
+import SchoolInfo from './SchoolInfo';
 import EnrolledStudentsList from './EnrolledStudentsList';
+import OtherStudentsList from './OtherStudentsList';
 
-const School = ({ school, schools, otherStudents, enrolledStudents, history, deleteSchool, unenrollStudent, enrollStudent })=> {
+const School = ({ school, history, deleteSchool })=> {
   if (!school) {
     return (
       <div>
@@ -20,14 +21,9 @@ const School = ({ school, schools, otherStudents, enrolledStudents, history, del
   }
   return (
     <div> 
-      <h2>{school.name}</h2>
-      <div id='school-image-container'>
-        <img src={school.imageUrl} id='school-image'/>
-      </div>
-      <h3>Address</h3>
-      <p>{school.address}</p>
 
-      { school.description ? (<div><h3>Description</h3><p>{school.description}</p></div>) : null }
+      <SchoolInfo school={school}/>
+
 
       <SchoolForm type='update' history={history} school={school}/>
 
@@ -68,7 +64,28 @@ const mapDispatchToProps = (dispatch, { history })=> {
 export default connect(mapStateToProps, mapDispatchToProps)(School);
 
 
-// <h3>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</h3>
+
+
+
+
+    //  <div>
+    //     <h2>{school.name}</h2>
+    //     <div id='school-image-container'>
+    //       <img src={school.imageUrl} id='school-image'/>
+    //     </div>
+    //     <h3>Address</h3>
+    //     <p>{school.address}</p>
+
+    //     { school.description ? (<div><h3>Description</h3><p>{school.description}</p></div>) : null }
+    //   </div>
+
+
+
+
+
+
+
+      // <h3>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</h3>
 //       <ul>
 //         {
 //           enrolledStudents ? enrolledStudents.map( student =>
