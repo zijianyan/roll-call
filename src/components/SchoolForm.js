@@ -34,7 +34,7 @@ class SchoolForm extends Component {
   
 
     const school = this.props.school
-      ? { ...this.state, id: this.props.school }
+      ? { ...this.state, id: this.props.school.id }
       : { ...this.state };
     const { type, createSchool, updateSchool } = this.props;
     type === 'create' ? createSchool(school, this.props.history) : null;

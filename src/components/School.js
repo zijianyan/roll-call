@@ -8,6 +8,7 @@ import { deleteSchool_thunk, updateStudent_thunk, updateSchool_thunk } from '../
 
 import { getSchool, findEnrolled } from '../utils';
 
+import SchoolForm from './SchoolForm';
 
 class School extends Component {
   constructor() {
@@ -52,7 +53,7 @@ class School extends Component {
     const { handleChange, handleSubmit } = this;
     const { name, address, description } = this.state;
 
-    const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, enrolledStudents } = this.props;
+    const { school, schools, deleteSchool, otherStudents, unenrollStudent, enrollStudent, enrolledStudents, history } = this.props;
     
     const isEmpty = name || address || description ? false : true;
 
@@ -82,23 +83,8 @@ class School extends Component {
         }
 
 
-        <h3>Edit School</h3>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='school-name'>Name</label>
-            <input id='school-name' name='name' placeholder='School Name' value={name} onChange={handleChange}/>
-          </div>
-          <div>
-            <label htmlFor='school-address'>Address</label>
-            <input id='school-address' name='address' placeholder='Address' value={address} onChange={handleChange}/>
-          </div>
-          <div>
-            <label htmlFor='school-description'>Description</label>
-            <textarea id='school-description' name='description' placeholder='Description' value={description} onChange={handleChange}>
-            </textarea>
-          </div>
-          <button disabled={isEmpty}>Save</button>
-        </form>
+        <h3>Update School</h3>
+        <SchoolForm type='update' history={history} school={school}/>
 
 
         <h3>{enrolledStudents.length ? 'Students' : 'No Students'}</h3>
@@ -180,5 +166,19 @@ const mapDispatchToProps = (dispatch, { match, history })=> {
 export default connect(mapStateToProps, mapDispatchToProps)(School);
 
 
-
-              // <input name='description' placeholder='Description' value={description} onChange={handleChange}/>
+// <form onSubmit={handleSubmit}>
+//           <div>
+//             <label htmlFor='school-name'>Name</label>
+//             <input id='school-name' name='name' placeholder='School Name' value={name} onChange={handleChange}/>
+//           </div>
+//           <div>
+//             <label htmlFor='school-address'>Address</label>
+//             <input id='school-address' name='address' placeholder='Address' value={address} onChange={handleChange}/>
+//           </div>
+//           <div>
+//             <label htmlFor='school-description'>Description</label>
+//             <textarea id='school-description' name='description' placeholder='Description' value={description} onChange={handleChange}>
+//             </textarea>
+//           </div>
+//           <button disabled={isEmpty}>Save</button>
+//         </form>

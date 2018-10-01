@@ -36,21 +36,12 @@ class SchoolsCreate extends Component {
   }
 
   render() {
-    const { handleChange, handleSubmit } = this;
-    const { name, address, description } = this.state;
-    
     const { createSchoolRandom, history } = this.props;
-    const isEmpty = name || address || description ? false : true;
     return (
       <Fragment>
         <h2>Create A School</h2>
 
-
-        
         <SchoolForm type='create' history={history}/>
-
-
-
    
         <hr/>
         <button onClick={createSchoolRandom}>Create Random School</button>
