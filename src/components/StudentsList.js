@@ -49,12 +49,12 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
 
           <TableBody>
             {students.map(student => {
-              const { id, firstName, lastName, gpa, schoolId } = student;
+              const { id, firstName, lastName, gpa, schoolId, imageUrl } = student;
               const school = getSchool(schools, schoolId);
               return (
                 <TableRow key={id} hover={true} >
                   <TableCell>
-                    <Button component={Link} to={`/students/${id}`} className={classes.cellButton}><Avatar src={student.imageUrl} className={classes.avatar} />{firstName} {lastName}</Button>
+                    <Button component={Link} to={`/students/${id}`} className={classes.cellButton}><Avatar src={imageUrl ? imageUrl : null} className={classes.avatar} />{firstName} {lastName}</Button>
                   </TableCell>
                   <TableCell numeric>{gpa}</TableCell>
                   <TableCell >{school ? <Button component={Link} to={`/schools/${school.id}`} className={classes.cellButton}>{school.name}</Button> : null }</TableCell>

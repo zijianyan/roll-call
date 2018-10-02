@@ -7,7 +7,10 @@
     "test:dev": "PORT=3000 DATABASE_URL=postgres://localhost/senior_enrichment_project_test_db nodemon ./node_modules/mocha/bin/mocha",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "webpack:dev": "webpack --watch --mode=development",
-    "start:dev": "npm run webpack:dev & PORT=3000 DATABASE_URL=postgres://localhost/senior_enrichment_project_db nodemon server --ignore src --ignore dist"
+    "start:dev": "npm run webpack:dev & PORT=3000 DATABASE_URL=postgres://localhost/senior_enrichment_project_db nodemon server --ignore src --ignore dist",
+    "postinstall": "npm run webpack",
+    "start": "node server/index.js",
+    "start:test": "npm run webpack & PORT=3000 DATABASE_URL=postgres://localhost/senior_enrichment_project_db node server/index.js"
   },
   "keywords": [],
   "author": "",
