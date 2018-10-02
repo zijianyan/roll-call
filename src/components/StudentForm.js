@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { createStudent_thunk, updateStudent_thunk } from '../store/thunks';
-import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton } from '@material-ui/core';
+import { Edit } from '@material-ui/icons';
 
 class StudentForm extends Component {
   constructor() {
@@ -60,42 +61,48 @@ class StudentForm extends Component {
 
     return (
       <div>
-        <Button onClick={toggleEditing}>open dialog</Button>
+        <IconButton onClick={toggleEditing}><Edit /></IconButton>
         <Dialog open={editing}>
           <DialogTitle>Edit Dialog</DialogTitle>
           <DialogContent>
             <DialogContentText>
               This is the content text.
             </DialogContentText>
+
+            <form onSubmit={handleSubmit}>
+              <div>
+                <input name='firstName' value={firstName} onChange={handleChange} placeholder='First Name'/>
+              </div>
+              <div>
+                <input name='lastName' value={lastName} onChange={handleChange} placeholder='Last Name'/>
+              </div>
+              <div>
+                <input name='gpa' type='range' value={gpa} min='0' max='4' step='.01' onChange={handleChange}/>
+                GPA: {gpa}
+              </div>
+              <div>
+                <select name='schoolId' value={schoolId || ''} onChange={handleChange}>
+                  <option value=''>--no school--</option>
+                  {
+                    schools.map( school => 
+                      <option key={school.id} value={school.id}>{school.name}</option>
+                    )
+                  }
+                </select>
+              </div>
+              <button disabled={isEmpty}>Save</button>
+            </form>
+
+
+
           </DialogContent>
           <DialogActions>
             <Button onClick={toggleEditing}>Cancel</Button>
             <Button>Save</Button>
           </DialogActions>
         </Dialog>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <input name='firstName' value={firstName} onChange={handleChange} placeholder='First Name'/>
-          </div>
-          <div>
-            <input name='lastName' value={lastName} onChange={handleChange} placeholder='Last Name'/>
-          </div>
-          <div>
-            <input name='gpa' type='range' value={gpa} min='0' max='4' step='.01' onChange={handleChange}/>
-            GPA: {gpa}
-          </div>
-          <div>
-            <select name='schoolId' value={schoolId || ''} onChange={handleChange}>
-              <option value=''>--no school--</option>
-              {
-                schools.map( school => 
-                  <option key={school.id} value={school.id}>{school.name}</option>
-                )
-              }
-            </select>
-          </div>
-          <button disabled={isEmpty}>Save</button>
-        </form>
+
+    
         
 
 

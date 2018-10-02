@@ -5,12 +5,22 @@ import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { getSchool, getStudent } from '../utils';
 import { Link } from 'react-router-dom';
 
-import { Typography, Button, IconButton, Tooltip } from '@material-ui/core';
+import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader } from '@material-ui/core';
 import { Eject } from '@material-ui/icons';
 
 import StudentForm from './StudentForm';
 
-const Student = ({ student, deleteStudent, school, unenroll, history })=> {
+const styles = {
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+};
+
+
+const Student = ({ student, deleteStudent, school, unenroll, history, classes })=> {
   window.scroll(0,0);
   if (!student) {
     return (
@@ -21,24 +31,36 @@ const Student = ({ student, deleteStudent, school, unenroll, history })=> {
   }
   return (
     <div>
-      <Typography variant='display1'>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</Typography>
-      <div id='student-image-container'>
-        <img src={student.imageUrl} id='student-image'/>
-      </div>
-
-      {
-        school
-          ? (<Fragment><Typography variant='subheading'>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link></Typography>
-          
-            <Tooltip title='Unenroll'>
-              <IconButton onClick={()=> unenroll(student)}><Eject/>
-              </IconButton>
-            </Tooltip></Fragment>)
-          : <Typography variant='subheading'>Not enrolled</Typography>
-      }
       
-      <h3>Edit Student</h3>
-      <StudentForm type='update' student={student}/>
+
+      <Card className={classes.card}>
+        <CardActionArea>
+          <div id='student-image-container'>
+            <img src={student.imageUrl} id='student-image'/>
+          </div>
+
+          <CardContent>
+            <Typography variant='display1'>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</Typography>
+            {
+              school
+                ? (<Fragment><Typography variant='subheading'>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link></Typography>
+                
+                  <Tooltip title='Unenroll'>
+                    <IconButton onClick={()=> unenroll(student)}><Eject/>
+                    </IconButton>
+                  </Tooltip></Fragment>)
+                : <Typography variant='subheading'>Not enrolled</Typography>
+            }
+          </CardContent>
+          <CardActions>
+            <StudentForm type='update' student={student}/>
+          </CardActions>
+        </CardActionArea>
+      </Card>
+
+      
+      
+      
       <hr/>
       <button onClick={()=> deleteStudent(student)}>Delete Student</button>
     </div>
@@ -65,4 +87,4 @@ const mapDispatchToProps = (dispatch, { history })=> {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Student);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Student));
