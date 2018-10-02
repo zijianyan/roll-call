@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Paper, Typography, List, ListItem, ListItemText } from '@material-ui/core';
+import { Paper, Typography, List, ListItem, ListItemText, Badge } from '@material-ui/core';
 
 
 const Home = ()=> <Link to/>
@@ -17,10 +17,26 @@ const Nav = ({ schools, students })=> {
           <ListItemText primary='Home' />
         </ListItem>
         <ListItem button component={Link} to='/schools'>
-          <ListItemText primary='Schools' />
+          {
+            schools.length ? (
+              <Badge badgeContent={schools.length} color='primary'>
+                <ListItemText primary='Schools' />
+              </Badge>
+            ) : (
+              <ListItemText primary='Schools' />
+            )
+          }
         </ListItem>
         <ListItem button component={Link} to='/students'>
-          <ListItemText primary='Students' />
+          {
+            students.length ? (
+              <Badge badgeContent={students.length} color='primary'>
+                <ListItemText primary='Students' />
+              </Badge>
+            ) : (
+              <ListItemText primary='Students' />
+            )
+          }
         </ListItem>
         <ListItem button component={Link} to='/schools/create'>
           <ListItemText primary='Create A School' />
