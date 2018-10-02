@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { connect } from 'react-redux';
 import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { getSchool, getStudent } from '../utils';
 import { Link } from 'react-router-dom';
+
+import { Typography, Button, IconButton, Tooltip } from '@material-ui/core';
+import { Eject } from '@material-ui/icons';
 
 import StudentForm from './StudentForm';
 
@@ -17,15 +20,20 @@ const Student = ({ student, deleteStudent, school, unenroll, history })=> {
   }
   return (
     <div>
-      <h2>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</h2>
+      <Typography variant='display1'>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</Typography>
       <div id='student-image-container'>
         <img src={student.imageUrl} id='student-image'/>
       </div>
 
       {
         school
-          ? (<p>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link> <button onClick={()=> unenroll(student)}>Unenroll</button></p>)
-          : 'Not enrolled'
+          ? (<Fragment><Typography variant='subheading'>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link></Typography>
+          
+            <Tooltip title='Unenroll'>
+              <IconButton onClick={()=> unenroll(student)}><Eject/>
+              </IconButton>
+            </Tooltip></Fragment>)
+          : <Typography variant='subheading'>Not enrolled</Typography>
       }
       
       <h3>Edit Student</h3>
