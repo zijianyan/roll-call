@@ -10,8 +10,8 @@ import SchoolInfo from './SchoolInfo';
 import EnrolledStudentsList from './EnrolledStudentsList';
 import OtherStudentsList from './OtherStudentsList';
 
-import { withStyles, Typography, Divider, Button } from '@material-ui/core';
-
+import { withStyles, Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 
 const styles = {
   divider: {
@@ -32,15 +32,18 @@ const School = ({ school, history, deleteSchool, classes })=> {
     <div> 
 
       <SchoolInfo school={school}/>
+      
 
 
       <SchoolForm type='update' history={history} school={school}/>
 
-      <EnrolledStudentsList schoolId={school.id}/>
       
-      <Divider className={classes.divider}/>
-      <Button onClick={()=> deleteSchool(school)}>Delete School</Button>
+      
+      <Tooltip title='Delete School'><IconButton onClick={()=> deleteSchool(school)}><Delete /></IconButton></Tooltip>
+      
       <Divider />
+
+      <EnrolledStudentsList schoolId={school.id}/>
 
       <OtherStudentsList schoolId={school.id}/>
 
