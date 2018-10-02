@@ -1,28 +1,74 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { reset_thunk } from '../store/thunks';
 
 
-import { Button, Divider } from '@material-ui/core'
+import { withStyles, Button, Divider, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core'
 
+const styles = {
+  footer: {
+    marginTop: 30
+  },
+  reset: {
+    marginTop: 20
+  }
+}
 
+class Footer extends Component {
+  constructor() {
+    super();
+    this.state = {
+      open: false
+    };
+    this.toggleDialog = this.toggleDialog.bind(this);
+  }
 
-const Footer = ({ reset })=> {
-  return (
-    <div>
-      <Divider />
-      <Button onClick={reset} align='right'>Reset Server</Button>
-    </div>
-  );
-};
+  toggleDialog() {
+    this.setState({ open: !this.state.open });
+  }
+
+  render() {
+    const { reset, classes } = this.props;
+    const { toggleDialog } = this;
+    const { open } = this.state;
+    return (
+      <Fragment>
+        <div className={classes.footer}>
+          <Divider />
+          <Button align='right' className={classes.reset} onClick={toggleDialog}>Reset Server</Button>
+        </div>
+        <Dialog open={open}>
+          <DialogTitle>
+            Reset the server?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              This will re-sync the database and generate new random Schools and Students.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleDialog}>
+              Cancel
+            </Button>
+            <Button onClick={()=> reset(toggleDialog)}>
+              Reset
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Fragment>
+    );
+  }
+
+}
 
 const mapDispatchToProps = (dispatch, { history })=> {
   return {
-    reset: ()=> {
+    reset: (toggleDialog)=> {
       dispatch(reset_thunk());
+      toggleDialog();
       history.push('/');
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(Footer);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Footer));

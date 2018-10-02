@@ -23,7 +23,8 @@ const styles = {
     maxWidth: 800,
   },
   title: {
-    margin: '50px'
+    marginTop: 0,
+    marginBottom: 45
   }
 };
 
@@ -42,7 +43,7 @@ class App extends Component {
     return (
       <Fragment>
         <Paper className={classes.root}>
-          <Typography variant='display2' align='center' gutterBottom>Acme Schools and Students</Typography>
+          <Typography variant='display2' align='center' gutterBottom className={classes.title}>Acme Schools and Students</Typography>
           <Divider />
           <Router onUpdate={() => window.scrollTo(0, 0)}>
             <Fragment>

@@ -26,10 +26,13 @@ const styles = {
     'font-size': '0.8125rem',
     'font-weight': '400'
   },
+  progress: {
+    marginTop: 5,
+    marginBottom: 10
+  }
 };
 
 const gpaPercentage = gpa => {
-  console.log((gpa/4).toFixed(2))
   return (gpa/4).toFixed(2);
 };
   
@@ -69,14 +72,14 @@ const Student = ({ student, deleteStudent, school, unenroll, history, classes })
           className={classes.media}
         />
         <CardContent>
-          <LinearProgress variant='determinate' value={gpaPercentage(student.gpa)*100}/>
-          <Typography variant='title'>GPA: {student.gpa}</Typography>
+          <LinearProgress variant='determinate' value={gpaPercentage(student.gpa)*100} className={classes.progress}/>
+          <Typography variant='subheading'>GPA: {student.gpa}</Typography>
         </CardContent>
 
 
         <CardActions>
           <Fragment>
-            <Tooltip title='Delete Student'>
+            <Tooltip title='Delete'>
               <IconButton onClick={()=> deleteStudent(student)}>
                 <Delete />
               </IconButton>
