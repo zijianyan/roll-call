@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { deleteSchool_thunk } from '../store/thunks';
 import { findEnrolled } from '../utils';
 
-import { List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider } from '@material-ui/core';
+import { List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const SchoolsList = ({ schools, deleteSchool, students })=> {
@@ -39,7 +39,7 @@ const SchoolsList = ({ schools, deleteSchool, students })=> {
                   </TableCell>
                   <TableCell numeric>{ enrolled.length ? enrolled.length : null }</TableCell>
                   <TableCell >{school.address}</TableCell>
-                  <TableCell><IconButton onClick={()=> deleteSchool(school)}><DeleteIcon /></IconButton></TableCell>
+                  <TableCell><Tooltip title='Delete'><IconButton onClick={()=> deleteSchool(school)}><DeleteIcon /></IconButton></Tooltip></TableCell>
                 </TableRow>
               );
             })}

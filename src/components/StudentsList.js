@@ -6,7 +6,7 @@ import { deleteStudent_thunk } from '../store/thunks';
 
 import { getSchool } from '../utils';
 
-import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avatar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, IconButton, Divider } from '@material-ui/core';
+import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avatar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, IconButton, Divider, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
@@ -47,7 +47,7 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
                   </TableCell>
                   <TableCell numeric>{gpa}</TableCell>
                   <TableCell >{school ? <Button component={Link} to={`/schools/${school.id}`}>{school.name}</Button> : null }</TableCell>
-                  <TableCell><IconButton onClick={()=> deleteStudent(student)}><DeleteIcon /></IconButton></TableCell>
+                  <TableCell><Tooltip title='Delete'><IconButton onClick={()=> deleteStudent(student)}><DeleteIcon /></IconButton></Tooltip></TableCell>
                 </TableRow>
               );
             })}

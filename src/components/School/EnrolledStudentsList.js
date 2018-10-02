@@ -5,9 +5,9 @@ import { findEnrolled } from '../../utils';
 import { updateStudent_thunk } from '../../store/thunks';
 import { Link } from 'react-router-dom';
 
-import { Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton } from '@material-ui/core';
+import { Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton, Tooltip } from '@material-ui/core';
 
-import { Eject } from '@material-ui/icons';
+import { Eject, AddCircle } from '@material-ui/icons';
 
 
 const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=> {
@@ -20,33 +20,25 @@ const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=>
           enrolledStudents ? enrolledStudents.map( student => {
             const { id, firstName, lastName, gpa, imageUrl } = student;
             return (
-              <Fragment>
-              <ListItem key={id}>
-                <Avatar src={imageUrl}/>
-                <ListItemText primary={`${firstName} ${lastName}`} secondary={`GPA: ${gpa}`}/>
-                <ListItemSecondaryAction><IconButton onClick={()=> unenrollStudent(student)}><Eject /></IconButton></ListItemSecondaryAction>
-                
-                
-              </ListItem>
-              <Divider />
+              <Fragment key={id} >
+                <ListItem component={Link} to={`/students/${id}`} button>
+                  <Avatar src={imageUrl}/>
+                  <ListItemText primary={`${firstName} ${lastName}`} secondary={`GPA: ${gpa}`}/>
+                  <ListItemSecondaryAction><Tooltip title='Unenroll'><IconButton onClick={()=> unenrollStudent(student)}><Eject /></IconButton></Tooltip></ListItemSecondaryAction>
+                  
+                  
+                </ListItem>
+                <Divider light/>
               </Fragment>
             );
 
           }) : null
         }
+        <ListItem button component={Link} to={`/students/create/${schoolId}`}>
+          <AddCircle color='primary'/>
+          <ListItemText>Add New Student</ListItemText>
+        </ListItem>
       </List>
-
-      <ul>
-        {
-          enrolledStudents ? enrolledStudents.map( student =>
-            <li key={student.id}>
-              <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link> - GPA: {student.gpa}
-              <button onClick={()=> unenrollStudent(student)}>Unenroll</button>
-            </li>
-          ) : null
-        }
-        <li><Link to={`/students/create/${schoolId}`}><button>Add New Student</button></Link></li>      
-      </ul>
 
     </div>
   );
