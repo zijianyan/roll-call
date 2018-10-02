@@ -248,17 +248,13 @@ describe('senior enrichment project', ()=> {
 
 
 
-//material UI
+//Student form
 
+//Revise School to emulate Student MUI
+//data list in School for students
 
 
 //separate db file into conn and models
-
 //full Address, City, State, Zipcode fields for School
-
-//data list in School for students
-
 //error handling/validation
-
-
-//proptypes?
+//proptypes

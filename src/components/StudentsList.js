@@ -8,6 +8,7 @@ import { getSchool } from '../utils';
 
 import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avatar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, IconButton, Divider, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { AddCircle } from '@material-ui/icons';
 
 const styles = {
   avatar: {
@@ -35,6 +36,7 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
 
       <Paper className={classes.paper}>
         <Typography variant='display1' className={classes.heading}>Students</Typography>
+
         <Divider/>
         <Table>
 
@@ -48,6 +50,16 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
           </TableHead>
 
           <TableBody>
+            <TableRow hover={true}>
+              <TableCell colSpan={4}>
+                <Button className={classes.cellButton}>
+                  
+                  <AddCircle color='primary'/>
+           
+                  <Typography variant='heading'>Add New Student</Typography>
+                </Button>
+              </TableCell>
+            </TableRow>
             {students.map(student => {
               const { id, firstName, lastName, gpa, schoolId, imageUrl } = student;
               const school = getSchool(schools, schoolId);
@@ -84,3 +96,5 @@ const mapDispatchToProps = (dispatch)=> {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StudentsList));
+
+

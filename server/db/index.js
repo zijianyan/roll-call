@@ -125,7 +125,7 @@ Student.createRandom = function() {
     .then(student => Student.create({ firstName: student.name.first, lastName: student.name.last, gpa: (Math.random()*(4-2.7)+2.7).toFixed(2), imageUrl: student.picture.large }))
     .catch(ex => {
       // console.log(ex);
-      return Student.create({ firstName: 'First', lastName: 'Last', gpa: 4 }) // if no internet connection, create this student
+      // return Student.create({ firstName: 'First', lastName: 'Last', gpa: 4 }) // if no internet connection, create this student
     });
 };
 
@@ -143,21 +143,22 @@ const createStudents = (num)=> {
 
 const syncAndSeed = async ()=> {
   await conn.sync({ force: true });
-  const [ sch01, sch02, sch03, sch04 ] = await Promise.all(createSchools(5));
+  
   const [ stu01, stu02, stu03, stu04, stu05, stu06, stu07, stu08, stu09, stu10, stu11, stu12 ] = await Promise.all(createStudents(18));
+  const [ sch01, sch02, sch03, sch04 ] = await Promise.all(createSchools(5));
   await Promise.all([
     stu01.setSchool(sch01),
-    stu02.setSchool(sch01),
-    stu03.setSchool(sch01),
-    stu04.setSchool(sch02),
+    stu02.setSchool(sch02),
+    stu03.setSchool(sch02),
+    stu04.setSchool(sch03),
     stu05.setSchool(sch02),
-    stu06.setSchool(sch03),
+    stu06.setSchool(sch04),
     stu07.setSchool(sch03),
     stu08.setSchool(sch04),
     stu09.setSchool(sch04),
-    stu10.setSchool(sch04),
-    stu11.setSchool(sch04),
-    stu12.setSchool(sch04)
+    stu10.setSchool(sch01),
+    stu11.setSchool(sch01),
+    stu12.setSchool(sch02)
   ]);
 };
 

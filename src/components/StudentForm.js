@@ -64,6 +64,7 @@ class StudentForm extends Component {
         <Tooltip title='Edit'>
         <IconButton onClick={toggleEditing}><Edit /></IconButton>
         </Tooltip>
+        
         <Dialog open={editing}>
           <DialogTitle>Edit Dialog</DialogTitle>
           <DialogContent>
