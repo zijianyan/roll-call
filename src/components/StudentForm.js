@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { createStudent_thunk, updateStudent_thunk } from '../store/thunks';
+import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
 class StudentForm extends Component {
   constructor() {
@@ -10,10 +11,12 @@ class StudentForm extends Component {
       firstName: '',
       lastName: '',
       gpa: 0,
-      schoolId: ''
+      schoolId: '',
+      editing: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleEditing = this.toggleEditing.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +29,10 @@ class StudentForm extends Component {
   //     this.setState(this.props.student);
   //   }
   // }
+
+  toggleEditing() {
+    this.setState({ editing: !this.state.editing });
+  }
 
   handleChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
@@ -46,13 +53,26 @@ class StudentForm extends Component {
   }
 
   render() {
-    const { handleChange, handleSubmit } = this;
-    const { firstName, lastName, gpa, schoolId } = this.state;
+    const { handleChange, handleSubmit, toggleEditing } = this;
+    const { firstName, lastName, gpa, schoolId, editing } = this.state;
     const { schools } = this.props;
     const isEmpty = firstName && lastName ? false : true;
 
     return (
       <div>
+        <Button onClick={toggleEditing}>open dialog</Button>
+        <Dialog open={editing}>
+          <DialogTitle>Edit Dialog</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              This is the content text.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleEditing}>Cancel</Button>
+            <Button>Save</Button>
+          </DialogActions>
+        </Dialog>
         <form onSubmit={handleSubmit}>
           <div>
             <input name='firstName' value={firstName} onChange={handleChange} placeholder='First Name'/>

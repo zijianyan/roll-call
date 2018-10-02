@@ -20,6 +20,7 @@ const styles = {
 }
 
 const School = ({ school, history, deleteSchool, classes })=> {
+  window.scroll(0,0);
   if (!school) {
     return (
       <div>

@@ -5,17 +5,33 @@ import { connect } from 'react-redux';
 import { deleteSchool_thunk } from '../store/thunks';
 import { findEnrolled } from '../utils';
 
-import { List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip } from '@material-ui/core';
+import { withStyles, List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const SchoolsList = ({ schools, deleteSchool, students })=> {
+
+const styles = {
+  cellButton: {
+    'text-transform': 'none',
+    'color': 'rgba(0, 0, 0, 0.87)',
+    'font-size': '0.8125rem',
+    'font-weight': '400'
+  },
+  paper: {
+    padding: '50px'
+  },
+  heading: {
+    'margin-bottom': 20
+  }
+}
+
+const SchoolsList = ({ schools, deleteSchool, students, classes })=> {
   return (
     <Fragment>
       
 
 
-      <Paper >
-        <Typography variant='display1'>Schools</Typography>
+      <Paper className={classes.paper}>
+        <Typography variant='display1' className={classes.heading}>Schools</Typography>
         <Divider />
         <Table >
 
@@ -35,7 +51,7 @@ const SchoolsList = ({ schools, deleteSchool, students })=> {
               return (
                 <TableRow key={id} hover={true} >
                   <TableCell>
-                    <Button component={Link} to={`/schools/${id}`}>{name}</Button>
+                    <Button component={Link} to={`/schools/${id}`} className={classes.cellButton}>{name}</Button>
                   </TableCell>
                   <TableCell numeric>{ enrolled.length ? enrolled.length : null }</TableCell>
                   <TableCell >{school.address}</TableCell>
@@ -68,5 +84,5 @@ const mapDispatchToProps = (dispatch)=> {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SchoolsList);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SchoolsList));
 

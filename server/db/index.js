@@ -135,12 +135,12 @@ const createStudents = (num)=> {
   const students = [];
   for (var i = 0; i < num; i++) { students.push(Student.createRandom())};
   return students;
-}
+};
 
 const syncAndSeed = async ()=> {
   await conn.sync({ force: true });
-  const [ sch01, sch02, sch03 ] = await Promise.all(createSchools(3));
-  const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all(createStudents(10));
+  const [ sch01, sch02, sch03 ] = await Promise.all(createSchools(5));
+  const [ stu01, stu02, stu03, stu04, stu05 ] = await Promise.all(createStudents(18));
   await Promise.all([
     stu01.setSchool(sch01),
     stu02.setSchool(sch02),
@@ -148,7 +148,6 @@ const syncAndSeed = async ()=> {
     stu04.setSchool(sch01)
   ]);
 };
-
 
 const syncAndSeedTest = async ()=> {
   await conn.sync({ force: true });

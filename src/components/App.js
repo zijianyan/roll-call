@@ -13,14 +13,17 @@ import School from './School';
 import Student from './Student';
 import Footer from './Footer';
 
-import { Typography, Paper } from '@material-ui/core';
+import { Typography, Paper, Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
     margin: 20,
-    padding: 20,
-    maxWidth: 800
+    padding: 50,
+    maxWidth: 1200,
+  },
+  title: {
+    margin: '50px'
   }
 };
 
@@ -40,8 +43,8 @@ class App extends Component {
       <Fragment>
         <Paper className={classes.root}>
           <Typography variant='display2' align='center' gutterBottom>Acme Schools and Students</Typography>
-
-          <Router>
+          <Divider />
+          <Router onUpdate={() => window.scrollTo(0, 0)}>
             <Fragment>
               <Nav />
               <Route exact path='/schools' component={SchoolsList}/>

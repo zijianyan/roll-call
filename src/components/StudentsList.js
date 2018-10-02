@@ -9,10 +9,21 @@ import { getSchool } from '../utils';
 import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avatar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, IconButton, Divider, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-
 const styles = {
   avatar: {
     'margin-right': '15px'
+  },
+  cellButton: {
+    'text-transform': 'none',
+    'color': 'rgba(0, 0, 0, 0.87)',
+    'font-size': '0.8125rem',
+    'font-weight': '400'
+  },
+  paper: {
+    padding: '50px'
+  },
+  heading: {
+    'margin-bottom': 20
   }
 }
 
@@ -22,10 +33,10 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
       
 
 
-      <Paper >
-        <Typography variant='display1'>Students</Typography>
-        <Divider />
-        <Table >
+      <Paper className={classes.paper}>
+        <Typography variant='display1' className={classes.heading}>Students</Typography>
+        <Divider/>
+        <Table>
 
           <TableHead>
             <TableRow>
@@ -43,10 +54,10 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
               return (
                 <TableRow key={id} hover={true} >
                   <TableCell>
-                    <Button component={Link} to={`/students/${id}`}><Avatar src={student.imageUrl} className={classes.avatar}/>{firstName} {lastName}</Button>
+                    <Button component={Link} to={`/students/${id}`} className={classes.cellButton}><Avatar src={student.imageUrl} className={classes.avatar} />{firstName} {lastName}</Button>
                   </TableCell>
                   <TableCell numeric>{gpa}</TableCell>
-                  <TableCell >{school ? <Button component={Link} to={`/schools/${school.id}`}>{school.name}</Button> : null }</TableCell>
+                  <TableCell >{school ? <Button component={Link} to={`/schools/${school.id}`} className={classes.cellButton}>{school.name}</Button> : null }</TableCell>
                   <TableCell><Tooltip title='Delete'><IconButton onClick={()=> deleteStudent(student)}><DeleteIcon /></IconButton></Tooltip></TableCell>
                 </TableRow>
               );

@@ -2,13 +2,20 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Paper, Typography, List, ListItem, ListItemText, Badge } from '@material-ui/core';
+import { withStyles, Paper, Typography, List, ListItem, ListItemText, Badge } from '@material-ui/core';
 
 
 const Home = ()=> <Link to/>
 
+const styles = {
+  badge: {
+    top: -20,
+    right: -15,
+  }
+};
 
-const Nav = ({ schools, students })=> {
+
+const Nav = ({ schools, students, classes })=> {
   return (
     <Fragment>
 
@@ -60,24 +67,6 @@ const mapStateToProps = ({ schools, students })=> {
   };
 };
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps)(withStyles(styles)(Nav));
 
 
-
-      // <ul>
-      //   <li>
-      //     <Link to='/'>Home</Link>
-      //   </li>
-      //   <li>
-      //     <Link to='/schools'>Schools ({schools.length})</Link>
-      //   </li>
-      //   <li>
-      //     <Link to='/students'>Students ({students.length})</Link>
-      //   </li>
-      //   <li>
-      //     <Link to='/schools/create'>Create A School</Link>
-      //   </li>
-      //   <li>
-      //     <Link to='/students/create'>Create A Student</Link>
-      //   </li>
-      // </ul>

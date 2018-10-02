@@ -11,6 +11,7 @@ import { Eject } from '@material-ui/icons';
 import StudentForm from './StudentForm';
 
 const Student = ({ student, deleteStudent, school, unenroll, history })=> {
+  window.scroll(0,0);
   if (!student) {
     return (
       <div>
