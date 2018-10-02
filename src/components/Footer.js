@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reset_thunk } from '../store/thunks';
 
 
-import { withStyles, Button, Divider, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core'
+import { withStyles, Button, Divider, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Snackbar } from '@material-ui/core'
 
 const styles = {
   footer: {
@@ -65,8 +65,8 @@ const mapDispatchToProps = (dispatch, { history })=> {
   return {
     reset: (toggleDialog)=> {
       dispatch(reset_thunk());
-      toggleDialog();
       history.push('/');
+      toggleDialog();
     }
   };
 };
