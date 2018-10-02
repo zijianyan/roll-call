@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { updateStudent_thunk } from '../../store/thunks';
 import { getSchool, findOtherStudents } from '../../utils';
 
+import { Paper } from '@material-ui/core';
+
 const OtherStudentsList = ({ otherStudents, enrollStudent, schools })=> {
   return (
     <div>

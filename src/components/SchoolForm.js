@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { createSchool_thunk, updateSchool_thunk } from '../store/thunks';
+import { Typography } from '@material-ui/core';
 
 class SchoolForm extends Component {
   constructor() {
@@ -36,11 +37,14 @@ class SchoolForm extends Component {
   render() {
     const { handleChange, handleSubmit } = this;
     const { name, address, description } = this.state;
-
+    const { type } = this.props;
     const isEmpty = name || address || description ? false : true;
 
     return (
       <div>
+        { type === 'create' ? <Typography variant='title'>Create A School</Typography> : null }
+        { type === 'update' ? <Typography variant='title'>Edit School</Typography> : null }
+
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor='school-name'>Name</label>

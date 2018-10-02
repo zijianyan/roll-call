@@ -1,15 +1,28 @@
 import React from 'react';
 
+import { Typography } from '@material-ui/core';
+
 const SchoolInfo = ({ school })=> {
   return (
     <div>
-      <h2>{school.name}</h2>
+      <Typography variant='display1'>{school.name}</Typography>
       <div id='school-image-container'>
         <img src={school.imageUrl} id='school-image'/>
       </div>
-      <h3>Address</h3>
-      <p>{school.address}</p>
-      { school.description ? (<div><h3>Description</h3><p>{school.description}</p></div>) : null }
+      <Typography variant='title'>Address</Typography>
+      <Typography variant='body1'>{school.address}</Typography>
+      {
+        school.description ? (
+          <div>
+            <Typography variant='title'>
+              Description
+            </Typography>
+            <Typography variant='body1'>
+              {school.description}
+            </Typography>
+          </div>
+        ) : null
+      }
     </div>
   );
 };

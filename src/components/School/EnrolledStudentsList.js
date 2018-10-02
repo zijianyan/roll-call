@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { findEnrolled } from '../../utils';
 import { updateStudent_thunk } from '../../store/thunks';
 import { Link } from 'react-router-dom';
 
+import { Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton } from '@material-ui/core';
+
+import { Eject } from '@material-ui/icons';
+
+
 const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=> {
   return (
     <div>
-      <h3>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</h3>
+      <Typography variant='title'>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</Typography>
+
+      <List>
+        {
+          enrolledStudents ? enrolledStudents.map( student => {
+            const { id, firstName, lastName, gpa, imageUrl } = student;
+            return (
+              <Fragment>
+              <ListItem key={id}>
+                <Avatar src={imageUrl}/>
+                <ListItemText primary={`${firstName} ${lastName}`} secondary={`GPA: ${gpa}`}/>
+                <ListItemSecondaryAction><IconButton onClick={()=> unenrollStudent(student)}><Eject /></IconButton></ListItemSecondaryAction>
+                
+                
+              </ListItem>
+              <Divider />
+              </Fragment>
+            );
+
+          }) : null
+        }
+      </List>
+
       <ul>
         {
           enrolledStudents ? enrolledStudents.map( student =>

@@ -6,7 +6,7 @@ import { deleteStudent_thunk } from '../store/thunks';
 
 import { getSchool } from '../utils';
 
-import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avatar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, IconButton } from '@material-ui/core';
+import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avatar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, IconButton, Divider } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
@@ -19,10 +19,12 @@ const styles = {
 const StudentsList = ({ students, deleteStudent, schools, classes })=> {
   return (
     <Fragment>
-      <Typography variant='display1'>Students</Typography>
+      
 
 
       <Paper >
+        <Typography variant='display1'>Students</Typography>
+        <Divider />
         <Table >
 
           <TableHead>
@@ -53,46 +55,6 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
 
         </Table>
       </Paper>
-
-
-
-      <List>
-        {
-          students.map(student => {
-            const { id, firstName, lastName, gpa, schoolId } = student;
-            const school = getSchool(schools, schoolId);
-            return (
-              <ListItem button key={student.id} component={Link} to={`/students/${id}`}>
-                <Avatar src={student.imageUrl}/>
-                <ListItemText primary={`${firstName} ${lastName}`}/>
-                <ListItemText>more text</ListItemText>
-              </ListItem>
-            );
-          })
-        }
-      </List>
-      <ul>
-        {
-          students.map( student => {
-            const { id, firstName, lastName, gpa, schoolId } = student;
-            const school = getSchool(schools, schoolId);
-            return (
-              <li key={id}>
-                <Link to={`/students/${id}`}>{firstName} {lastName}</Link>
-                - gpa: {gpa}
-                {
-                  school
-                    ? (<span> - school: {<Link to={`/schools/${school.id}`}>{school.name}</Link>}</span>) 
-                    : null
-                }
-                <div>
-                  <button onClick={()=> deleteStudent(student)}>x</button>
-                </div>
-              </li>
-            );
-          })
-        }
-      </ul>
     </Fragment>
   );
 };

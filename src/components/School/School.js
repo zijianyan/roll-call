@@ -10,12 +10,20 @@ import SchoolInfo from './SchoolInfo';
 import EnrolledStudentsList from './EnrolledStudentsList';
 import OtherStudentsList from './OtherStudentsList';
 
+import { withStyles, Typography, Divider, Button } from '@material-ui/core';
 
-const School = ({ school, history, deleteSchool })=> {
+
+const styles = {
+  divider: {
+    margin: '20px 0 20px 0px'
+  }
+}
+
+const School = ({ school, history, deleteSchool, classes })=> {
   if (!school) {
     return (
       <div>
-        <h3>School Not Found</h3>
+        <Typography variant='display1'>School Not Found</Typography>
         <Link to='/schools'>See Schools</Link>
       </div>
     );
@@ -30,9 +38,9 @@ const School = ({ school, history, deleteSchool })=> {
 
       <EnrolledStudentsList schoolId={school.id}/>
       
-      <hr/>
-      <button onClick={()=> deleteSchool(school)}>Delete School</button>
-      <hr/>
+      <Divider className={classes.divider}/>
+      <Button onClick={()=> deleteSchool(school)}>Delete School</Button>
+      <Divider />
 
       <OtherStudentsList schoolId={school.id}/>
 
@@ -55,4 +63,4 @@ const mapDispatchToProps = (dispatch, { history })=> {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(School);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(School));
