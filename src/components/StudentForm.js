@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { createStudent_thunk, updateStudent_thunk } from '../store/thunks';
-import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton } from '@material-ui/core';
+import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 
 class StudentForm extends Component {
@@ -61,7 +61,9 @@ class StudentForm extends Component {
 
     return (
       <div>
+        <Tooltip title='Edit'>
         <IconButton onClick={toggleEditing}><Edit /></IconButton>
+        </Tooltip>
         <Dialog open={editing}>
           <DialogTitle>Edit Dialog</DialogTitle>
           <DialogContent>

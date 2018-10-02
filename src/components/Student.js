@@ -5,19 +5,34 @@ import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { getSchool, getStudent } from '../utils';
 import { Link } from 'react-router-dom';
 
-import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader } from '@material-ui/core';
-import { Eject } from '@material-ui/icons';
+import uuidv4 from 'uuid/v4';
+
+import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress } from '@material-ui/core';
+import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
 import StudentForm from './StudentForm';
 
 const styles = {
   card: {
-    maxWidth: 345,
+    maxWidth: 800,
+    minWidth: 400
   },
   media: {
-    height: 140,
+    height: 300,
+  },
+  cellButton: {
+    'text-transform': 'none',
+    'color': 'rgba(0, 0, 0, 0.87)',
+    'font-size': '0.8125rem',
+    'font-weight': '400'
   },
 };
+
+const gpaPercentage = gpa => {
+  console.log((gpa/4).toFixed(2))
+  return (gpa/4).toFixed(2);
+};
+  
 
 
 const Student = ({ student, deleteStudent, school, unenroll, history, classes })=> {
@@ -34,35 +49,42 @@ const Student = ({ student, deleteStudent, school, unenroll, history, classes })
       
 
       <Card className={classes.card}>
-        <CardActionArea>
-          <div id='student-image-container'>
-            <img src={student.imageUrl} id='student-image'/>
-          </div>
-
-          <CardContent>
-            <Typography variant='display1'>{student ? `${student.firstName} ${student.lastName} - GPA: ${student.gpa}` : null }</Typography>
-            {
-              school
-                ? (<Fragment><Typography variant='subheading'>Enrolled in <Link to={`/schools/${school.id}`}>{school.name}</Link></Typography>
-                
-                  <Tooltip title='Unenroll'>
-                    <IconButton onClick={()=> unenroll(student)}><Eject/>
-                    </IconButton>
-                  </Tooltip></Fragment>)
-                : <Typography variant='subheading'>Not enrolled</Typography>
-            }
-          </CardContent>
-          <CardActions>
+      
+        <CardHeader
+          avatar={
+            <Avatar className={classes.avatar} src={student.imageUrl}>
+            </Avatar>
+          }
+          action={
             <StudentForm type='update' student={student}/>
-          </CardActions>
-        </CardActionArea>
+          }
+          title={`${student.firstName} ${student.lastName}`}
+          subheader={ school ? (<Fragment><Link to={`/schools/${school.id}`}>{school.name}</Link> <Tooltip title='Unenroll'>
+            <IconButton onClick={()=> unenroll(student)} ><Eject fontSize='small'/>
+            </IconButton>
+          </Tooltip></Fragment>) : 'Not enrolled'}
+        />
+        <CardMedia 
+          image={`http://source.unsplash.com/random?place&forceRefresh=${uuidv4()}`}
+          className={classes.media}
+        />
+        <CardContent>
+          <LinearProgress variant='determinate' value={gpaPercentage(student.gpa)*100}/>
+          <Typography variant='title'>GPA: {student.gpa}</Typography>
+        </CardContent>
+
+
+        <CardActions>
+          <Fragment>
+            <Tooltip title='Delete Student'>
+              <IconButton onClick={()=> deleteStudent(student)}>
+                <Delete />
+              </IconButton>
+            </Tooltip>
+          </Fragment>
+        </CardActions>
       </Card>
 
-      
-      
-      
-      <hr/>
-      <button onClick={()=> deleteStudent(student)}>Delete Student</button>
     </div>
   );
 };

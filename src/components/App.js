@@ -20,7 +20,7 @@ const styles = {
   root: {
     margin: 20,
     padding: 50,
-    maxWidth: 1200,
+    maxWidth: 800,
   },
   title: {
     margin: '50px'
