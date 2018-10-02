@@ -27,7 +27,7 @@ const OtherStudentsList = ({ otherStudents, enrollStudent, schools })=> {
                     otherSchool ? (
                       <ListItemSecondaryAction><Tooltip title={`Transfer from ${otherSchool.name}`}><IconButton onClick={()=> enrollStudent(student)}><CompareArrows/></IconButton></Tooltip></ListItemSecondaryAction>
                     ) : (
-                      <ListItemSecondaryAction><Tooltip title='Enroll'><IconButton onClick={()=> enrollStudent(student)}><Eject/></IconButton></Tooltip></ListItemSecondaryAction>
+                      <ListItemSecondaryAction><Tooltip title='Enroll'><IconButton onClick={()=> enrollStudent(student)}><AddCircle/></IconButton></Tooltip></ListItemSecondaryAction>
                     )
                   }
                   
@@ -38,26 +38,6 @@ const OtherStudentsList = ({ otherStudents, enrollStudent, schools })=> {
           })
         }
       </List>
-
-      <ul>
-        {
-          otherStudents.map( student => {
-            const otherSchool = getSchool(schools, student.schoolId);
-            return (
-              <li key={student.id}>
-                <Link to={`/students/${student.id}`}>{student.firstName} {student.lastName}</Link>
-                {
-                  otherSchool
-                    ? (<span> - {otherSchool.name} - <button onClick={()=> enrollStudent(student)}>Transfer In</button></span>)
-                    : (<span> - <button onClick={()=> enrollStudent(student)}>Enroll</button></span>)
-                }
-                <div>
-                </div>
-              </li>
-            );
-          })
-        }
-      </ul>
     </div>
   );
 };
