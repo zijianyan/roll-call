@@ -10,9 +10,9 @@ import React, { Component } from 'react';
 // }
 import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
 
-const StudentDeleteDialog = ({ open, deleteStudent, toggleDeleteDialog, student })=> {
+const StudentDeleteDialog = ({ deleteDialog, deleteStudent, toggleDeleteDialog, student })=> {
   return (
-    <Dialog open={open}>
+    <Dialog open={deleteDialog}>
       <DialogTitle>
         Delete Student?
       </DialogTitle>

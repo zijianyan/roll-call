@@ -106,7 +106,7 @@ class Student extends Component {
           </CardActions>
         </Card>
 
-        <StudentDeleteDialog open={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteStudent={deleteStudent} student={student}/>
+        <StudentDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteStudent={deleteStudent} student={student}/>
 
       </div>
     );

@@ -125,7 +125,7 @@ Student.createRandom = function() {
     .then(student => Student.create({ firstName: student.name.first, lastName: student.name.last, gpa: (Math.random()*(4-2.7)+2.7).toFixed(2), imageUrl: student.picture.large }))
     .catch(ex => {
       // console.log(ex);
-      // return Student.create({ firstName: 'First', lastName: 'Last', gpa: 4 }) // if no internet connection, create this student
+      return Student.create({ firstName: 'First', lastName: 'Last', gpa: 4 }) // if no internet connection, create this student
     });
 };
 
