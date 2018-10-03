@@ -40,39 +40,29 @@ class Nav extends Component {
           textColor="primary"
           centered
         >
-          <Tab label="Schools" component={Link} to='/schools'/>
-          <Tab label="Students" component={Link} to='/students'/>
-        </Tabs>
+          
 
-      <List>
 
-        <ListItem button component={Link} to='/schools'>
           {
             schools.length ? (
-              <Badge badgeContent={schools.length} color='primary'>
-                <ListItemText primary='Schools' />
-              </Badge>
+              
+                <Tab label={`Schools (${schools.length})`} component={Link} to='/schools'/>
+
             ) : (
-              <ListItemText primary='Schools' />
+              <Tab label='Schools' component={Link} to='/schools'/>
             )
           }
-        </ListItem>
-        <ListItem button component={Link} to='/students'>
+
           {
             students.length ? (
-              <Badge badgeContent={students.length} color='primary'>
-                <ListItemText primary='Students' />
-              </Badge>
+              
+                <Tab label={`Students (${students.length})`} component={Link} to='/students'/>
+
             ) : (
-              <ListItemText primary='Students' />
+              <Tab label='Students' component={Link} to='/students'/>
             )
           }
-        </ListItem>
-
-
-      </List>
-
-
+        </Tabs>
 
 
     </Fragment>
