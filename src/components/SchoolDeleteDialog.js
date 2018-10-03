@@ -1,38 +1,30 @@
 import React, { Component } from 'react';
 
-// class studentDeleteDialog extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-
-//     }
-//   }
-// }
 import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
 
-const StudentDeleteDialog = ({ deleteDialog, deleteStudent, toggleDeleteDialog, school })=> {
+const SchoolDeleteDialog = ({ deleteDialog, toggleDeleteDialog, school, deleteSchool })=> {
   return (
     <Dialog open={deleteDialog}>
       <DialogTitle>
-        Delete Student?
+        Delete School?
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          They'll be homeschooled forever.
+          All of its students will leave the school.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={toggleDeleteDialog}>
           Cancel
         </Button>
-        <Button onClick={()=> deleteStudent(student)}>
+        <Button onClick={()=> deleteSchool(school)}>
           Delete
         </Button>
       </DialogActions>
     </Dialog>
-  )
-}
+  );
+};
 
-export default StudentDeleteDialog;
+export default SchoolDeleteDialog;
        
        

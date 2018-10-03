@@ -13,8 +13,7 @@ class StudentFormDialog extends Component {
       firstName: '',
       lastName: '',
       gpa: 0,
-      schoolId: '',
-      editing: false
+      schoolId: ''
     };
     this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,10 +26,6 @@ class StudentFormDialog extends Component {
     this.props.schoolId ? this.setState({ schoolId: this.props.schoolId }) : null; // when creating, prefill schoolId
     this.props.student ? this.setState(this.props.student) : null; // when updating, prefill student
   }
-
-  // toggleEditing() {
-  //   this.setState({ editing: !this.state.editing });
-  // }
 
   handleChange(ev) {
     // console.log('ev.target.name', ev.target.name);

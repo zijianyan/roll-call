@@ -28,6 +28,9 @@ const styles = {
   },
   heading: {
     'margin-bottom': 20
+  },
+  addCircle: {
+    margin: 10
   }
 }
 
@@ -83,16 +86,18 @@ class StudentsList extends Component {
             </TableHead>
 
             <TableBody>
+            
               <TableRow hover={true}>
                 <TableCell colSpan={4}>
-                  <Button className={classes.cellButton} onClick={toggleFormDialog}>
+                  <Button onClick={toggleFormDialog} className={classes.cellButton}>
                     
-                    <AddCircle color='primary'/>
+                    <AddCircle color='primary' className={classes.addCircle}/>
             
                     <Typography>Add New Student</Typography>
                   </Button>
                 </TableCell>
               </TableRow>
+
               {students.map(student => {
                 const { id, firstName, lastName, gpa, schoolId, imageUrl } = student;
                 const school = getSchool(schools, schoolId);
