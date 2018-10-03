@@ -13,7 +13,8 @@ import OtherStudentsList from './OtherStudentsList';
 import { withStyles, Typography, Divider, Button, IconButton, Tooltip } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
-import SchoolDeleteDialog from './SchoolDeleteDialog';
+import SchoolFormDialog from '../SchoolFormDialog';
+import SchoolDeleteDialog from '../SchoolDeleteDialog';
 
 const styles = {
   divider: {

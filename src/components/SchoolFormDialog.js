@@ -55,15 +55,15 @@ class SchoolFormDialog extends Component {
 
           <FormControl>
             <div>
-              <TextField name='name' value={name} label="First Name" onChange={handleChange} autoFocus/>
+              <TextField name='name' value={name} label="School Name" onChange={handleChange} autoFocus/>
             </div>
 
             <div>
-              <TextField name='address' value={address} label="Last Name" onChange={handleChange}/>
+              <TextField name='address' value={address} label="Address" onChange={handleChange}/>
             </div>
             
             <div>
-              <TextField name='description' value={description} label="Last Name" onChange={handleChange}/>
+              <TextField name='description' value={description} label="Description" onChange={handleChange}/>
             </div>
 
           </FormControl>

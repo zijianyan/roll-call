@@ -5,14 +5,14 @@ import { findEnrolled } from '../../utils';
 import { updateStudent_thunk } from '../../store/thunks';
 import { Link } from 'react-router-dom';
 
-import { Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton, Tooltip } from '@material-ui/core';
+import { Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton, Tooltip, Paper } from '@material-ui/core';
 
 import { Eject, AddCircle } from '@material-ui/icons';
 
 
 const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=> {
   return (
-    <div>
+    <Paper>
       <Typography variant='title'>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</Typography>
 
       <List>
@@ -40,7 +40,7 @@ const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=>
         </ListItem>
       </List>
 
-    </div>
+    </Paper>
   );
 };
 

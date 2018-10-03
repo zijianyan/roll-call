@@ -10,7 +10,7 @@ import { Eject, CompareArrows, AddCircle } from '@material-ui/icons';
 
 const OtherStudentsList = ({ otherStudents, enrollStudent, schools })=> {
   return (
-    <div>
+    <Paper>
       <Typography variant='title' >Other Students</Typography>
 
       <List>
@@ -38,7 +38,7 @@ const OtherStudentsList = ({ otherStudents, enrollStudent, schools })=> {
           })
         }
       </List>
-    </div>
+    </Paper>
   );
 };
 

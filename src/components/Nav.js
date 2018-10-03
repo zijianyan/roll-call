@@ -20,9 +20,7 @@ const Nav = ({ schools, students, classes })=> {
     <Fragment>
 
       <List>
-        <ListItem button component={Link} to='/'>
-          <ListItemText primary='Home' />
-        </ListItem>
+
         <ListItem button component={Link} to='/schools'>
           {
             schools.length ? (
@@ -45,9 +43,7 @@ const Nav = ({ schools, students, classes })=> {
             )
           }
         </ListItem>
-        <ListItem button component={Link} to='/schools/create'>
-          <ListItemText primary='Create A School' />
-        </ListItem>
+
 
       </List>
 
@@ -71,3 +67,12 @@ export default connect(mapStateToProps)(withStyles(styles)(Nav));
         // <ListItem button component={Link} to='/students/create'>
         //   <ListItemText primary='Create A Student' />
         // </ListItem>
+
+
+        //         <ListItem button component={Link} to='/schools/create'>
+        //   <ListItemText primary='Create A School' />
+        // </ListItem>
+
+          //         <ListItem button component={Link} to='/'>
+          //   <ListItemText primary='Home' />
+          // </ListItem>

@@ -52,7 +52,7 @@ class App extends Component {
               <Route exact path='/schools' component={SchoolsList}/>
               <Route exact path='/students' component={StudentsList}/>
               <Switch>
-                <Route path='/schools/create' component={SchoolsCreate}/>
+               
                 <Route path='/schools/:id' component={School}/>
               </Switch>
               <Switch>
@@ -82,6 +82,6 @@ const mapDispatchToProps = (dispatch)=> {
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(App));
 
-
+//  <Route path='/schools/create' component={SchoolsCreate}/>
 
                 // <Route path='/students/create' component={StudentsCreate}/>
