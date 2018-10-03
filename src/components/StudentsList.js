@@ -10,6 +10,7 @@ import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avata
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddCircle } from '@material-ui/icons';
 
+import StudentFormDialog from './StudentFormDialog';
 import StudentDeleteDialog from './StudentDeleteDialog';
 
 const styles = {
@@ -35,11 +36,17 @@ class StudentsList extends Component {
   constructor() {
     super();
     this.state = {
+      formDialog: false,
       deleteDialog: false,
       studentToDelete: null
     };
+    this.toggleFormDialog = this.toggleFormDialog.bind(this);
     this.toggleDeleteDialog = this.toggleDeleteDialog.bind(this);
     this.deleteStudent = this.deleteStudent.bind(this);
+  }
+
+  toggleFormDialog() {
+    this.setState({ formDialog: !this.state.formDialog });
   }
 
   toggleDeleteDialog(student) {
@@ -56,8 +63,8 @@ class StudentsList extends Component {
 
   render() {
     const { students, schools, classes } = this.props;
-    const { toggleDeleteDialog, deleteStudent } = this;
-    const { deleteDialog, studentToDelete } = this.state;
+    const { toggleFormDialog, toggleDeleteDialog, deleteStudent } = this;
+    const { formDialog, deleteDialog, studentToDelete } = this.state;
     return (
       <Fragment>
         <Paper className={classes.paper}>
@@ -78,7 +85,7 @@ class StudentsList extends Component {
             <TableBody>
               <TableRow hover={true}>
                 <TableCell colSpan={4}>
-                  <Button className={classes.cellButton}>
+                  <Button className={classes.cellButton} onClick={toggleFormDialog}>
                     
                     <AddCircle color='primary'/>
             
@@ -104,6 +111,9 @@ class StudentsList extends Component {
 
           </Table>
         </Paper>
+
+        <StudentFormDialog type='create' formDialog={formDialog} toggleFormDialog={toggleFormDialog} />
+
 
         <StudentDeleteDialog deleteDialog={deleteDialog} student={studentToDelete} toggleDeleteDialog={toggleDeleteDialog} deleteStudent={deleteStudent}/>
       </Fragment>

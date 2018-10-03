@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { loadSchools_thunk, loadStudents_thunk, reset_thunk } from '../store/thunks';
@@ -43,10 +43,11 @@ class App extends Component {
     return (
       <Fragment>
         <Paper className={classes.root}>
-          <Typography variant='display2' align='center' gutterBottom className={classes.title}>Acme Schools and Students</Typography>
-          <Divider />
-          <Router onUpdate={() => window.scrollTo(0, 0)}>
+          
+          <Router>
             <Fragment>
+              <Typography variant='display2' align='center' color='textPrimary' gutterBottom className={classes.title} component={Link} to='/'>Acme Schools and Students</Typography>
+              <Divider />
               <Nav />
               <Route exact path='/schools' component={SchoolsList}/>
               <Route exact path='/students' component={StudentsList}/>
@@ -56,7 +57,6 @@ class App extends Component {
               </Switch>
               <Switch>
                 <Route path='/students/create/:schoolId' component={StudentsCreate}/>
-                <Route path='/students/create' component={StudentsCreate}/>
                 <Route path='/students/:id' component={Student}/>
               </Switch>
               <Route path ='/' component={Footer}/>
@@ -81,3 +81,7 @@ const mapDispatchToProps = (dispatch)=> {
 };
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(App));
+
+
+
+                // <Route path='/students/create' component={StudentsCreate}/>

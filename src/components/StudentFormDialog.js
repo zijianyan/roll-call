@@ -33,8 +33,8 @@ class StudentFormDialog extends Component {
   // }
 
   handleChange(ev) {
-    console.log('ev.target.name', ev.target.name);
-    console.log('ev.target.value', ev.target.value);
+    // console.log('ev.target.name', ev.target.name);
+    // console.log('ev.target.value', ev.target.value);
     this.setState({ [ev.target.name]: ev.target.value });
   }
 
@@ -100,7 +100,7 @@ class StudentFormDialog extends Component {
 
             <div>
               <Typography id='school-select' variant='caption'>School</Typography>
-              <Select value={schoolId} onChange={handleChange} inputProps={{
+              <Select value={schoolId || ''} onChange={handleChange} inputProps={{
                 name: 'schoolId',
                 id: 'school-select',
               }}>
@@ -142,7 +142,8 @@ const mapDispatchToProps = (dispatch, { history })=> {
   return {
     createStudent: (student)=> {
       dispatch(createStudent_thunk(student));
-      history.push('/students');
+      // history.push('/students');
+      // window.scrollTo(0,document.body.scrollHeight);
     },
     updateStudent: (student)=> {
       dispatch(updateStudent_thunk(student));
@@ -152,6 +153,5 @@ const mapDispatchToProps = (dispatch, { history })=> {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentFormDialog);
-
 
 

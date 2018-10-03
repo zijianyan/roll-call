@@ -48,9 +48,7 @@ const Nav = ({ schools, students, classes })=> {
         <ListItem button component={Link} to='/schools/create'>
           <ListItemText primary='Create A School' />
         </ListItem>
-        <ListItem button component={Link} to='/students/create'>
-          <ListItemText primary='Create A Student' />
-        </ListItem>
+
       </List>
 
 
@@ -70,3 +68,6 @@ const mapStateToProps = ({ schools, students })=> {
 export default connect(mapStateToProps)(withStyles(styles)(Nav));
 
 
+        // <ListItem button component={Link} to='/students/create'>
+        //   <ListItemText primary='Create A Student' />
+        // </ListItem>
