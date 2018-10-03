@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { withStyles, Paper, Typography, List, ListItem, ListItemText, Badge } from '@material-ui/core';
+import { withStyles, Paper, Typography, List, ListItem, ListItemText, Badge, Tabs, Tab } from '@material-ui/core';
 
 
 const Home = ()=> <Link to/>
@@ -14,10 +14,35 @@ const styles = {
   }
 };
 
+class Nav extends Component {
+  constructor() {
+    super();
+    this.state = {
+      value: 0
+    };
+    this.handleNav = this.handleNav.bind(this);
+  }
 
-const Nav = ({ schools, students, classes })=> {
-  return (
-    <Fragment>
+  handleNav(event, value) {
+    this.setState({ value });
+  };
+
+
+  render() {
+    const { schools, students, classes } = this.props;
+    return (
+      <Fragment>
+
+      <Tabs
+          value={this.state.value}
+          onChange={this.handleNav}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+        >
+          <Tab label="Schools" component={Link} to='/schools'/>
+          <Tab label="Students" component={Link} to='/students'/>
+        </Tabs>
 
       <List>
 
@@ -51,8 +76,9 @@ const Nav = ({ schools, students, classes })=> {
 
 
     </Fragment>
-  );
-};
+    )
+  }
+}
 
 const mapStateToProps = ({ schools, students })=> {
   return {
@@ -63,16 +89,3 @@ const mapStateToProps = ({ schools, students })=> {
 
 export default connect(mapStateToProps)(withStyles(styles)(Nav));
 
-
-        // <ListItem button component={Link} to='/students/create'>
-        //   <ListItemText primary='Create A Student' />
-        // </ListItem>
-
-
-        //         <ListItem button component={Link} to='/schools/create'>
-        //   <ListItemText primary='Create A School' />
-        // </ListItem>
-
-          //         <ListItem button component={Link} to='/'>
-          //   <ListItemText primary='Home' />
-          // </ListItem>

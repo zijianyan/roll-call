@@ -46,7 +46,7 @@ class App extends Component {
           
           <Router>
             <Fragment>
-              <Typography variant='display2' align='center' color='textPrimary' gutterBottom className={classes.title} component={Link} to='/'>Acme Schools and Students</Typography>
+              <Typography variant='display2' align='center' gutterBottom className={classes.title} component={Link} to='/'>Acme Schools and Students</Typography>
               <Divider />
               <Nav />
               <Route exact path='/schools' component={SchoolsList}/>
