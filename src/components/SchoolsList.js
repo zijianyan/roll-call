@@ -8,7 +8,7 @@ import { findEnrolled } from '../utils';
 import { withStyles, List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import StudentForm from './StudentForm';
+import StudentFormDialog from './StudentFormDialog';
 
 const styles = {
   cellButton: {
@@ -29,7 +29,7 @@ const SchoolsList = ({ schools, deleteSchool, students, classes })=> {
   return (
     <Fragment>
       
-      <StudentForm />
+      <StudentFormDialog />
 
 
       <Paper className={classes.paper}>

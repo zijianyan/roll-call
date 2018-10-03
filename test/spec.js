@@ -257,6 +257,10 @@ describe('senior enrichment project', ()=> {
 //Revise School to emulate Student MUI
 
 //convert Nav to tabbed menu of some sort
+
+
+//clickaway listener for modals
+
 //data list in School for students
 
 

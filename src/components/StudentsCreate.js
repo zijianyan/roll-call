@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createStudentRandom_thunk } from '../store/thunks';
 
 
-import StudentForm from './StudentForm';
+import StudentFormDialog from './StudentFormDialog';
 
 
 class StudentsCreate extends Component {

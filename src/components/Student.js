@@ -10,7 +10,7 @@ import uuidv4 from 'uuid/v4';
 import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
 import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
-import StudentForm from './StudentForm';
+import StudentFormDialog from './StudentFormDialog';
 import StudentDeleteDialog from './StudentDeleteDialog';
 
 const styles = {
@@ -42,13 +42,19 @@ class Student extends Component {
   constructor() {
     super();
     this.state = {
-      deleteDialog: false
+      deleteDialog: false,
+      formDialog: false
     };
+    this.toggleFormDialog = this.toggleFormDialog.bind(this);
     this.toggleDeleteDialog = this.toggleDeleteDialog.bind(this);
   }
 
   componentDidMount() {
     window.scroll(0,0); // make sure the user starts at the top of the page after first render
+  }
+
+  toggleFormDialog() {
+    this.setState({ formDialog: !this.state.formDialog });
   }
 
   toggleDeleteDialog() {
@@ -57,8 +63,8 @@ class Student extends Component {
 
   render() {
     const { student, deleteStudent, school, unenroll, history, classes } = this.props;
-    const { toggleDeleteDialog } = this;
-    const { deleteDialog } = this.state;
+    const { toggleFormDialog, toggleDeleteDialog } = this;
+    const { formDialog, deleteDialog } = this.state;
     if (!student) {
       return (
         <div>
@@ -77,8 +83,11 @@ class Student extends Component {
               </Avatar>
             }
             action={
-              <StudentForm type='update' student={student}/>
+              <Tooltip title='Edit'>
+                <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
+              </Tooltip>
             }
+            
             title={`${student.firstName} ${student.lastName}`}
             subheader={ school ? (<Fragment><Link to={`/schools/${school.id}`}>{school.name}</Link> <Tooltip title='Unenroll'>
               <IconButton onClick={()=> unenroll(student)} ><Eject fontSize='small'/>
@@ -105,6 +114,8 @@ class Student extends Component {
             </Fragment>
           </CardActions>
         </Card>
+
+        <StudentFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} student={student}/>
 
         <StudentDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteStudent={deleteStudent} student={student}/>
 
@@ -134,3 +145,14 @@ const mapDispatchToProps = (dispatch, { history })=> {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Student));
+
+
+
+//  <StudentForm type='update' student={student}/>
+
+
+
+
+    //  <Tooltip title='Edit'>
+    //             <IconButton onClick={toggleEditing}><Edit /></IconButton>
+    //           </Tooltip>
