@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { deleteSchool_thunk } from '../../store/thunks';
 import { getSchool } from '../../utils';
 
-import SchoolForm from '../SchoolForm';
+// import SchoolForm from '../SchoolForm';
 import SchoolInfo from './SchoolInfo';
 import EnrolledStudentsList from './EnrolledStudentsList';
 import OtherStudentsList from './OtherStudentsList';
@@ -56,8 +56,6 @@ class School extends Component {
       <Fragment> 
 
         <SchoolInfo school={school}/>
-
-        <SchoolForm type='update' history={history} school={school}/>
 
         <Tooltip title='Delete School'><IconButton onClick={toggleDeleteDialog}><Delete /></IconButton></Tooltip>
         

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reset_thunk } from '../store/thunks';
 
 
-import { withStyles, Button, Divider, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Snackbar } from '@material-ui/core'
+import { withStyles, Button, Divider, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Snackbar, Fade } from '@material-ui/core'
 
 const styles = {
   footer: {
@@ -33,10 +33,14 @@ class Footer extends Component {
     const { open } = this.state;
     return (
       <Fragment>
-        <div className={classes.footer}>
-          <Divider />
-          <Button align='right' className={classes.reset} onClick={toggleDialog}>Reset Server</Button>
-        </div>
+      
+        <Fade in>
+          <div className={classes.footer}>
+            <Divider />
+            <Button align='right' className={classes.reset} onClick={toggleDialog}>Reset Server</Button>
+          </div>
+        </Fade>
+
         <Dialog open={open}>
           <DialogTitle>
             Reset the server?
@@ -55,6 +59,7 @@ class Footer extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+        
       </Fragment>
     );
   }

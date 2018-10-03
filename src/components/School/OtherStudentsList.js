@@ -5,12 +5,19 @@ import { Link } from 'react-router-dom';
 import { updateStudent_thunk } from '../../store/thunks';
 import { getSchool, findOtherStudents } from '../../utils';
 
-import { Paper, List, ListItem, ListItemText, Typography, Divider, Avatar, Tooltip, IconButton, ListItemSecondaryAction } from '@material-ui/core';
+import { withStyles, Paper, List, ListItem, ListItemText, Typography, Divider, Avatar, Tooltip, IconButton, ListItemSecondaryAction } from '@material-ui/core';
 import { Eject, CompareArrows, AddCircle } from '@material-ui/icons';
 
-const OtherStudentsList = ({ otherStudents, enrollStudent, schools })=> {
+const styles = {
+  paper: {
+    padding: 50,
+    marginTop: 10
+  }
+};
+
+const OtherStudentsList = ({ otherStudents, enrollStudent, schools, classes })=> {
   return (
-    <Paper>
+    <Paper className={classes.paper}>
       <Typography variant='title' >Other Students</Typography>
 
       <List>
@@ -58,4 +65,4 @@ const mapDispatchToProps = (dispatch, { schoolId })=> {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OtherStudentsList);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(OtherStudentsList));

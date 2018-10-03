@@ -5,14 +5,20 @@ import { findEnrolled } from '../../utils';
 import { updateStudent_thunk } from '../../store/thunks';
 import { Link } from 'react-router-dom';
 
-import { Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton, Tooltip, Paper } from '@material-ui/core';
+import { withStyles, Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton, Tooltip, Paper } from '@material-ui/core';
 
 import { Eject, AddCircle } from '@material-ui/icons';
 
+const styles = {
+  paper: {
+    padding: 50,
+    marginBottom: 10
+  }
+};
 
-const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=> {
+const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId, classes })=> {
   return (
-    <Paper>
+    <Paper className={classes.paper}>
       <Typography variant='title'>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</Typography>
 
       <List>
@@ -34,7 +40,7 @@ const EnrolledStudentsList = ({ enrolledStudents, unenrollStudent, schoolId })=>
 
           }) : null
         }
-        <ListItem button component={Link} to={`/students/create/${schoolId}`}>
+        <ListItem button component={Link} to={`/students/create/${schoolId}`}> 
           <AddCircle color='primary'/>
           <ListItemText>Add New Student</ListItemText>
         </ListItem>
@@ -59,4 +65,7 @@ const mapDispatchToProps = (dispatch)=> {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EnrolledStudentsList);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EnrolledStudentsList));
+
+
+//NEED TO OPEN UP CREATE STUDENT DIALOGUE WITH ADD NEW STUDENT BUTTON - AND PASS IN SCHOOLID TO THE STUDENT CREATE FORM

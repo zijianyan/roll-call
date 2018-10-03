@@ -108,7 +108,7 @@ School.hasMany(Student);
 School.createRandom = function() {
   return School.create({
     name: `${faker.address.city()} ${randomSchoolNoun()}`,
-    address: faker.address.streetAddress(),
+    address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.countryCode()}`,
     description: faker.lorem.paragraphs(3),
     imageUrl: `http://source.unsplash.com/random?`
   });

@@ -7,14 +7,16 @@ import { loadSchools_thunk, loadStudents_thunk, reset_thunk } from '../store/thu
 import SchoolsList from './SchoolsList';
 import StudentsList from './StudentsList';
 import Nav from './Nav';
-import StudentsCreate from './StudentsCreate';
-import SchoolsCreate from './SchoolsCreate';
+// import SchoolsCreate from './SchoolsCreate';
 import School from './School';
 import Student from './Student';
 import Footer from './Footer';
+import StudentFormDialog from './StudentFormDialog';
 
-import { Typography, Paper, Divider } from '@material-ui/core';
+import { Typography, Paper, Divider, Zoom, Fade, Grow, Slide } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+
+
 
 const styles = {
   root: {
@@ -24,8 +26,22 @@ const styles = {
   },
   title: {
     marginTop: 0,
-    marginBottom: 45
+    marginBottom: 45,
+    fontWeight: 200
   }
+};
+
+const Header = ({ classes })=> {
+  return (
+    <Fragment>
+      <Fade in>
+        <Typography variant='display2' align='center' gutterBottom className={classes.title} component={Link} to='/'>
+          Acme Schools and Students
+        </Typography>
+      </Fade>
+      <Divider />
+    </Fragment>
+  );
 };
 
 
@@ -46,8 +62,7 @@ class App extends Component {
           
           <Router>
             <Fragment>
-              <Typography variant='display2' align='center' gutterBottom className={classes.title} component={Link} to='/'>Acme Schools and Students</Typography>
-              <Divider />
+              <Route path ='/' render={()=> <Header classes={classes}/>}/>
               <Nav />
               <Route exact path='/schools' component={SchoolsList}/>
               <Route exact path='/students' component={StudentsList}/>
@@ -56,7 +71,7 @@ class App extends Component {
                 <Route path='/schools/:id' component={School}/>
               </Switch>
               <Switch>
-                <Route path='/students/create/:schoolId' component={StudentsCreate}/>
+                <Route path='/students/create/:schoolId' component={StudentFormDialog}/>
                 <Route path='/students/:id' component={Student}/>
               </Switch>
               <Route path ='/' component={Footer}/>

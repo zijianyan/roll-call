@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { deleteSchool_thunk } from '../store/thunks';
 import { findEnrolled } from '../utils';
 
-import { withStyles, List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip } from '@material-ui/core';
+import { withStyles, List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip, Fade } from '@material-ui/core';
 
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -68,52 +68,51 @@ class SchoolsList extends Component {
     const { formDialog, deleteDialog, schoolToDelete } = this.state;
     return (
       <Fragment>
-      
-        <Paper className={classes.paper}>
-          <Typography variant='display1' className={classes.heading}>Schools</Typography>
-          <Divider />
-          <Table >
+        <Fade in>
+          <Paper className={classes.paper}>
+            <Typography variant='display1' className={classes.heading}>Schools</Typography>
+            <Divider />
+            <Table >
 
-            <TableHead>
-              <TableRow>
-                <TableCell>School</TableCell>
-                <TableCell numeric>Students Enrolled</TableCell>
-                <TableCell>Address</TableCell>
-                <TableCell /> 
-              </TableRow>
-            </TableHead>
+              <TableHead>
+                <TableRow>
+                  <TableCell>School</TableCell>
+                  <TableCell numeric>Students Enrolled</TableCell>
+                  <TableCell>Address</TableCell>
+                  <TableCell /> 
+                </TableRow>
+              </TableHead>
 
-            <TableBody>
+              <TableBody>
 
-              <TableRow hover={true}>
-                <TableCell colSpan={4}>
-                  <Button onClick={toggleFormDialog} className={classes.cellButton}>
-                    
-                    <AddCircle color='primary' className={classes.addCircle}/>
-            
-                    <Typography>Add New School</Typography>
-                  </Button>
-                </TableCell>
-              </TableRow>
+                <TableRow hover={true}>
+                  <TableCell colSpan={4}>
+                    <Button onClick={toggleFormDialog} className={classes.cellButton}>
+                      <AddCircle color='primary' className={classes.addCircle}/>
+                      <Typography>Add New School</Typography>
+                    </Button>
+                  </TableCell>
+                </TableRow>
 
-              {schools.map(school => {
-                const { id, name, address } = school;
-                const enrolled = findEnrolled(students, id);
-                return (
-                  <TableRow key={id} hover={true} >
-                    <TableCell>
-                      <Button component={Link} to={`/schools/${id}`} className={classes.cellButton}>{name}</Button>
-                    </TableCell>
-                    <TableCell numeric>{ enrolled.length ? enrolled.length : null }</TableCell>
-                    <TableCell >{school.address}</TableCell>
-                    <TableCell><Tooltip title='Delete'><IconButton onClick={()=> toggleDeleteDialog(school)}><DeleteIcon /></IconButton></Tooltip></TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
+                {schools.map(school => {
+                  const { id, name, address } = school;
+                  const enrolled = findEnrolled(students, id);
+                  return (
+                    <TableRow key={id} hover={true} >
+                      <TableCell>
+                        <Button component={Link} to={`/schools/${id}`} className={classes.cellButton}>{name}</Button>
+                      </TableCell>
+                      <TableCell numeric>{ enrolled.length ? enrolled.length : null }</TableCell>
+                      <TableCell >{address}</TableCell>
+                      <TableCell><Tooltip title='Delete'><IconButton onClick={()=> toggleDeleteDialog(school)}><DeleteIcon /></IconButton></Tooltip></TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
 
-          </Table>
-        </Paper>
+            </Table>
+          </Paper>
+        </Fade> 
 
         <SchoolFormDialog type='create' formDialog={formDialog} toggleFormDialog={toggleFormDialog}/>
         <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} school={schoolToDelete} deleteSchool={deleteSchool}/>

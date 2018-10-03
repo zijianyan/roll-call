@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
 
-const SchoolDeleteDialog = ({ deleteDialog, toggleDeleteDialog, school, deleteSchool })=> {
+const SchoolDeleteDialog = ({ deleteDialog, deleteSchool, toggleDeleteDialog, school })=> {
   return (
     <Dialog open={deleteDialog}>
       <DialogTitle>
@@ -10,7 +10,7 @@ const SchoolDeleteDialog = ({ deleteDialog, toggleDeleteDialog, school, deleteSc
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          All of its students will leave the school.
+          All of its students will be on their own.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

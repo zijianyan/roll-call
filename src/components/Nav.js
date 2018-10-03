@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { withStyles, Paper, Typography, List, ListItem, ListItemText, Badge, Tabs, Tab } from '@material-ui/core';
+import { withStyles, Paper, Typography, List, ListItem, ListItemText, Badge, Tabs, Tab, Fade } from '@material-ui/core';
 
 
 const Home = ()=> <Link to/>
@@ -32,7 +32,7 @@ class Nav extends Component {
     const { schools, students, classes } = this.props;
     return (
       <Fragment>
-
+      <Fade in>
       <Tabs
           value={this.state.value}
           onChange={this.handleNav}
@@ -41,8 +41,6 @@ class Nav extends Component {
           centered
         >
           
-
-
           {
             schools.length ? (
               
@@ -64,7 +62,7 @@ class Nav extends Component {
           }
         </Tabs>
 
-
+      </Fade>
     </Fragment>
     )
   }

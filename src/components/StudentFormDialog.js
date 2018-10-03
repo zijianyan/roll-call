@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { createStudent_thunk, updateStudent_thunk } from '../store/thunks';
-import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
+import { withStyles, Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { Slider } from '@material-ui/lab';
+
+const styles = {
+  select: {
+    minWidth: 200
+  }
+
+}
 
 class StudentFormDialog extends Component {
   constructor() {
@@ -13,7 +20,7 @@ class StudentFormDialog extends Component {
       firstName: '',
       lastName: '',
       gpa: 0,
-      schoolId: ''
+      schoolId: 0
     };
     this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,24 +62,11 @@ class StudentFormDialog extends Component {
     this.props.toggleFormDialog();
   }
 
-  // handleSubmit(ev) {
-  //   ev.preventDefault();
-  //   const student = {
-  //     firstName: this.state.firstName,
-  //     lastName: this.state.lastName,
-  //     gpa: this.state.gpa*1,
-  //     schoolId: this.state.schoolId || null,
-  //   };
-  //   this.props.student ? student.id = this.props.student.id : null;
-  //   const { type, createStudent, updateStudent } = this.props;
-  //   type === 'create' ? createStudent(student) : null;
-  //   type === 'update' ? updateStudent(student) : null;
-  // }
 
   render() {
     const { handleChange, handleSubmit, saveStudent, handleSlider } = this;
     const { firstName, lastName, gpa, schoolId, editing } = this.state;
-    const { type, schools, formDialog, toggleFormDialog, updateStudent, createStudent, student } = this.props;
+    const { type, schools, formDialog, toggleFormDialog, updateStudent, createStudent, student, classes } = this.props;
     const isEmpty = firstName && lastName ? false : true;
     return (
       <Dialog open={formDialog}>
@@ -98,8 +92,8 @@ class StudentFormDialog extends Component {
               <Select value={schoolId || ''} onChange={handleChange} inputProps={{
                 name: 'schoolId',
                 id: 'school-select',
-              }}>
-                <MenuItem value=''>None</MenuItem>
+              }} className={classes.select}>
+                <MenuItem value=''  ><em>None</em></MenuItem>
                 {
                   schools.map( school => 
                     <MenuItem key={school.id} value={school.id}>{school.name}</MenuItem>
@@ -147,6 +141,6 @@ const mapDispatchToProps = (dispatch, { history })=> {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentFormDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StudentFormDialog));
 
 
