@@ -10,6 +10,8 @@ import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avata
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddCircle } from '@material-ui/icons';
 
+import StudentDeleteDialog from './StudentDeleteDialog';
+
 const styles = {
   avatar: {
     'margin-right': '15px'
@@ -56,7 +58,7 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
                   
                   <AddCircle color='primary'/>
            
-                  <Typography variant='heading'>Add New Student</Typography>
+                  <Typography>Add New Student</Typography>
                 </Button>
               </TableCell>
             </TableRow>
@@ -78,6 +80,8 @@ const StudentsList = ({ students, deleteStudent, schools, classes })=> {
 
         </Table>
       </Paper>
+
+
     </Fragment>
   );
 };

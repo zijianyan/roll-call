@@ -250,8 +250,16 @@ describe('senior enrichment project', ()=> {
 
 //Student form
 
+//make forms dialogs
+
+
+
 //Revise School to emulate Student MUI
+
+//convert Nav to tabbed menu of some sort
 //data list in School for students
+
+
 
 
 //separate db file into conn and models

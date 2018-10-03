@@ -11,6 +11,7 @@ import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent,
 import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
 import StudentForm from './StudentForm';
+import StudentDeleteDialog from './StudentDeleteDialog';
 
 const styles = {
   card: {
@@ -105,24 +106,7 @@ class Student extends Component {
           </CardActions>
         </Card>
 
-        <Dialog open={deleteDialog}>
-          <DialogTitle>
-            Delete Student?
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              They'll be homeschooled forever.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={toggleDeleteDialog}>
-              Cancel
-            </Button>
-            <Button onClick={()=> deleteStudent(student)}>
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <StudentDeleteDialog open={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteStudent={deleteStudent} student={student}/>
 
       </div>
     );
