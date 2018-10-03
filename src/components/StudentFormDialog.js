@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { createStudent_thunk, updateStudent_thunk } from '../store/thunks';
-import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField } from '@material-ui/core';
+import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { Slider } from '@material-ui/lab';
 
@@ -84,36 +84,36 @@ class StudentFormDialog extends Component {
         <DialogTitle>{ type === 'create' ? 'Create Student' : 'Edit Student'}</DialogTitle>
         <DialogContent>
 
-        
+          <FormControl>
+            <div>
+              <TextField name='firstName' value={firstName} label="First Name" onChange={handleChange} autoFocus/>
+            </div>
 
-          <TextField name='firstName' value={firstName} label="First Name" onChange={handleChange}
-            autoFocus
-            // margin="dense"
-            // id="name"
-            
-            // fullWidth
-          />
+            <div>
+              <TextField name='lastName' value={lastName} label="Last Name" onChange={handleChange}/>
+            </div>
 
-          <TextField name='lastName' value={lastName} label="Last Name" onChange={handleChange}/>
+            <div>
+              <Typography id='slider' variant='caption'>GPA: {gpa.toFixed(2)}</Typography>
+              <Slider name='gpa' value={gpa} aria-labelledby='slider' min={0} max={4} step={0.01} onChange={handleSlider}/>
+            </div>
 
-          <Slider name='gpa' value={gpa} label='GPA' min={0} max={4} step={0.01} onChange={handleSlider}/>
+            <div>
+              <Typography id='school-select' variant='caption'>School</Typography>
+              <Select value={schoolId} onChange={handleChange} inputProps={{
+                name: 'schoolId',
+                id: 'school-select',
+              }}>
+                <MenuItem value=''>None</MenuItem>
+                {
+                  schools.map( school => 
+                    <MenuItem key={school.id} value={school.id}>{school.name}</MenuItem>
+                  )
+                }
+              </Select>
+            </div>
+          </FormControl>
 
-          <div>
-            <input name='gpa' value={gpa} type='range' min='0' max='4' step='.01' onChange={handleChange}/>
-            GPA: {gpa}
-          </div>
-
-          <div>
-            <select name='schoolId' value={schoolId || ''} onChange={handleChange}>
-              <option value=''>--no school--</option>
-              {
-                schools.map( school => 
-                  <option key={school.id} value={school.id}>{school.name}</option>
-                )
-              }
-            </select>
-          </div>
-          <button disabled={isEmpty}>Save</button>
         
 
 
@@ -152,3 +152,6 @@ const mapDispatchToProps = (dispatch, { history })=> {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentFormDialog);
+
+
+
