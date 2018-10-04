@@ -24,20 +24,11 @@ class Nav extends Component {
     this.setState({ path: this.props.path });
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.path !== this.props.path) {
-      this.setState({ path: this.props.path });
-    }
-  }
-
   handleNav(event, value) {
-    // console.log(`set tab to ${value}`);
     this.setState({ path: value || null});
   }
 
   render() {
-    console.log('Nav, this.props:', this.props);
-    console.log('Nav, this.state:', this.state);
     const { schools, students, classes } = this.props;
     const { path } = this.state;
     const { handleNav } = this;
@@ -65,5 +56,3 @@ const mapStateToProps = ({ schools, students })=> {
 };
 
 export default connect(mapStateToProps)(withStyles(styles)(Nav));
-
-//bug in nav tab... on page refresh, tab returns to value 0...
