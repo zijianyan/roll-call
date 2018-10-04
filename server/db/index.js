@@ -10,6 +10,7 @@ School.hasMany(Student);
 
 const syncAndSeed = async ()=> {
   await conn.sync({ force: true });
+  const zi = await Student.create({ firstName: 'Zijian', lastName: 'Yan', gpa: 4, imageUrl: 'http://source.unsplash.com/random?animal' });
   const [ stu01, stu02, stu03, stu04, stu05, stu06, stu07, stu08, stu09, stu10, stu11, stu12 ] = await Promise.all([
     Student.createRandom(),
     Student.createRandom(),
@@ -31,6 +32,7 @@ const syncAndSeed = async ()=> {
     Student.createRandom(),
     
   ]);
+  const fullstack = await School.create({ name: 'Fullstack Academy', address: '5 Hanover Square, New York, NY', imageUrl: 'https://images.unsplash.com/photo-1499566727020-881da110a0b0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a4418b9d763f12cab34f582d564c32f2&auto=format&fit=crop&w=1113&q=80' });
   const [ sch01, sch02, sch03, sch04, sch05 ] = await Promise.all([
     School.createRandom(),
     School.createRandom(),
@@ -40,6 +42,7 @@ const syncAndSeed = async ()=> {
     School.createRandom(),
     School.createRandom(),
   ]);
+  await zi.setSchool(fullstack);
   await Promise.all([
     stu01.setSchool(sch01),
     stu02.setSchool(sch02),

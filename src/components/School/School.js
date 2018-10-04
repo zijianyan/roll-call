@@ -105,7 +105,7 @@ class SchoolInfo extends Component {
 
             <Fade in timeout={200}>
               <CardMedia 
-                image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
+                image={imageUrl ||`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
                 className={cardMedia}
               />
             </Fade> 

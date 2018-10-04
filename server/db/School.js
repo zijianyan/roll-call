@@ -38,7 +38,7 @@ const School = conn.define('school', {
   hooks: {
     beforeCreate: (school)=> {
       school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
-      school.imageUrl = 'http://source.unsplash.com/random?city'
+      school.imageUrl = 'http://source.unsplash.com/random?city';
     },
     beforeUpdate: (school)=> {
       school.name = school.name.slice(0,1).toUpperCase() + school.name.slice(1, school.name.length);
