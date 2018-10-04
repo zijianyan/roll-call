@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import uuidv4 from 'uuid/v4';
 
-import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
+import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Fade } from '@material-ui/core';
 import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
 import StudentFormDialog from './StudentFormDialog';
@@ -76,42 +76,46 @@ class Student extends Component {
 
     return (
       <Fragment>
-        <Card className={classes.card}>
-          <CardHeader
-            avatar={
-              <Avatar className={classes.avatar} src={student.imageUrl}>
-              </Avatar>
-            }
-            action={
-              <Tooltip title='Edit'>
-                <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
-              </Tooltip>
-            }
-            
-            title={`${student.firstName} ${student.lastName}`}
-            subheader={ school ? (<Fragment><Link to={`/schools/${school.id}`}>{school.name}</Link> <Tooltip title='Unenroll'>
-              <IconButton onClick={()=> unenroll(student)} ><Eject fontSize='small'/>
-              </IconButton>
-            </Tooltip></Fragment>) : 'Not enrolled'}
-          />
-          <CardMedia 
-            image={`http://source.unsplash.com/random?place&forceRefresh=${uuidv4()}`}
-            className={classes.media}
-          />
-          <CardContent>
-            <LinearProgress variant='determinate' value={gpaPercentage(student.gpa)*100} className={classes.progress}/>
-            <Typography variant='subheading'>GPA: {student.gpa}</Typography>
-          </CardContent>
-          <CardActions>
-            <Fragment>
-              <Tooltip title='Delete'>
-                <IconButton onClick={toggleDeleteDialog}>
-                  <Delete />
+        <Fade in>
+          <Card className={classes.card}>
+            <CardHeader
+              avatar={
+                <Avatar className={classes.avatar} src={student.imageUrl}>
+                </Avatar>
+              }
+              action={
+                <Tooltip title='Edit'>
+                  <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
+                </Tooltip>
+              }
+              
+              title={`${student.firstName} ${student.lastName}`}
+              subheader={ school ? (<Fragment><Link to={`/schools/${school.id}`}>{school.name}</Link> <Tooltip title='Unenroll'>
+                <IconButton onClick={()=> unenroll(student)} ><Eject fontSize='small'/>
                 </IconButton>
-              </Tooltip>
-            </Fragment>
-          </CardActions>
-        </Card>
+              </Tooltip></Fragment>) : 'Not enrolled'}
+            />
+            <Fade in timeout={1000}>
+              <CardMedia 
+                image={`http://source.unsplash.com/random?place&forceRefresh=${uuidv4()}`}
+                className={classes.media}
+              />
+            </Fade>
+            <CardContent>
+              <LinearProgress variant='determinate' value={gpaPercentage(student.gpa)*100} className={classes.progress}/>
+              <Typography variant='subheading'>GPA: {student.gpa}</Typography>
+            </CardContent>
+            <CardActions>
+              <Fragment>
+                <Tooltip title='Delete'>
+                  <IconButton onClick={toggleDeleteDialog}>
+                    <Delete />
+                  </IconButton>
+                </Tooltip>
+              </Fragment>
+            </CardActions>
+          </Card>
+        </Fade>
 
         <StudentFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} student={student}/>
 

@@ -33,14 +33,13 @@ class Footer extends Component {
     const { open } = this.state;
     return (
       <Fragment>
-      
         <Fade in>
           <div className={classes.footer}>
             <Divider />
             <Button align='right' className={classes.reset} onClick={toggleDialog}>Reset Server</Button>
           </div>
         </Fade>
-
+        
         <Dialog open={open}>
           <DialogTitle>
             Reset the server?

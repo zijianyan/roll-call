@@ -8,9 +8,8 @@ import { withStyles, Paper, Typography, List, ListItem, ListItemText, Badge, Tab
 const Home = ()=> <Link to/>
 
 const styles = {
-  badge: {
-    top: -20,
-    right: -15,
+  tabs: {
+    marginTop: 10,  
   }
 };
 
@@ -38,6 +37,7 @@ class Nav extends Component {
               onChange={this.handleNav}
               indicatorColor="primary"
               textColor="primary"
+              className={classes.tabs}
               centered
             >
               

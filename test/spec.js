@@ -250,7 +250,8 @@ describe('senior enrichment project', ()=> {
 
 
 
-//create random shool and student in SchoolFormDialog and StudentFormDialog
+//clean up and lint frontend
+
 
 //separate db file into conn and models
 

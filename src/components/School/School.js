@@ -6,7 +6,7 @@ import uuidv4 from 'uuid/v4';
 
 import { deleteSchool_thunk } from '../../store/thunks';
 
-import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Divider } from '@material-ui/core';
+import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Divider, Fade } from '@material-ui/core';
 import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
 import { getSchool } from '../../utils';
@@ -78,49 +78,56 @@ class SchoolInfo extends Component {
     
     return (
       <Fragment>
+        
+          <Fragment>
+            <Fade in>
+            <Card className={classes.card}>
+              <CardHeader
+                avatar={
+                  <Avatar className={classes.avatar} src={imageUrl}>
+                  </Avatar>
+                }
+                action={
+                  <Tooltip title='Edit'>
+                    <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
+                  </Tooltip>
+                }
+                title={name}
+              />
+              <Fade in timeout={1000}>
+              <CardMedia 
+                image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
+                className={classes.media}
+              />
+              </Fade>
+              <CardContent>
+                <Typography variant='subheading'>Address</Typography>
+                <Typography>{address}</Typography>
+                <Typography variant='subheading'>Description</Typography>
+                <Typography>{description}</Typography>
+              </CardContent>
+              <CardActions>
+                <Fragment>
+                  <Tooltip title='Delete'>
+                    <IconButton onClick={toggleDeleteDialog}>
+                      <Delete />
+                    </IconButton>
+                  </Tooltip>
+                </Fragment>
+              </CardActions>
+            </Card>
+            </Fade>
 
-        <Card className={classes.card}>
-          <CardHeader
-            avatar={
-              <Avatar className={classes.avatar} src={imageUrl}>
-              </Avatar>
-            }
-            action={
-              <Tooltip title='Edit'>
-                <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
-              </Tooltip>
-            }
-            title={name}
-          />
-          <CardMedia 
-            image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
-            className={classes.media}
-          />
-          <CardContent>
-            <Typography variant='subheading'>Address</Typography>
-            <Typography>{address}</Typography>
-            <Typography variant='subheading'>Description</Typography>
-            <Typography>{description}</Typography>
-          </CardContent>
-          <CardActions>
-            <Fragment>
-              <Tooltip title='Delete'>
-                <IconButton onClick={toggleDeleteDialog}>
-                  <Delete />
-                </IconButton>
-              </Tooltip>
-            </Fragment>
-          </CardActions>
-        </Card>
 
-        <SchoolFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} school={school}/>
+            <SchoolFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} school={school}/>
 
-        <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteSchool={deleteSchool} school={school}/>
+            <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteSchool={deleteSchool} school={school}/>
 
-        <EnrolledStudentsList schoolId={school.id}/>
+            <EnrolledStudentsList schoolId={school.id}/>
 
-        <OtherStudentsList schoolId={school.id}/>
-
+            <OtherStudentsList schoolId={school.id}/>
+          </Fragment>
+        
       </Fragment>
     );
   }
