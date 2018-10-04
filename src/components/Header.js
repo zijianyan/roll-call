@@ -12,7 +12,7 @@ const styles = {
   }
 };
 
-const Header = ({ classes })=> {
+const Header = ({ classes, location })=> {
   return (
     <Fragment>
       <Grid container justify='center'>
@@ -23,7 +23,7 @@ const Header = ({ classes })=> {
                 Acme Schools and Students
               </Typography>
             </ButtonBase>
-            <Nav />
+            <Nav path={location.pathname}/>
           </Fragment>
         </Fade>
       </Grid>
