@@ -58,8 +58,8 @@ Student.createRandom = function() {
     .then(data => data.results[0])
     .then(student => Student.create({ firstName: student.name.first, lastName: student.name.last, gpa: (Math.random()*(4-2.7)+2.7).toFixed(2), imageUrl: student.picture.large }))
     .catch(ex => {
-      // console.log(ex);
-      // return Student.create({ firstName: 'First', lastName: 'Last', gpa: 4 }) // if no internet connection, create this student
+      console.log(ex);
+      return Student.create({ firstName: 'Internetless', lastName: 'Student', gpa: 0 }) // if no internet connection, create this student
     });
 };
 
