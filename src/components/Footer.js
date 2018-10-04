@@ -2,17 +2,17 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { reset_thunk } from '../store/thunks';
 
-
-import { withStyles, Button, Divider, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Snackbar, Fade } from '@material-ui/core'
+import { withStyles, Button, Divider, Fade } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core';
 
 const styles = {
   footer: {
     marginTop: 30
   },
-  reset: {
+  resetButton: {
     marginTop: 20
   }
-}
+};
 
 class Footer extends Component {
   constructor() {
@@ -21,23 +21,34 @@ class Footer extends Component {
       open: false
     };
     this.toggleDialog = this.toggleDialog.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   toggleDialog() {
     this.setState({ open: !this.state.open });
   }
 
+  reset() {
+    this.props.dispatchResetThunk();
+    this.toggleDialog(); 
+    this.props.history.push('/');
+  }
+
   render() {
-    const { reset, classes } = this.props;
-    const { toggleDialog } = this;
+    const { classes } = this.props;
+    const { resetButton } = classes;
+    const { toggleDialog, reset } = this;
     const { open } = this.state;
     return (
       <Fragment>
+      
         <Fade in>
-          <div className={classes.footer}>
+          <Fragment className={classes.footer}>
             <Divider />
-            <Button align='right' className={classes.reset} onClick={toggleDialog}>Reset Server</Button>
-          </div>
+            <Button align='right' className={resetButton} onClick={toggleDialog}>
+              Reset Server
+            </Button>
+          </Fragment>
         </Fade>
         
         <Dialog open={open}>
@@ -53,7 +64,7 @@ class Footer extends Component {
             <Button onClick={toggleDialog}>
               Cancel
             </Button>
-            <Button onClick={()=> reset(toggleDialog)}>
+            <Button onClick={reset}>
               Reset
             </Button>
           </DialogActions>
@@ -65,12 +76,10 @@ class Footer extends Component {
 
 }
 
-const mapDispatchToProps = (dispatch, { history })=> {
+const mapDispatchToProps = (dispatch)=> {
   return {
-    reset: (toggleDialog)=> {
+    dispatchResetThunk: ()=> {
       dispatch(reset_thunk());
-      history.push('/');
-      toggleDialog();
     }
   };
 };
