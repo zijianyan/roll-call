@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 
 import { createSchool_thunk, updateSchool_thunk, createSchoolRandom_thunk } from '../../store/thunks';
 
-import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
+import { Button, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { FormControl, TextField } from '@material-ui/core';
 import { Toys } from '@material-ui/icons';
-import { Slider } from '@material-ui/lab';
 
 class SchoolFormDialog extends Component {
   constructor() {
@@ -21,17 +22,19 @@ class SchoolFormDialog extends Component {
   }
 
   componentDidMount() {
-    // this.props.schoolId ? this.setState({ schoolId: this.props.schoolId }) : null; // when creating, prefill schoolId
-    // this.props.student ? this.setState(this.props.student) : null; // when updating, prefill student
     this.props.school ? this.setState(this.props.school) : null;
   }
-
 
   handleChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
 
   saveSchool() {
+    const empty = {
+      name: '',
+      address: '',
+      description: ''
+    };
     const school = {
       name: this.state.name,
       address: this.state.address,
@@ -39,9 +42,12 @@ class SchoolFormDialog extends Component {
     };
     this.props.school ? school.id = this.props.school.id : null;
     const { type, createSchool, updateSchool } = this.props;
-    type === 'create' ? createSchool(school) : null;
-    type === 'update' ? updateSchool(school) : null;
-    // !type ? console.log('FormDialog needs a "type" prop with value "create" or "update"') : null;
+    if (type === 'create') {
+      createSchool(school);
+      this.setState(empty);
+    } else if (type === 'update') {
+      updateSchool(school);
+    }
     this.props.toggleFormDialog();
   }
 
@@ -53,30 +59,27 @@ class SchoolFormDialog extends Component {
   render() {
     const { handleChange, saveSchool, createSchoolRandom } = this;
     const { name, address, description } = this.state;
-    const { type, schools, formDialog, toggleFormDialog, updateSchool, createSchool, school } = this.props;
+    const { type, formDialog, toggleFormDialog } = this.props;
     const isEmpty = name && address ? false : true;
     return (
       <Dialog open={formDialog}>
-        <DialogTitle>{ type === 'create' ? 'Create School' : 'Edit School'}</DialogTitle>
-        <DialogContent>
 
+        <DialogTitle>{ type === 'create' ? 'Create School' : 'Edit School'}</DialogTitle>
+
+        <DialogContent>
           <FormControl>
             <div>
               <TextField name='name' value={name} label="School Name" onChange={handleChange} required autoFocus/>
             </div>
-
             <div>
               <TextField name='address' value={address} label="Address" onChange={handleChange} required/>
             </div>
-            
             <div>
               <TextField name='description' value={description} label="Description" onChange={handleChange}/>
             </div>
-
           </FormControl>
-
-        
         </DialogContent>
+
         <DialogActions>
           {
             type === 'create' ? (
@@ -90,7 +93,6 @@ class SchoolFormDialog extends Component {
             ) : null
 
           }
-          
           <Button onClick={toggleFormDialog}>
             Cancel
           </Button>
@@ -98,6 +100,7 @@ class SchoolFormDialog extends Component {
             Save
           </Button>
         </DialogActions>
+
       </Dialog>
     );
   }
@@ -109,8 +112,7 @@ const mapStateToProps = ({ schools })=> {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps)=> {
-  // console.log('SchoolFormDialog, mapDispatchToProps, ownProps:', ownProps);
+const mapDispatchToProps = (dispatch)=> {
   return {
     createSchool: (school)=> {
       dispatch(createSchool_thunk(school));
@@ -123,7 +125,6 @@ const mapDispatchToProps = (dispatch, ownProps)=> {
     }
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SchoolFormDialog);
 

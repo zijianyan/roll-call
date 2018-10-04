@@ -45,6 +45,12 @@ class StudentFormDialog extends Component {
   }
 
   saveStudent() {
+    const empty = {
+      firstName: '',
+      lastName: '',
+      gpa: 0,
+      schoolId: null
+    };
     const student = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -53,9 +59,12 @@ class StudentFormDialog extends Component {
     };
     this.props.student ? student.id = this.props.student.id : null;
     const { type, createStudent, updateStudent } = this.props;
-    type === 'create' ? createStudent(student) : null;
-    type === 'update' ? updateStudent(student) : null;
-    !type ? console.log('StudentFormDialog needs a "type" prop with value "create" or "update"') : null;
+    if (type === 'create') {
+      createStudent(student);
+      this.setState(empty);
+    } else if (type === 'update') {
+      updateStudent(student);
+    }
     this.props.toggleFormDialog();
   }
 
