@@ -139,7 +139,6 @@ class SchoolsList extends Component {
   }
 }
 
-
 const mapStateToProps = ({ schools, students })=> {
   return {
     schools,

@@ -89,13 +89,7 @@ class Footer extends Component {
           onClose={toggleResetConfirmation}
           message={<span id="message-id">Server reset</span>}
           action={[
-            <IconButton
-              // key="close"
-              // aria-label="Close"
-              color="inherit"
-              // className={classes.close}
-              onClick={toggleResetConfirmation}
-            >
+            <IconButton color="inherit" onClick={toggleResetConfirmation}>
               <Close />
             </IconButton>,
           ]}
