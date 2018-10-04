@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { reset_thunk } from '../store/thunks';
 
-import { withStyles, Button, Divider, Fade } from '@material-ui/core';
+import { withStyles, Button, Divider, Fade, Snackbar } from '@material-ui/core';
 import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core';
 
 const styles = {
@@ -19,40 +19,41 @@ class Footer extends Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      resetDialog: false,
+
     };
-    this.toggleDialog = this.toggleDialog.bind(this);
+    this.toggleResetDialog = this.toggleResetDialog.bind(this);
     this.reset = this.reset.bind(this);
   }
 
-  toggleDialog() {
-    this.setState({ open: !this.state.open });
+  toggleResetDialog() {
+    this.setState({ resetDialog: !this.state.resetDialog });
   }
 
   reset() {
     this.props.dispatchResetThunk();
-    this.toggleDialog(); 
+    this.toggleResetDialog(); 
     this.props.history.push('/');
   }
 
   render() {
     const { classes } = this.props;
     const { resetButton } = classes;
-    const { toggleDialog, reset } = this;
-    const { open } = this.state;
+    const { toggleResetDialog, reset } = this;
+    const { resetDialog } = this.state;
     return (
       <Fragment>
 
         <Fade in>
           <div className={classes.footer}>
             <Divider />
-            <Button align='right' className={resetButton} onClick={toggleDialog}>
+            <Button align='right' className={resetButton} onClick={toggleResetDialog}>
               Reset Server
             </Button>
           </div>
         </Fade>
         
-        <Dialog open={open}>
+        <Dialog open={resetDialog}>
           <DialogTitle>
             Reset the server?
           </DialogTitle>
@@ -62,7 +63,7 @@ class Footer extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={toggleDialog}>
+            <Button onClick={toggleResetDialog}>
               Cancel
             </Button>
             <Button onClick={reset}>
