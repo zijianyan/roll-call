@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core';
 
 const SchoolDeleteDialog = ({ deleteDialog, deleteSchool, toggleDeleteDialog, school })=> {
   return (

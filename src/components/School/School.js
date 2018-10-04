@@ -1,21 +1,19 @@
 import React, { Component, Fragment } from 'react';
-
 import { connect } from 'react-redux';
-
 import uuidv4 from 'uuid/v4';
 
 import { deleteSchool_thunk } from '../../store/thunks';
-
-import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Divider, Fade } from '@material-ui/core';
-import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
-
 import { getSchool } from '../../utils';
-
-import SchoolFormDialog from './SchoolFormDialog';
-import SchoolDeleteDialog from './SchoolDeleteDialog';
 
 import EnrolledStudentsList from './EnrolledStudentsList';
 import OtherStudentsList from './OtherStudentsList';
+import SchoolFormDialog from './SchoolFormDialog';
+import SchoolDeleteDialog from './SchoolDeleteDialog';
+
+import { withStyles, Typography, Button, IconButton, Tooltip, Avatar, Fade } from '@material-ui/core';
+import { Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core';
+import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
 const styles = {
   card: {
@@ -65,6 +63,7 @@ class SchoolInfo extends Component {
     const { school, classes, deleteSchool } = this.props;
     const { formDialog, deleteDialog } = this.state;
     const { toggleFormDialog, toggleDeleteDialog } = this;
+    const { card, media, avatar } = classes;
     
     if (!school) {
       return (
@@ -75,59 +74,77 @@ class SchoolInfo extends Component {
     }
 
     const { imageUrl, name, address, description } = school;
+
+    const schoolAvatar = <Avatar className={avatar} src={imageUrl} />
+    const editButton = (
+      <Tooltip title='Edit'>
+        <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
+      </Tooltip>
+    );
     
     return (
       <Fragment>
-        
-          <Fragment>
-            <Fade in>
-            <Card className={classes.card}>
-              <CardHeader
-                avatar={
-                  <Avatar className={classes.avatar} src={imageUrl}>
-                  </Avatar>
-                }
-                action={
-                  <Tooltip title='Edit'>
-                    <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
-                  </Tooltip>
-                }
-                title={name}
-              />
-              <Fade in timeout={1000}>
-              <CardMedia 
-                image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
-                className={classes.media}
-              />
-              </Fade>
-              <CardContent>
-                <Typography variant='subheading'>Address</Typography>
-                <Typography>{address}</Typography>
-                <Typography variant='subheading'>Description</Typography>
-                <Typography>{description}</Typography>
-              </CardContent>
-              <CardActions>
-                <Fragment>
-                  <Tooltip title='Delete'>
-                    <IconButton onClick={toggleDeleteDialog}>
-                      <Delete />
-                    </IconButton>
-                  </Tooltip>
-                </Fragment>
-              </CardActions>
-            </Card>
-            </Fade>
 
+        <Fade in timeout={1000}>
+          <Card className={card}>
 
-            <SchoolFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} school={school}/>
+            <CardHeader
+              avatar={schoolAvatar}
+              action={editButton}
+              title={name}
+            />
 
-            <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteSchool={deleteSchool} school={school}/>
+            <CardMedia 
+              image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
+              className={media}
+            />
 
-            <EnrolledStudentsList schoolId={school.id}/>
+            <CardContent>
+              <Typography variant='subheading'>
+                Address
+              </Typography>
+              <Typography>
+                {address}
+              </Typography>
+              <Typography variant='subheading'>
+                Description
+              </Typography>
+              <Typography>
+                {description}
+              </Typography>
+            </CardContent>
 
-            <OtherStudentsList schoolId={school.id}/>
-          </Fragment>
-        
+            <CardActions>
+              <Fragment>
+                <Tooltip title='Delete'>
+                  <IconButton onClick={toggleDeleteDialog}>
+                    <Delete />
+                  </IconButton>
+                </Tooltip>
+              </Fragment>
+            </CardActions>
+
+          </Card>
+        </Fade>
+
+        <SchoolFormDialog
+          type='update'
+          formDialog={formDialog}
+          toggleFormDialog={toggleFormDialog}
+          school={school}
+        />
+
+        <SchoolDeleteDialog
+          deleteDialog={deleteDialog}
+          toggleDeleteDialog={toggleDeleteDialog}
+          deleteSchool={deleteSchool}
+          school={school}
+        />
+
+        <EnrolledStudentsList schoolId={school.id}/>
+
+        <OtherStudentsList schoolId={school.id}/>
+
       </Fragment>
     );
   }
@@ -136,9 +153,8 @@ class SchoolInfo extends Component {
 const mapStateToProps = ({ schools }, { match })=> {
   return {
     school: getSchool(schools, match.params.id)
-  }
-  
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch, { history })=> {
   return {
