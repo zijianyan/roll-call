@@ -18,7 +18,7 @@ const styles = {
     margin: 20,
     padding: 50,
     maxWidth: 1000,
-    minWidth: 600
+    minWidth: 500
   }
 };
 

@@ -12,7 +12,8 @@ const styles = {
     marginTop: 30
   },
   resetButton: {
-    marginTop: 20
+    marginTop: 20,
+    marginLeft: 20
   }
 };
 

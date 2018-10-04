@@ -19,6 +19,9 @@ const styles = {
   },
   addCircle: {
     margin: 10
+  },
+  headline: {
+    fontWeight: 200
   }
 };
 
@@ -42,7 +45,7 @@ class EnrolledStudentsList extends Component {
     return (
       <Fragment>
         <Paper className={classes.paper}>
-          <Typography variant='title'>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</Typography>
+          <Typography variant='headline' className={classes.headline}>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</Typography>
 
           <List>
             <ListItem button onClick={toggleFormDialog}> 

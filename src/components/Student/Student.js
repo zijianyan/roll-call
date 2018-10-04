@@ -32,6 +32,10 @@ const styles = {
     'color': 'rgba(0, 0, 0, 0.87)',
     'font-size': '0.8125rem',
     'font-weight': '400'
+  },
+  title: {
+    fontWeight: 200,
+    fontSize: '2.125rem'
   }
 };
   
@@ -98,7 +102,7 @@ class Student extends Component {
             <CardHeader
               avatar={<Avatar src={imageUrl}/>}
               action={editButton}
-              title={`${firstName} ${lastName}`}
+              title={<Typography variant='title' className={classes.title}>{firstName} {lastName}</Typography>}
               subheader={schoolSubheader}
             />
 

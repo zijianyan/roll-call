@@ -11,7 +11,7 @@ const SchoolDeleteDialog = ({ deleteDialog, deleteSchool, toggleDeleteDialog, sc
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Its students will be alright.
+          All students will be disenrolled.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

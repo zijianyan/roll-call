@@ -13,13 +13,16 @@ const styles = {
   paper: {
     padding: 50,
     marginTop: 10
+  },
+  headline: {
+    fontWeight: 200
   }
 };
 
 const OtherStudentsList = ({ otherStudents, enrollStudent, schools, classes })=> {
   return (
     <Paper className={classes.paper}>
-      <Typography variant='title' >Other Students</Typography>
+      <Typography variant='headline' className={classes.headline}>Other Students</Typography>
 
       <List>
         {

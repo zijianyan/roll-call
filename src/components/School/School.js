@@ -38,6 +38,9 @@ const styles = {
   progress: {
     marginTop: 5,
     marginBottom: 10
+  },
+  title: {
+    fontWeight: 200
   }
 };
 
@@ -97,7 +100,7 @@ class SchoolInfo extends Component {
             <CardHeader
               avatar={schoolAvatar}
               action={editButton}
-              title={name}
+              title={<Typography variant='display1' className={classes.title}>{name}</Typography>}
             />
 
             <Fade in timeout={200}>
