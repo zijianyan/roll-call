@@ -6,12 +6,16 @@ import uuidv4 from 'uuid/v4';
 
 import { deleteSchool_thunk } from '../../store/thunks';
 
-import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
+import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Divider } from '@material-ui/core';
 import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
+import { getSchool } from '../../utils';
 
 import SchoolFormDialog from '../SchoolFormDialog';
 import SchoolDeleteDialog from '../SchoolDeleteDialog';
+
+import EnrolledStudentsList from './EnrolledStudentsList';
+import OtherStudentsList from './OtherStudentsList';
 
 const styles = {
   card: {
@@ -57,59 +61,72 @@ class SchoolInfo extends Component {
     const { school, classes, deleteSchool } = this.props;
     const { formDialog, deleteDialog } = this.state;
     const { toggleFormDialog, toggleDeleteDialog } = this;
+    
+    if (!school) {
+      return (
+        <Typography>
+          School not found
+        </Typography>
+      );
+    }
+
     const { imageUrl, name, address, description } = school;
+    
     return (
-      <div>
-        <div>
-          <Card className={classes.card}>
-          
-            <CardHeader
-              avatar={
-                <Avatar className={classes.avatar} src={imageUrl}>
-                </Avatar>
-              }
-              action={
-                <Tooltip title='Edit'>
-                  <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
-                </Tooltip>
-              }
-              
-              title={name}
-            />
-            <CardMedia 
-              image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
-              className={classes.media}
-            />
-            <CardContent>
-              <Typography variant='subheading'>Address</Typography>
-              <Typography>{address}</Typography>
-              <Typography variant='subheading'>Description</Typography>
-              <Typography>{description}</Typography>
-            </CardContent>
+      <Fragment>
 
+        <Card className={classes.card}>
+          <CardHeader
+            avatar={
+              <Avatar className={classes.avatar} src={imageUrl}>
+              </Avatar>
+            }
+            action={
+              <Tooltip title='Edit'>
+                <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
+              </Tooltip>
+            }
+            title={name}
+          />
+          <CardMedia 
+            image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
+            className={classes.media}
+          />
+          <CardContent>
+            <Typography variant='subheading'>Address</Typography>
+            <Typography>{address}</Typography>
+            <Typography variant='subheading'>Description</Typography>
+            <Typography>{description}</Typography>
+          </CardContent>
+          <CardActions>
+            <Fragment>
+              <Tooltip title='Delete'>
+                <IconButton onClick={toggleDeleteDialog}>
+                  <Delete />
+                </IconButton>
+              </Tooltip>
+            </Fragment>
+          </CardActions>
+        </Card>
 
-            <CardActions>
-              <Fragment>
-                <Tooltip title='Delete'>
-                  <IconButton onClick={toggleDeleteDialog}>
-                    <Delete />
-                  </IconButton>
-                </Tooltip>
-              </Fragment>
-            </CardActions>
-          </Card>
+        <SchoolFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} school={school}/>
 
-          <SchoolFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} school={school}/>
+        <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteSchool={deleteSchool} school={school}/>
 
-          <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteSchool={deleteSchool} school={school}/>
+        <EnrolledStudentsList schoolId={school.id}/>
 
-        </div>
+        <OtherStudentsList schoolId={school.id}/>
 
-        
-
-      </div>
+      </Fragment>
     );
   }
+}
+
+const mapStateToProps = ({ schools }, { match })=> {
+  return {
+    school: getSchool(schools, match.params.id)
+  }
+  
 }
 
 const mapDispatchToProps = (dispatch, { history })=> {
@@ -124,8 +141,8 @@ const mapDispatchToProps = (dispatch, { history })=> {
     },
     unenroll: (student)=> {
       dispatch(updateStudent_thunk({...student, schoolId: null}))
-    }
+    },
   };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(SchoolInfo));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SchoolInfo));

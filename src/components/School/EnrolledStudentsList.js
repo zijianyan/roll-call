@@ -12,6 +12,7 @@ import { Eject, AddCircle } from '@material-ui/icons';
 const styles = {
   paper: {
     padding: 50,
+    marginTop: 10,
     marginBottom: 10
   }
 };

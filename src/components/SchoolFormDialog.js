@@ -39,8 +39,8 @@ class SchoolFormDialog extends Component {
     this.props.school ? school.id = this.props.school.id : null;
     const { type, createSchool, updateSchool } = this.props;
     type === 'create' ? createSchool(school) : null;
-    type === 'update' ? updateSschool(school) : null;
-    !type ? console.log('FormDialog needs a "type" prop with value "create" or "update"') : null;
+    type === 'update' ? updateSchool(school) : null;
+    // !type ? console.log('FormDialog needs a "type" prop with value "create" or "update"') : null;
     this.props.toggleFormDialog();
   }
 

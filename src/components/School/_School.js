@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { deleteSchool_thunk } from '../../store/thunks';
 import { getSchool } from '../../utils';
 
-// import SchoolForm from '../SchoolForm';
 import SchoolInfo from './SchoolInfo';
 import EnrolledStudentsList from './EnrolledStudentsList';
 import OtherStudentsList from './OtherStudentsList';
@@ -26,24 +25,25 @@ const styles = {
 class School extends Component {
   constructor() {
     super();
-    this.state = {
-      deleteDialog: false
-    };
-    this.toggleDeleteDialog = this.toggleDeleteDialog.bind(this);
+    // this.state = {
+    //   deleteDialog: false
+    // };
+    // this.toggleDeleteDialog = this.toggleDeleteDialog.bind(this);
   }
 
   componentDidMount() {
     window.scroll(0,0);
   }
 
-  toggleDeleteDialog() {
-    this.setState({ deleteDialog: !this.state.deleteDialog });
-  }
+  // toggleDeleteDialog() {
+  //   this.setState({ deleteDialog: !this.state.deleteDialog });
+  // }
 
   render() {
     const { school, history, deleteSchool, classes } = this.props;
-    const { toggleDeleteDialog } = this;
-    const { deleteDialog } = this.state;
+    // const { toggleDeleteDialog } = this;
+    // const { deleteDialog } = this.state;
+    // console.log('School props:', this.props);
     if (!school) {
       return (
         <div>
@@ -57,15 +57,7 @@ class School extends Component {
 
         <SchoolInfo school={school}/>
 
-        <Tooltip title='Delete School'><IconButton onClick={toggleDeleteDialog}><Delete /></IconButton></Tooltip>
-        
-        <Divider />
 
-        <EnrolledStudentsList schoolId={school.id}/>
-
-        <OtherStudentsList schoolId={school.id}/>
-
-        <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteSchool={deleteSchool} school={school}/>
 
       </Fragment>
     );
@@ -88,3 +80,10 @@ const mapDispatchToProps = (dispatch, { history })=> {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(School));
+
+
+        // <Tooltip title='Delete School'><IconButton onClick={toggleDeleteDialog}><Delete /></IconButton></Tooltip>
+
+
+
+        // <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteSchool={deleteSchool} school={school}/>

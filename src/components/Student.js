@@ -67,16 +67,15 @@ class Student extends Component {
     const { formDialog, deleteDialog } = this.state;
     if (!student) {
       return (
-        <div>
+        <Typography>
           Student not found
-        </div>
+        </Typography>
       );
     }
 
     return (
-      <div>
+      <Fragment>
         <Card className={classes.card}>
-        
           <CardHeader
             avatar={
               <Avatar className={classes.avatar} src={student.imageUrl}>
@@ -102,8 +101,6 @@ class Student extends Component {
             <LinearProgress variant='determinate' value={gpaPercentage(student.gpa)*100} className={classes.progress}/>
             <Typography variant='subheading'>GPA: {student.gpa}</Typography>
           </CardContent>
-
-
           <CardActions>
             <Fragment>
               <Tooltip title='Delete'>
@@ -119,7 +116,7 @@ class Student extends Component {
 
         <StudentDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteStudent={deleteStudent} student={student}/>
 
-      </div>
+      </Fragment>
     );
   }
 }

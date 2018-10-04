@@ -8,7 +8,9 @@ import SchoolsList from './SchoolsList';
 import StudentsList from './StudentsList';
 import Nav from './Nav';
 // import SchoolsCreate from './SchoolsCreate';
-import School from './School';
+// import School from './School';
+import SchoolInfo from './School/SchoolInfo';
+
 import Student from './Student';
 import Footer from './Footer';
 import StudentFormDialog from './StudentFormDialog';
@@ -68,7 +70,7 @@ class App extends Component {
               <Route exact path='/students' component={StudentsList}/>
               <Switch>
                
-                <Route path='/schools/:id' component={School}/>
+                <Route path='/schools/:id' component={SchoolInfo}/>
               </Switch>
               <Switch>
                 <Route path='/students/create/:schoolId' component={StudentFormDialog}/>
