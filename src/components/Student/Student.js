@@ -1,18 +1,17 @@
 import React, { Component, Fragment } from 'react';
-
-import { connect } from 'react-redux';
-
-import { deleteStudent_thunk, updateStudent_thunk } from '../../store/thunks';
-import { getSchool, getStudent } from '../../utils';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import uuidv4 from 'uuid/v4';
 
-import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Fade } from '@material-ui/core';
-import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
+import { deleteStudent_thunk, updateStudent_thunk } from '../../store/thunks';
+import { getSchool, getStudent, gpaPercentage } from '../../utils';
 
 import StudentFormDialog from './StudentFormDialog';
 import StudentDeleteDialog from './StudentDeleteDialog';
+
+import { withStyles, Typography, Button, IconButton, Tooltip, Avatar, LinearProgress, Fade } from '@material-ui/core';
+import { Card, CardContent, CardActions, CardMedia, CardHeader } from '@material-ui/core';
+import { Eject, Edit, Delete } from '@material-ui/icons';
 
 const styles = {
   card: {
@@ -33,12 +32,7 @@ const styles = {
     marginBottom: 10
   }
 };
-
-const gpaPercentage = gpa => {
-  return (gpa/4).toFixed(2);
-};
   
-
 class Student extends Component {
   constructor() {
     super();
@@ -51,7 +45,7 @@ class Student extends Component {
   }
 
   componentDidMount() {
-    window.scroll(0,0); // make sure the user starts at the top of the page after first render
+    window.scroll(0,0);
   }
 
   toggleFormDialog() {
@@ -63,48 +57,64 @@ class Student extends Component {
   }
 
   render() {
-    const { student, deleteStudent, school, unenroll, history, classes } = this.props;
+    if (!this.props.student) { return (<Typography>Student not found</Typography>); }
+
+    const { student, deleteStudent, school, unenroll, classes } = this.props;
     const { toggleFormDialog, toggleDeleteDialog } = this;
     const { formDialog, deleteDialog } = this.state;
-    if (!student) {
-      return (
-        <Typography>
-          Student not found
-        </Typography>
-      );
-    }
+    const { firstName, lastName, imageUrl, gpa } = student;
+
+    const editButton = (
+      <Tooltip title='Edit'>
+        <IconButton onClick={toggleFormDialog}>
+          <Edit />
+        </IconButton>
+      </Tooltip>
+    );
+
+    const schoolSubheader = school ? (
+      <Fragment>
+        <Link to={`/schools/${school.id}`}>
+          {school.name}
+        </Link>
+        <Tooltip title='Unenroll'>
+          <IconButton onClick={()=> unenroll(student)}>
+            <Eject />
+          </IconButton>
+        </Tooltip>
+      </Fragment>
+    ) : 'Not enrolled';
+
 
     return (
       <Fragment>
-        <Fade in>
+      
+        <Fade in timeout={1000}>
           <Card className={classes.card}>
+
             <CardHeader
-              avatar={
-                <Avatar className={classes.avatar} src={student.imageUrl}>
-                </Avatar>
-              }
-              action={
-                <Tooltip title='Edit'>
-                  <IconButton onClick={toggleFormDialog}><Edit /></IconButton>
-                </Tooltip>
-              }
-              
-              title={`${student.firstName} ${student.lastName}`}
-              subheader={ school ? (<Fragment><Link to={`/schools/${school.id}`}>{school.name}</Link> <Tooltip title='Unenroll'>
-                <IconButton onClick={()=> unenroll(student)} ><Eject fontSize='small'/>
-                </IconButton>
-              </Tooltip></Fragment>) : 'Not enrolled'}
+              avatar={<Avatar src={imageUrl}/>}
+              action={editButton}
+              title={`${firstName} ${lastName}`}
+              subheader={schoolSubheader}
             />
-            <Fade in timeout={1000}>
-              <CardMedia 
-                image={`http://source.unsplash.com/random?place&forceRefresh=${uuidv4()}`}
-                className={classes.media}
-              />
-            </Fade>
+
+            <CardMedia 
+              image={`http://source.unsplash.com/random?place&forceRefresh=${uuidv4()}`}
+              className={classes.media}
+            />
+
             <CardContent>
-              <LinearProgress variant='determinate' value={gpaPercentage(student.gpa)*100} className={classes.progress}/>
-              <Typography variant='subheading'>GPA: {student.gpa}</Typography>
+              <LinearProgress
+                variant='determinate'
+                value={gpaPercentage(student.gpa)*100}
+                className={classes.progress}
+              />
+              <Typography variant='subheading'>
+                GPA: {gpa}
+              </Typography>
             </CardContent>
+
             <CardActions>
               <Fragment>
                 <Tooltip title='Delete'>
@@ -114,12 +124,23 @@ class Student extends Component {
                 </Tooltip>
               </Fragment>
             </CardActions>
+            
           </Card>
         </Fade>
 
-        <StudentFormDialog type='update' formDialog={formDialog} toggleFormDialog={toggleFormDialog} student={student}/>
+        <StudentFormDialog
+          type='update'
+          formDialog={formDialog}
+          toggleFormDialog={toggleFormDialog}
+          student={student}
+        />
 
-        <StudentDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} deleteStudent={deleteStudent} student={student}/>
+        <StudentDeleteDialog
+          deleteDialog={deleteDialog}
+          toggleDeleteDialog={toggleDeleteDialog}
+          deleteStudent={deleteStudent}
+          student={student}
+        />
 
       </Fragment>
     );
@@ -149,12 +170,3 @@ const mapDispatchToProps = (dispatch, { history })=> {
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Student));
 
 
-
-//  <StudentForm type='update' student={student}/>
-
-
-
-
-    //  <Tooltip title='Edit'>
-    //             <IconButton onClick={toggleEditing}><Edit /></IconButton>
-    //           </Tooltip>

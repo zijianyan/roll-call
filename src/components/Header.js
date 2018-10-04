@@ -19,7 +19,7 @@ const Header = ({ classes })=> {
         <Fade in>
           <Fragment>
             <ButtonBase>
-              <Typography variant='display2' className={classes.title} component={Link} to='/' gutterBottoms>
+              <Typography variant='display2' className={classes.title} component={Link} to='/' gutterBottom>
                 Acme Schools and Students
               </Typography>
             </ButtonBase>

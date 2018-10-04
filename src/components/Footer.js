@@ -41,14 +41,14 @@ class Footer extends Component {
     const { open } = this.state;
     return (
       <Fragment>
-      
+
         <Fade in>
-          <Fragment className={classes.footer}>
+          <div className={classes.footer}>
             <Divider />
             <Button align='right' className={resetButton} onClick={toggleDialog}>
               Reset Server
             </Button>
-          </Fragment>
+          </div>
         </Fade>
         
         <Dialog open={open}>
