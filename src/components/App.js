@@ -17,7 +17,8 @@ const styles = {
   root: {
     margin: 20,
     padding: 50,
-    width: 1000
+    maxWidth: 1000,
+    minWidth: 600
   }
 };
 

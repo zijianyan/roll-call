@@ -32,11 +32,7 @@ const styles = {
     'color': 'rgba(0, 0, 0, 0.87)',
     'font-size': '0.8125rem',
     'font-weight': '400'
-  },
-  // progress: {
-  //   marginTop: 5,
-  //   marginBottom: 10
-  // }
+  }
 };
   
 class Student extends Component {
