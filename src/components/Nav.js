@@ -5,17 +5,13 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import { Tabs, Tab } from '@material-ui/core';
 
-const styles = {
-  tabs: {
-    marginTop: 10,  
-  }
-};
+import styles from './Nav.styles';
 
 class Nav extends Component {
   constructor() {
     super();
     this.state = {
-      path: null
+      path: '/'
     };
     this.handleNav = this.handleNav.bind(this);
   }
@@ -25,7 +21,7 @@ class Nav extends Component {
   }
 
   handleNav(event, value) {
-    this.setState({ path: value || null});
+    this.setState({ path: value });
   }
 
   render() {

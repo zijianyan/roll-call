@@ -10,11 +10,7 @@ import { FormControl, TextField, Select, MenuItem } from '@material-ui/core';
 import { Edit, Toys } from '@material-ui/icons';
 import { Slider } from '@material-ui/lab';
 
-const styles = {
-  select: {
-    minWidth: 200
-  }
-};
+import styles from './StudentFormDialog.styles';
 
 class StudentFormDialog extends Component {
   constructor() {

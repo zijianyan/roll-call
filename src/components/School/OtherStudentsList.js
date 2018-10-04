@@ -9,15 +9,7 @@ import { withStyles, Paper, Typography, Divider, Avatar, Tooltip, IconButton } f
 import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import { CompareArrows, AddCircle } from '@material-ui/icons';
 
-const styles = {
-  paper: {
-    padding: 50,
-    marginTop: 10
-  },
-  headline: {
-    fontWeight: 200
-  }
-};
+import styles from './OtherStudentsList.styles';
 
 const OtherStudentsList = ({ otherStudents, enrollStudent, schools, classes })=> {
   return (

@@ -5,12 +5,7 @@ import Nav from './Nav';
 
 import { withStyles, Fade, Typography, ButtonBase, Grid } from '@material-ui/core';
 
-const styles = {
-  title: {
-    padding: 20,
-    fontWeight: 200
-  }
-};
+import styles from './Header.styles';
 
 const Header = ({ classes, location })=> {
   return (

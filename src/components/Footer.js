@@ -7,15 +7,7 @@ import { withStyles, Button, Divider, Fade, Snackbar, IconButton } from '@materi
 import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 
-const styles = {
-  footer: {
-    marginTop: 30
-  },
-  resetButton: {
-    marginTop: 20,
-    marginLeft: 20
-  }
-};
+import styles from './Footer.styles';
 
 class Footer extends Component {
   constructor() {
