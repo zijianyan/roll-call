@@ -18,8 +18,14 @@ const styles = {
     maxWidth: 1000,
     minWidth: 400
   },
+  cardContent: {
+    margin: '20 30 0 30'
+  },
   cardMedia: {
     height: 300,
+  },
+  cardActions: {
+    margin: '0 30 20 30'  
   },
   cellButton: {
     'text-transform': 'none',
@@ -27,10 +33,10 @@ const styles = {
     'font-size': '0.8125rem',
     'font-weight': '400'
   },
-  progress: {
-    marginTop: 5,
-    marginBottom: 10
-  }
+  // progress: {
+  //   marginTop: 5,
+  //   marginBottom: 10
+  // }
 };
   
 class Student extends Component {
@@ -63,7 +69,7 @@ class Student extends Component {
     const { toggleFormDialog, toggleDeleteDialog } = this;
     const { formDialog, deleteDialog } = this.state;
     const { firstName, lastName, imageUrl, gpa } = student;
-    const { cardMedia } = classes;
+    const { cardMedia, cardContent, cardActions } = classes;
 
     const editButton = (
       <Tooltip title='Edit'>
@@ -107,7 +113,7 @@ class Student extends Component {
               />
             </Fade>
 
-            <CardContent>
+            <CardContent className={cardContent}>
               <LinearProgress
                 variant='determinate'
                 value={gpaPercentage(student.gpa)*100}
@@ -118,7 +124,7 @@ class Student extends Component {
               </Typography>
             </CardContent>
 
-            <CardActions>
+            <CardActions className={cardActions}>
               <Fragment>
                 <Tooltip title='Delete'>
                   <IconButton onClick={toggleDeleteDialog}>

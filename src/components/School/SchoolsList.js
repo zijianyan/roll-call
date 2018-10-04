@@ -8,11 +8,11 @@ import { findEnrolled } from '../../utils';
 import SchoolFormDialog from './SchoolFormDialog';
 import SchoolDeleteDialog from './SchoolDeleteDialog';
 
-import { withStyles, Typography, Button, IconButton, Paper, Divider, Tooltip, Fade } from '@material-ui/core';
+import { withTheme, withStyles, Typography, Button, IconButton, Paper, Divider, Tooltip, Fade } from '@material-ui/core';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
 import { AddCircle, Delete } from '@material-ui/icons';
 
-const styles = {
+const styles = theme => ({
   cellButton: {
     textTransform: 'none',
     color: 'rgba(0, 0, 0, 0.87)',
@@ -28,8 +28,13 @@ const styles = {
   },
   addCircle: {
     margin: 10
+  },
+  tableDesktop: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   }
-};
+});
 
 class SchoolsList extends Component {
   constructor() {
@@ -64,7 +69,7 @@ class SchoolsList extends Component {
     const { schools, students, classes } = this.props;
     const { toggleFormDialog, toggleDeleteDialog, deleteSchool } = this;
     const { formDialog, deleteDialog, schoolToDelete } = this.state;
-    const { cellButton, addCircle, paper, heading} = classes;
+    const { cellButton, addCircle, paper, heading, tableDesktop } = classes;
     return (
       <Fragment>
 
@@ -75,10 +80,10 @@ class SchoolsList extends Component {
 
             <Table >
               <TableHead>
-                <TableRow>
+                <TableRow className={tableDesktop}>
                   <TableCell>School</TableCell>
-                  <TableCell numeric>Students Enrolled</TableCell>
-                  <TableCell>Address</TableCell>
+                  <TableCell className={tableDesktop}numeric>Students Enrolled</TableCell>
+                  <TableCell className={tableDesktop}>Address</TableCell>
                   <TableCell /> 
                 </TableRow>
               </TableHead>
@@ -104,8 +109,8 @@ class SchoolsList extends Component {
                           {name}
                         </Button>
                       </TableCell>
-                      <TableCell numeric>{ enrolled.length || null }</TableCell>
-                      <TableCell >{address}</TableCell>
+                      <TableCell className={tableDesktop}numeric>{ enrolled.length || null }</TableCell>
+                      <TableCell className={tableDesktop}>{address}</TableCell>
                       <TableCell>
                         <Tooltip title='Delete'>
                           <IconButton onClick={()=> toggleDeleteDialog(school)}>
@@ -155,5 +160,5 @@ const mapDispatchToProps = (dispatch, { history })=> {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SchoolsList));
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles)(SchoolsList)));
 
