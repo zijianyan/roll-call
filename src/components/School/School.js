@@ -94,10 +94,12 @@ class SchoolInfo extends Component {
               title={name}
             />
 
+            <Fade in timeout={1500}>
             <CardMedia 
               image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
               className={media}
             />
+            </Fade> 
 
             <CardContent>
               <Typography variant='subheading'>
