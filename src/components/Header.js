@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Nav from './Nav';
 
-import { withStyles, Fade, Typography, Divider, ButtonBase, Grid } from '@material-ui/core';
-import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple';
+import { withStyles, Fade, Typography, ButtonBase, Grid } from '@material-ui/core';
 
 const styles = {
   title: {
@@ -19,11 +18,9 @@ const Header = ({ classes })=> {
       <Grid container justify='center'>
         <Fade in>
           <ButtonBase>
-          
-            <Typography variant='display2' align='center' gutterBottom className={classes.title} component={Link} to='/'>
+            <Typography variant='display2' className={classes.title} component={Link} to='/' gutterBottoms>
               Acme Schools and Students
             </Typography>
-
           </ButtonBase>
         </Fade>
         <Nav />
