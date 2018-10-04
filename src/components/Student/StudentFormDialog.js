@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getSchool } from '../utils';
+import { getSchool } from '../../utils';
+import { createStudent_thunk, updateStudent_thunk } from '../../store/thunks';
 
-import { createStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { withStyles, Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import { Slider } from '@material-ui/lab';
@@ -77,11 +77,11 @@ class StudentFormDialog extends Component {
 
           <FormControl>
             <div>
-              <TextField name='firstName' value={firstName} label="First Name" onChange={handleChange} autoFocus/>
+              <TextField name='firstName' value={firstName} label="First Name" onChange={handleChange} required autoFocus/>
             </div>
 
             <div>
-              <TextField name='lastName' value={lastName} label="Last Name" onChange={handleChange}/>
+              <TextField name='lastName' value={lastName} label="Last Name" required onChange={handleChange}/>
             </div>
 
             <div>
@@ -126,7 +126,7 @@ class StudentFormDialog extends Component {
           <Button onClick={toggleFormDialog}>
             Cancel
           </Button>
-          <Button onClick={saveStudent}>
+          <Button onClick={saveStudent} disabled={isEmpty}>
             Save
           </Button>
         </DialogActions>

@@ -48,6 +48,7 @@ class SchoolFormDialog extends Component {
     const { handleChange, saveSchool } = this;
     const { name, address, description } = this.state;
     const { type, schools, formDialog, toggleFormDialog, updateSchool, createSchool, school } = this.props;
+    const isEmpty = name && address ? false : true;
     return (
       <Dialog open={formDialog}>
         <DialogTitle>{ type === 'create' ? 'Create School' : 'Edit School'}</DialogTitle>
@@ -55,11 +56,11 @@ class SchoolFormDialog extends Component {
 
           <FormControl>
             <div>
-              <TextField name='name' value={name} label="School Name" onChange={handleChange} autoFocus/>
+              <TextField name='name' value={name} label="School Name" onChange={handleChange} required autoFocus/>
             </div>
 
             <div>
-              <TextField name='address' value={address} label="Address" onChange={handleChange}/>
+              <TextField name='address' value={address} label="Address" onChange={handleChange} required/>
             </div>
             
             <div>
@@ -74,7 +75,7 @@ class SchoolFormDialog extends Component {
           <Button onClick={toggleFormDialog}>
             Cancel
           </Button>
-          <Button onClick={saveSchool}>
+          <Button onClick={saveSchool} disabled={isEmpty}>
             Save
           </Button>
         </DialogActions>

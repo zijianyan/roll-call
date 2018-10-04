@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
 
-// class studentDeleteDialog extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-
-//     }
-//   }
-// }
 import { withStyles, Typography, Button, IconButton, Tooltip, Card, CardContent, CardActions, CardActionArea, CardMedia, CardHeader, Avatar, LinearProgress, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, } from '@material-ui/core';
 
 const StudentDeleteDialog = ({ deleteDialog, deleteStudent, toggleDeleteDialog, student })=> {

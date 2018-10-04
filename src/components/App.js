@@ -5,15 +5,14 @@ import { connect } from 'react-redux';
 import { loadSchools_thunk, loadStudents_thunk, reset_thunk } from '../store/thunks';
 
 import SchoolsList from './School/SchoolsList';
-import StudentsList from './StudentsList';
+import StudentsList from './Student/StudentsList';
 import Nav from './Nav';
-// import SchoolsCreate from './SchoolsCreate';
 
 import School from './School/School';
 
-import Student from './Student';
+import Student from './Student/Student';
 import Footer from './Footer';
-import StudentFormDialog from './StudentFormDialog';
+// import StudentFormDialog from './StudentFormDialog';
 
 import { Typography, Paper, Divider, Zoom, Fade, Grow, Slide } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -71,7 +70,6 @@ class App extends Component {
                 <Route path='/schools/:id' component={School}/>
               </Switch>
               <Switch>
-                <Route path='/students/create/:schoolId' component={StudentFormDialog}/>
                 <Route path='/students/:id' component={Student}/>
               </Switch>
               <Route path ='/' component={Footer}/>
@@ -100,3 +98,5 @@ export default connect(null, mapDispatchToProps)(withStyles(styles)(App));
 //  <Route path='/schools/create' component={SchoolsCreate}/>
 
                 // <Route path='/students/create' component={StudentsCreate}/>
+
+                // <Route path='/students/create/:schoolId' component={StudentFormDialog}/>

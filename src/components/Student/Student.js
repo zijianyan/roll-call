@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 
 import { connect } from 'react-redux';
-import { deleteStudent_thunk, updateStudent_thunk } from '../store/thunks';
-import { getSchool, getStudent } from '../utils';
+
+import { deleteStudent_thunk, updateStudent_thunk } from '../../store/thunks';
+import { getSchool, getStudent } from '../../utils';
 import { Link } from 'react-router-dom';
 
 import uuidv4 from 'uuid/v4';

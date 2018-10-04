@@ -248,25 +248,17 @@ describe('senior enrichment project', ()=> {
 
 
 
-//Student form
-
-//make forms dialogs
 
 
+//create random shool and student in SchoolFormDialog and StudentFormDialog
 
-//Revise School to emulate Student MUI
-
-//convert Nav to tabbed menu of some sort
-
-
-//clickaway listener for modals
+//separate db file into conn and models
 
 //data list in School for students
 
+////////////////////////
 
-
-
-//separate db file into conn and models
+//clickaway listener for modals
 //full Address, City, State, Zipcode fields for School
 //error handling/validation
 //proptypes

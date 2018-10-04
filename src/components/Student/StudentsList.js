@@ -2,9 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { deleteStudent_thunk } from '../store/thunks';
+import { deleteStudent_thunk } from '../../store/thunks';
 
-import { getSchool } from '../utils';
+import { getSchool } from '../../utils';
 
 import { withStyles, Typography, List, ListItem, ListItemText, Chip, Grid, Avatar, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, IconButton, Divider, Tooltip, Fade } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';

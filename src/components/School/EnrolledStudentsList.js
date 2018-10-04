@@ -5,7 +5,7 @@ import { findEnrolled } from '../../utils';
 import { updateStudent_thunk } from '../../store/thunks';
 import { Link } from 'react-router-dom';
 
-import StudentFormDialog from '../StudentFormDialog';
+import StudentFormDialog from '../Student/StudentFormDialog';
 
 import { withStyles, Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, Button, Divider, IconButton, Tooltip, Paper } from '@material-ui/core';
 
