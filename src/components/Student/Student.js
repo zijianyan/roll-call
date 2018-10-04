@@ -18,7 +18,7 @@ const styles = {
     maxWidth: 1000,
     minWidth: 400
   },
-  media: {
+  cardMedia: {
     height: 300,
   },
   cellButton: {
@@ -63,6 +63,7 @@ class Student extends Component {
     const { toggleFormDialog, toggleDeleteDialog } = this;
     const { formDialog, deleteDialog } = this.state;
     const { firstName, lastName, imageUrl, gpa } = student;
+    const { cardMedia } = classes;
 
     const editButton = (
       <Tooltip title='Edit'>
@@ -99,10 +100,12 @@ class Student extends Component {
               subheader={schoolSubheader}
             />
 
-            <CardMedia 
-              image={`http://source.unsplash.com/random?place&forceRefresh=${uuidv4()}`}
-              className={classes.media}
-            />
+            <Fade in timeout={2000}>
+              <CardMedia 
+                image={`http://source.unsplash.com/random?place&forceRefresh=${uuidv4()}`}
+                className={cardMedia}
+              />
+            </Fade>
 
             <CardContent>
               <LinearProgress

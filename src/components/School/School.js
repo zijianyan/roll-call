@@ -18,10 +18,16 @@ import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 const styles = {
   card: {
     maxWidth: 1000,
-    minWidth: 400
+    minWidth: 400,
   },
-  media: {
+  cardMedia: {
     height: 300,
+  },
+  cardContent: {
+    margin: '20 30 0 30'
+  },
+  cardActions: {
+    margin: '0 30 20 30'  
   },
   cellButton: {
     'text-transform': 'none',
@@ -63,7 +69,7 @@ class SchoolInfo extends Component {
     const { school, classes, deleteSchool } = this.props;
     const { formDialog, deleteDialog } = this.state;
     const { toggleFormDialog, toggleDeleteDialog } = this;
-    const { card, media, avatar } = classes;
+    const { card, cardMedia, avatar, cardContent, cardActions } = classes;
     
     if (!school) {
       return (
@@ -94,14 +100,14 @@ class SchoolInfo extends Component {
               title={name}
             />
 
-            <Fade in timeout={1500}>
-            <CardMedia 
-              image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
-              className={media}
-            />
+            <Fade in timeout={200}>
+              <CardMedia 
+                image={`http://source.unsplash.com/random?city&forceRefresh=${uuidv4()}`}
+                className={cardMedia}
+              />
             </Fade> 
 
-            <CardContent>
+            <CardContent className={cardContent}>
               <Typography variant='subheading'>
                 Address
               </Typography>
@@ -116,7 +122,7 @@ class SchoolInfo extends Component {
               </Typography>
             </CardContent>
 
-            <CardActions>
+            <CardActions className={cardActions}>
               <Fragment>
                 <Tooltip title='Delete'>
                   <IconButton onClick={toggleDeleteDialog}>
