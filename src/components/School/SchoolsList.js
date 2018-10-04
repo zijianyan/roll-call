@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import { deleteSchool_thunk } from '../../store/thunks';
 import { findEnrolled } from '../../utils';
 
-import { withStyles, List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip, Fade } from '@material-ui/core';
-
-
-import DeleteIcon from '@material-ui/icons/Delete';
-import { AddCircle } from '@material-ui/icons';
-
 import SchoolFormDialog from './SchoolFormDialog';
 import SchoolDeleteDialog from './SchoolDeleteDialog';
+
+import { withStyles, Typography, Button, IconButton, Paper, Divider, Tooltip, Fade } from '@material-ui/core';
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { AddCircle, Delete } from '@material-ui/icons';
 
 const styles = {
   cellButton: {
@@ -31,7 +29,6 @@ const styles = {
     margin: 10
   }
 };
-
 
 class SchoolsList extends Component {
   constructor() {
@@ -66,14 +63,16 @@ class SchoolsList extends Component {
     const { schools, students, classes } = this.props;
     const { toggleFormDialog, toggleDeleteDialog, deleteSchool } = this;
     const { formDialog, deleteDialog, schoolToDelete } = this.state;
+    const { cellButton, addCircle, paper, heading} = classes;
     return (
       <Fragment>
-        <Fade in>
-          <Paper className={classes.paper}>
-            <Typography variant='display1' className={classes.heading}>Schools</Typography>
-            <Divider />
-            <Table >
 
+        <Fade in>
+          <Paper className={paper}>
+            <Typography variant='display1' className={heading}>Schools</Typography>
+            <Divider />
+
+            <Table >
               <TableHead>
                 <TableRow>
                   <TableCell>School</TableCell>
@@ -87,8 +86,8 @@ class SchoolsList extends Component {
 
                 <TableRow hover={true}>
                   <TableCell colSpan={4}>
-                    <Button onClick={toggleFormDialog} className={classes.cellButton}>
-                      <AddCircle color='primary' className={classes.addCircle}/>
+                    <Button onClick={toggleFormDialog} className={cellButton}>
+                      <AddCircle color='primary' className={addCircle}/>
                       <Typography>Add New School</Typography>
                     </Button>
                   </TableCell>
@@ -100,27 +99,43 @@ class SchoolsList extends Component {
                   return (
                     <TableRow key={id} hover={true} >
                       <TableCell>
-                        <Button component={Link} to={`/schools/${id}`} className={classes.cellButton}>{name}</Button>
+                        <Button component={Link} to={`/schools/${id}`} className={cellButton}>
+                          {name}
+                        </Button>
                       </TableCell>
-                      <TableCell numeric>{ enrolled.length ? enrolled.length : null }</TableCell>
+                      <TableCell numeric>{ enrolled.length || null }</TableCell>
                       <TableCell >{address}</TableCell>
-                      <TableCell><Tooltip title='Delete'><IconButton onClick={()=> toggleDeleteDialog(school)}><DeleteIcon /></IconButton></Tooltip></TableCell>
+                      <TableCell>
+                        <Tooltip title='Delete'>
+                          <IconButton onClick={()=> toggleDeleteDialog(school)}>
+                            <Delete />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
               </TableBody>
-
             </Table>
           </Paper>
         </Fade> 
 
-        <SchoolFormDialog type='create' formDialog={formDialog} toggleFormDialog={toggleFormDialog} history={history}/>
-        <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} school={schoolToDelete} deleteSchool={deleteSchool}/>
+        <SchoolFormDialog
+          type='create'
+          formDialog={formDialog}
+          toggleFormDialog={toggleFormDialog}
+        />
+
+        <SchoolDeleteDialog
+          deleteDialog={deleteDialog}
+          toggleDeleteDialog={toggleDeleteDialog}
+          deleteSchool={deleteSchool}
+          school={schoolToDelete}
+        />
         
       </Fragment>
     );
   }
-
 }
 
 
