@@ -1,7 +1,6 @@
 const conn = require('./conn');
 const { Sequelize } = conn;
 
-const faker = require('faker');
 const axios = require('axios');
 
 const Student = conn.define('student', {

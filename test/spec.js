@@ -54,7 +54,7 @@ describe('senior enrichment project', ()=> {
         return app.get('/')
           .expect(200)
           .then(response => {
-            expect(response.text).to.contain('<div id="root"></div>')
+            expect(response.text).to.contain('<div id="root"></div>');
           });
       });
       it('has a static route that serves /dist/main.js', ()=> {
@@ -68,7 +68,7 @@ describe('senior enrichment project', ()=> {
           .expect(200)
           .then(response => {
             const schools = response.body;
-            const NYU = schools.find(school => school.name === 'NYU')
+            const NYU = schools.find(school => school.name === 'NYU');
             expect(schools.length).to.equal(3);
             expect(NYU).to.be.ok;
           });
@@ -96,7 +96,7 @@ describe('senior enrichment project', ()=> {
       });
       it('gets a student by id', async ()=> {
         const jane = await Student.findOne({ where: { firstName: 'Jane', lastName: 'Jackson'}});
-        const id = jane.id
+        const id = jane.id;
         return app.get(`/api/students/${id}`)
           .expect(200)
           .then(response => {
@@ -232,7 +232,7 @@ describe('senior enrichment project', ()=> {
           .then(res => res.body)
           .then( async (student) => {
             const updatedNYU = await School.findById(NYU.id, { include: [ Student ]});
-            const updatedStudent = await Student.findById(NYUstudent.id)
+            const updatedStudent = await Student.findById(NYUstudent.id);
             expect(student.schoolId).to.equal(null);
             expect(updatedStudent.schoolId).to.equal(null);
             expect(updatedNYU.students.length).to.equal(1);
@@ -246,22 +246,3 @@ describe('senior enrichment project', ()=> {
 
 
 
-
-
-
-
-//clean up and lint frontend
-
-
-//separate db file into conn and models
-
-
-
-////////////////////////
-
-//data list in School for students
-
-//clickaway listener for modals
-//full Address, City, State, Zipcode fields for School
-//error handling/validation
-//proptypes

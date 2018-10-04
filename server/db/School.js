@@ -57,7 +57,7 @@ School.createRandom = function() {
     name: `${faker.address.city()} ${randomSchoolNoun()}`,
     address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.countryCode()}`,
     description: faker.lorem.paragraphs(3),
-    imageUrl: `http://source.unsplash.com/random?`
+    imageUrl: 'http://source.unsplash.com/random?'
   });
 };
 
