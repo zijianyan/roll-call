@@ -77,3 +77,6 @@ const mapStateToProps = ({ schools, students })=> {
 
 export default connect(mapStateToProps)(withStyles(styles)(Nav));
 
+
+
+//bug in nav tab... on page refresh, tab returns to value 0...

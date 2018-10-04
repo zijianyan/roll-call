@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { getSchool } from '../../utils';
-import { createStudent_thunk, updateStudent_thunk } from '../../store/thunks';
+import { createStudent_thunk, updateStudent_thunk, createStudentRandom_thunk } from '../../store/thunks';
 
 import { withStyles, Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { Edit, Toys } from '@material-ui/icons';
 import { Slider } from '@material-ui/lab';
 
 const styles = {
@@ -25,10 +25,9 @@ class StudentFormDialog extends Component {
       schoolId: 0
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.toggleEditing = this.toggleEditing.bind(this);
     this.saveStudent = this.saveStudent.bind(this);
     this.handleSlider = this.handleSlider.bind(this);
+    this.createStudentRandom = this.createStudentRandom.bind(this);
   }
 
   componentDidMount() {
@@ -37,8 +36,6 @@ class StudentFormDialog extends Component {
   }
 
   handleChange(ev) {
-    // console.log('ev.target.name', ev.target.name);
-    // console.log('ev.target.value', ev.target.value);
     this.setState({ [ev.target.name]: ev.target.value });
   }
 
@@ -47,26 +44,28 @@ class StudentFormDialog extends Component {
   }
 
   saveStudent() {
-    // ev.preventDefault();
     const student = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       gpa: this.state.gpa*1,
       schoolId: this.state.schoolId || null,
     };
-    // console.log('saveStudent, student:', student);
     this.props.student ? student.id = this.props.student.id : null;
     const { type, createStudent, updateStudent } = this.props;
     type === 'create' ? createStudent(student) : null;
     type === 'update' ? updateStudent(student) : null;
     !type ? console.log('StudentFormDialog needs a "type" prop with value "create" or "update"') : null;
-    // this.props.updateStudent(student);
+    this.props.toggleFormDialog();
+  }
+
+  createStudentRandom() {
+    this.props.dispatchCreateStudentRandom();
     this.props.toggleFormDialog();
   }
 
 
   render() {
-    const { handleChange, handleSubmit, saveStudent, handleSlider } = this;
+    const { handleChange, handleSubmit, saveStudent, handleSlider, createStudentRandom } = this;
     const { firstName, lastName, gpa, schoolId, editing } = this.state;
     const { type, school, schools, formDialog, toggleFormDialog, updateStudent, createStudent, student, classes } = this.props;
     const isEmpty = firstName && lastName ? false : true;
@@ -117,12 +116,20 @@ class StudentFormDialog extends Component {
 
           </FormControl>
 
-        
-
-
-
         </DialogContent>
+
         <DialogActions>
+          {
+            type === 'create' && !school ? (
+              <Fragment>
+                <Tooltip title='Create Random Student'>
+                  <IconButton onClick={createStudentRandom}>
+                    <Toys />
+                  </IconButton>
+                </Tooltip>
+              </Fragment>
+            ) : null
+          }
           <Button onClick={toggleFormDialog}>
             Cancel
           </Button>
@@ -130,6 +137,7 @@ class StudentFormDialog extends Component {
             Save
           </Button>
         </DialogActions>
+
       </Dialog>
     );
   }
@@ -143,15 +151,15 @@ const mapStateToProps = ({ schools }, { schoolId })=> {
 };
 
 const mapDispatchToProps = (dispatch, { history })=> {
-  
   return {
     createStudent: (student)=> {
       dispatch(createStudent_thunk(student));
-      // history.push('/students');
-      // window.scrollTo(0,document.body.scrollHeight);
     },
     updateStudent: (student)=> {
       dispatch(updateStudent_thunk(student));
+    },
+    dispatchCreateStudentRandom: ()=> {
+      dispatch(createStudentRandom_thunk());
     }
   };
 };
