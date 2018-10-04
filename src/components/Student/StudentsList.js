@@ -8,11 +8,11 @@ import { getSchool } from '../../utils';
 import StudentFormDialog from './StudentFormDialog';
 import StudentDeleteDialog from './StudentDeleteDialog';
 
-import { withStyles, Typography, Avatar, Paper, Button, IconButton, Divider, Tooltip, Fade } from '@material-ui/core';
+import { withTheme, withStyles, Typography, Avatar, Paper, Button, IconButton, Divider, Tooltip, Fade } from '@material-ui/core';
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import { AddCircle, Delete } from '@material-ui/icons';
 
-const styles = {
+const styles = theme => ({
   avatar: {
     'margin-right': '15px'
   },
@@ -32,7 +32,12 @@ const styles = {
   addCircle: {
     margin: 10
   },
-};
+  tableDesktop: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
+  }
+});
 
 class StudentsList extends Component {
   constructor() {
@@ -67,7 +72,7 @@ class StudentsList extends Component {
     const { students, schools, classes } = this.props;
     const { toggleFormDialog, toggleDeleteDialog, deleteStudent } = this;
     const { formDialog, deleteDialog, studentToDelete } = this.state;
-    const { heading, paper, cellButton, addCircle, avatar } = classes;
+    const { heading, paper, cellButton, addCircle, avatar, tableDesktop } = classes;
     return (
       <Fragment>
         <Fade in>
@@ -77,7 +82,7 @@ class StudentsList extends Component {
             <Table>
 
               <TableHead>
-                <TableRow>
+                <TableRow className={tableDesktop}>
                   <TableCell>Name</TableCell>
                   <TableCell numeric>GPA</TableCell>
                   <TableCell>School</TableCell>
@@ -106,10 +111,10 @@ class StudentsList extends Component {
                             {firstName} {lastName}
                           </Button>
                         </TableCell>
-                        <TableCell numeric>
+                        <TableCell className={tableDesktop} numeric>
                           {gpa}
                         </TableCell>
-                        <TableCell >
+                        <TableCell className={tableDesktop}>
                           {
                             school ? (
                               <Button component={Link} to={`/schools/${school.id}`} className={cellButton}>
@@ -169,6 +174,6 @@ const mapDispatchToProps = (dispatch, { history })=> {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StudentsList));
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles)(StudentsList)));
 
 
