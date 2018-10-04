@@ -11,7 +11,7 @@ const SchoolDeleteDialog = ({ deleteDialog, deleteSchool, toggleDeleteDialog, sc
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Their students will have to fend for themselves.
+          Its students will be alright.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
