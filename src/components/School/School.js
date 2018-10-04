@@ -11,8 +11,8 @@ import { Eject, MoreVertIcon, Edit, Delete } from '@material-ui/icons';
 
 import { getSchool } from '../../utils';
 
-import SchoolFormDialog from '../SchoolFormDialog';
-import SchoolDeleteDialog from '../SchoolDeleteDialog';
+import SchoolFormDialog from './SchoolFormDialog';
+import SchoolDeleteDialog from './SchoolDeleteDialog';
 
 import EnrolledStudentsList from './EnrolledStudentsList';
 import OtherStudentsList from './OtherStudentsList';

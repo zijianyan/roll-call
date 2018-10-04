@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 
 import { loadSchools_thunk, loadStudents_thunk, reset_thunk } from '../store/thunks';
 
-import SchoolsList from './SchoolsList';
+import SchoolsList from './School/SchoolsList';
 import StudentsList from './StudentsList';
 import Nav from './Nav';
 // import SchoolsCreate from './SchoolsCreate';
-// import School from './School';
-import SchoolInfo from './School/SchoolInfo';
+
+import School from './School/School';
 
 import Student from './Student';
 import Footer from './Footer';
@@ -68,7 +68,7 @@ class App extends Component {
               <Route exact path='/students' component={StudentsList}/>
               <Switch>
                
-                <Route path='/schools/:id' component={SchoolInfo}/>
+                <Route path='/schools/:id' component={School}/>
               </Switch>
               <Switch>
                 <Route path='/students/create/:schoolId' component={StudentFormDialog}/>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { createSchool_thunk, updateSchool_thunk } from '../store/thunks';
+import { createSchool_thunk, updateSchool_thunk } from '../../store/thunks';
 
 import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';

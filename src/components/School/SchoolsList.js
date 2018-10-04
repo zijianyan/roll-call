@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { deleteSchool_thunk } from '../store/thunks';
-import { findEnrolled } from '../utils';
+import { deleteSchool_thunk } from '../../store/thunks';
+import { findEnrolled } from '../../utils';
 
 import { withStyles, List, ListItem, ListItemText, Typography, Button, ListItemSecondaryAction, Chip, IconButton, Badge, Paper, Table, TableHead, TableBody, TableRow, TableCell, Divider, Tooltip, Fade } from '@material-ui/core';
 
