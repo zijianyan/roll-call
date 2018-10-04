@@ -17,13 +17,15 @@ const Header = ({ classes })=> {
     <Fragment>
       <Grid container justify='center'>
         <Fade in>
-          <ButtonBase>
-            <Typography variant='display2' className={classes.title} component={Link} to='/' gutterBottoms>
-              Acme Schools and Students
-            </Typography>
-          </ButtonBase>
+          <Fragment>
+            <ButtonBase>
+              <Typography variant='display2' className={classes.title} component={Link} to='/' gutterBottoms>
+                Acme Schools and Students
+              </Typography>
+            </ButtonBase>
+            <Nav />
+          </Fragment>
         </Fade>
-        <Nav />
       </Grid>
     </Fragment>
   );
