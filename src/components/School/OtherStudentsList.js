@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { updateStudent_thunk } from '../../store/thunks';
 import { getSchool, findOtherStudents } from '../../utils';
 
-import { withStyles, Paper, List, ListItem, ListItemText, Typography, Divider, Avatar, Tooltip, IconButton, ListItemSecondaryAction } from '@material-ui/core';
-import { Eject, CompareArrows, AddCircle } from '@material-ui/icons';
+import { withStyles, Paper, Typography, Divider, Avatar, Tooltip, IconButton } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { CompareArrows, AddCircle } from '@material-ui/icons';
 
 const styles = {
   paper: {
@@ -29,17 +30,31 @@ const OtherStudentsList = ({ otherStudents, enrollStudent, schools, classes })=>
               <Fragment key={id}>
                 <ListItem component={Link} to={`/students/${id}`} button>
                   <Avatar src={imageUrl}/>
-                  <ListItemText primary={`${firstName} ${lastName}`} secondary={otherSchool ? otherSchool.name : null}/>
+                  <ListItemText
+                    primary={`${firstName} ${lastName}`}
+                    secondary={otherSchool ? otherSchool.name : null}
+                  />
                   {
                     otherSchool ? (
-                      <ListItemSecondaryAction><Tooltip title={`Transfer from ${otherSchool.name}`}><IconButton onClick={()=> enrollStudent(student)}><CompareArrows/></IconButton></Tooltip></ListItemSecondaryAction>
+                      <ListItemSecondaryAction>
+                        <Tooltip title={`Transfer from ${otherSchool.name}`}>
+                          <IconButton onClick={()=> enrollStudent(student)}>
+                            <CompareArrows/>
+                          </IconButton>
+                        </Tooltip>
+                      </ListItemSecondaryAction>
                     ) : (
-                      <ListItemSecondaryAction><Tooltip title='Enroll'><IconButton onClick={()=> enrollStudent(student)}><AddCircle/></IconButton></Tooltip></ListItemSecondaryAction>
+                      <ListItemSecondaryAction>
+                        <Tooltip title='Enroll'>
+                          <IconButton onClick={()=> enrollStudent(student)}>
+                            <AddCircle/>
+                          </IconButton>
+                        </Tooltip>
+                      </ListItemSecondaryAction>
                     )
                   }
-                  
                 </ListItem>
-                <Divider light/>
+                <Divider />
               </Fragment>
             );
           })
@@ -59,8 +74,7 @@ const mapStateToProps = ({ students, schools }, { schoolId }) => {
 const mapDispatchToProps = (dispatch, { schoolId })=> {
   return {
     enrollStudent: (student)=> {
-      const _student = {...student, schoolId };
-      dispatch(updateStudent_thunk(_student));
+      dispatch(updateStudent_thunk({...student, schoolId}));
     }
   };
 };
