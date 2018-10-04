@@ -14,16 +14,17 @@ import { AddCircle, Delete } from '@material-ui/icons';
 
 const styles = {
   cellButton: {
-    'text-transform': 'none',
-    'color': 'rgba(0, 0, 0, 0.87)',
-    'font-size': '0.8125rem',
-    'font-weight': '400'
+    textTransform: 'none',
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '0.8125rem',
+    fontWeight: 400
   },
   paper: {
-    padding: '50px'
+    padding: 50
   },
   heading: {
-    'margin-bottom': 20
+    marginBottom: 20,
+    fontWeight: 200
   },
   addCircle: {
     margin: 10

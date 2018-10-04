@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 import { reset_thunk } from '../store/thunks';
 
-import { withStyles, Button, Divider, Fade, Snackbar } from '@material-ui/core';
+import { withStyles, Button, Divider, Fade, Snackbar, IconButton } from '@material-ui/core';
 import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 const styles = {
   footer: {
@@ -20,10 +21,11 @@ class Footer extends Component {
     super();
     this.state = {
       resetDialog: false,
-
+      resetConfirmation: false,
     };
     this.toggleResetDialog = this.toggleResetDialog.bind(this);
     this.reset = this.reset.bind(this);
+    this.toggleResetConfirmation = this.toggleResetConfirmation.bind(this);
   }
 
   toggleResetDialog() {
@@ -33,14 +35,19 @@ class Footer extends Component {
   reset() {
     this.props.dispatchResetThunk();
     this.toggleResetDialog(); 
+    this.toggleResetConfirmation();
     this.props.history.push('/');
+  }
+
+  toggleResetConfirmation() {
+    this.setState({ resetConfirmation: !this.state.resetConfirmation });
   }
 
   render() {
     const { classes } = this.props;
     const { resetButton } = classes;
-    const { toggleResetDialog, reset } = this;
-    const { resetDialog } = this.state;
+    const { toggleResetDialog, reset, toggleResetConfirmation } = this;
+    const { resetDialog, resetConfirmation } = this.state;
     return (
       <Fragment>
 
@@ -71,7 +78,29 @@ class Footer extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-        
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={resetConfirmation}
+          autoHideDuration={6000}
+          onClose={toggleResetConfirmation}
+          message={<span id="message-id">Server reset</span>}
+          action={[
+            <IconButton
+              // key="close"
+              // aria-label="Close"
+              color="inherit"
+              // className={classes.close}
+              onClick={toggleResetConfirmation}
+            >
+              <Close />
+            </IconButton>,
+          ]}
+        />
+
       </Fragment>
     );
   }
