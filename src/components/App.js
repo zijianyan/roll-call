@@ -13,14 +13,7 @@ import Footer from './Footer';
 
 import { withStyles, Paper, Grid } from '@material-ui/core';
 
-const styles = {
-  root: {
-    margin: 20,
-    padding: 50,
-    maxWidth: 1000,
-    minWidth: 500
-  }
-};
+import styles from './App.styles';
 
 class App extends Component {
 

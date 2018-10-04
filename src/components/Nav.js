@@ -35,7 +35,7 @@ class Nav extends Component {
     const { tabs } = classes;
     return (
       <Fragment>
-        <Tabs value={path} onChange={handleNav} className={tabs} centered>
+        <Tabs value={path === '/' ? false : path} onChange={handleNav} className={tabs} centered>
           { schools.length
             ? <Tab label={`Schools (${schools.length})`} component={Link} to='/schools' value='/schools'/>
             : <Tab label='Schools' component={Link} to='/schools' value='/schools'/> }
