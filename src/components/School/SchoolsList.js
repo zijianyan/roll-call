@@ -114,7 +114,7 @@ class SchoolsList extends Component {
           </Paper>
         </Fade> 
 
-        <SchoolFormDialog type='create' formDialog={formDialog} toggleFormDialog={toggleFormDialog}/>
+        <SchoolFormDialog type='create' formDialog={formDialog} toggleFormDialog={toggleFormDialog} history={history}/>
         <SchoolDeleteDialog deleteDialog={deleteDialog} toggleDeleteDialog={toggleDeleteDialog} school={schoolToDelete} deleteSchool={deleteSchool}/>
         
       </Fragment>

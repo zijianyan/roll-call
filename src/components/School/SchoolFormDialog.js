@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { createSchool_thunk, updateSchool_thunk } from '../../store/thunks';
+import { createSchool_thunk, updateSchool_thunk, createSchoolRandom_thunk } from '../../store/thunks';
 
 import { Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { Toys } from '@material-ui/icons';
 import { Slider } from '@material-ui/lab';
 
 class SchoolFormDialog extends Component {
@@ -47,7 +47,7 @@ class SchoolFormDialog extends Component {
   render() {
     const { handleChange, saveSchool } = this;
     const { name, address, description } = this.state;
-    const { type, schools, formDialog, toggleFormDialog, updateSchool, createSchool, school } = this.props;
+    const { type, schools, formDialog, toggleFormDialog, updateSchool, createSchool, school, createSchoolRandom } = this.props;
     const isEmpty = name && address ? false : true;
     return (
       <Dialog open={formDialog}>
@@ -72,6 +72,17 @@ class SchoolFormDialog extends Component {
         
         </DialogContent>
         <DialogActions>
+          {
+            type === 'create' ? (
+              <Tooltip title='Create Random School'>
+                <IconButton onClick={createSchoolRandom}>
+                  <Toys />
+                </IconButton>
+              </Tooltip>
+            ) : null
+
+          }
+          
           <Button onClick={toggleFormDialog}>
             Cancel
           </Button>
@@ -90,15 +101,17 @@ const mapStateToProps = ({ schools })=> {
   };
 };
 
-const mapDispatchToProps = (dispatch, { history })=> {
+const mapDispatchToProps = (dispatch, ownProps)=> {
+  // console.log('SchoolFormDialog, mapDispatchToProps, ownProps:', ownProps);
   return {
     createSchool: (school)=> {
       dispatch(createSchool_thunk(school));
-      // history.push('/students');
-      // window.scrollTo(0,document.body.scrollHeight);
     },
     updateSchool: (school)=> {
       dispatch(updateSchool_thunk(school));
+    },
+    dispatchCreateSchoolRandom: ()=> {
+      dispatch(createSchoolRandom_thunk());
     }
   };
 };

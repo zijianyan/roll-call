@@ -16,6 +16,9 @@ const styles = {
     padding: 50,
     marginTop: 10,
     marginBottom: 10
+  },
+  addCircle: {
+    margin: 10
   }
 };
 
@@ -41,6 +44,11 @@ class EnrolledStudentsList extends Component {
         <Typography variant='title'>{enrolledStudents.length ? 'Enrolled Students' : 'No Students'}</Typography>
 
         <List>
+          <ListItem button onClick={toggleFormDialog}> 
+            <AddCircle color='primary' className={classes.addCircle}/>
+            <ListItemText>Add New Student</ListItemText>
+          </ListItem>
+          <Divider />
           {
             enrolledStudents ? enrolledStudents.map( student => {
               const { id, firstName, lastName, gpa, imageUrl } = student;
@@ -53,16 +61,13 @@ class EnrolledStudentsList extends Component {
                     
                     
                   </ListItem>
-                  <Divider light/>
+                  <Divider />
                 </Fragment>
               );
 
             }) : null
           }
-          <ListItem button onClick={toggleFormDialog}> 
-            <AddCircle color='primary'/>
-            <ListItemText>Add New Student</ListItemText>
-          </ListItem>
+
         </List>
 
         <StudentFormDialog type='create' schoolId={schoolId} formDialog={formDialog} toggleFormDialog={toggleFormDialog}/>
@@ -90,4 +95,3 @@ const mapDispatchToProps = (dispatch)=> {
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EnrolledStudentsList));
 
 
-//NEED TO OPEN UP STUDENT FORM DIALOG WITH ADD NEW STUDENT BUTTON - AND PASS IN SCHOOLID TO THE STUDENT FORM DIALOG

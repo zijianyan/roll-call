@@ -139,13 +139,6 @@ const mapDispatchToProps = (dispatch, { history })=> {
       dispatch(deleteSchool_thunk(school));
       history.push('/schools');
     },
-    deleteStudent: (student)=> {
-      dispatch(deleteStudent_thunk(student));
-      history.push('/students');
-    },
-    unenroll: (student)=> {
-      dispatch(updateStudent_thunk({...student, schoolId: null}))
-    },
   };
 };
 

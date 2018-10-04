@@ -9,7 +9,7 @@ export const schoolsReducer = (schools=[], action)=> {
   case DELETE_SCHOOL:
     return schools.filter( school => school.id !== action.payload.id );
   case CREATE_SCHOOL:
-    return [...schools, action.payload];
+    return [action.payload, ...schools];
   case UPDATE_SCHOOL:
     return schools.map( school => school.id === action.payload.id ? action.payload : school );
   default:
@@ -25,7 +25,7 @@ export const studentsReducer = (students=[], action)=> {
   case DELETE_STUDENT:
     return students.filter( student => student.id !== action.payload.id );
   case CREATE_STUDENT:
-    return [...students, action.payload];
+    return [action.payload, ...students];
   case UPDATE_STUDENT:
     return students.map( student => student.id === action.payload.id ? action.payload : student );
   case DELETE_SCHOOL:

@@ -143,6 +143,7 @@ const mapStateToProps = ({ schools }, { schoolId })=> {
 };
 
 const mapDispatchToProps = (dispatch, { history })=> {
+  
   return {
     createStudent: (student)=> {
       dispatch(createStudent_thunk(student));
