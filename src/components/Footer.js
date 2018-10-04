@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+
 import { reset_thunk } from '../store/thunks';
 
 import { withStyles, Button, Divider, Fade } from '@material-ui/core';

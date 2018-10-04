@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { getSchool } from '../../utils';
 import { createStudent_thunk, updateStudent_thunk, createStudentRandom_thunk } from '../../store/thunks';
+import { getSchool } from '../../utils';
 
 import { withStyles, Button, IconButton, Tooltip, Typography } from '@material-ui/core';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
