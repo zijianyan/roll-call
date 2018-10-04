@@ -19,7 +19,7 @@ import OtherStudentsList from './OtherStudentsList';
 
 const styles = {
   card: {
-    maxWidth: 800,
+    maxWidth: 1000,
     minWidth: 400
   },
   media: {

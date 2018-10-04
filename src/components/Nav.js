@@ -32,38 +32,38 @@ class Nav extends Component {
     const { schools, students, classes } = this.props;
     return (
       <Fragment>
-      <Fade in>
-      <Tabs
-          value={this.state.value}
-          onChange={this.handleNav}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
-        >
-          
-          {
-            schools.length ? (
+        <Fade in>
+          <Tabs
+              value={this.state.value}
+              onChange={this.handleNav}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
               
-                <Tab label={`Schools (${schools.length})`} component={Link} to='/schools'/>
+            {
+              schools.length ? (
+                
+                  <Tab label={`Schools (${schools.length})`} component={Link} to='/schools'/>
 
-            ) : (
-              <Tab label='Schools' component={Link} to='/schools'/>
-            )
-          }
+              ) : (
+                <Tab label='Schools' component={Link} to='/schools'/>
+              )
+            }
 
-          {
-            students.length ? (
-              
+            {
+              students.length ? (
+                
                 <Tab label={`Students (${students.length})`} component={Link} to='/students'/>
 
-            ) : (
-              <Tab label='Students' component={Link} to='/students'/>
-            )
-          }
-        </Tabs>
+              ) : (
+                <Tab label='Students' component={Link} to='/students'/>
+              )
+            }
+          </Tabs>
 
-      </Fade>
-    </Fragment>
+        </Fade>
+      </Fragment>
     )
   }
 }
