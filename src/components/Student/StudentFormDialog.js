@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { getSchool } from '../../utils';
 import { createStudent_thunk, updateStudent_thunk, createStudentRandom_thunk } from '../../store/thunks';
 
-import { withStyles, Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
+import { withStyles, Button, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { FormControl, TextField, Select, MenuItem } from '@material-ui/core';
 import { Edit, Toys } from '@material-ui/icons';
 import { Slider } from '@material-ui/lab';
 
@@ -12,8 +14,7 @@ const styles = {
   select: {
     minWidth: 200
   }
-
-}
+};
 
 class StudentFormDialog extends Component {
   constructor() {
@@ -31,7 +32,7 @@ class StudentFormDialog extends Component {
   }
 
   componentDidMount() {
-    this.props.schoolId ? this.setState({ schoolId: this.props.schoolId }) : null; // when creating, prefill schoolId
+    this.props.schoolId ? this.setState({ schoolId: this.props.schoolId }) : null; // when creating, prefill schoolId if schoolId
     this.props.student ? this.setState(this.props.student) : null; // when updating, prefill student
   }
 
@@ -63,31 +64,49 @@ class StudentFormDialog extends Component {
     this.props.toggleFormDialog();
   }
 
-
   render() {
-    const { handleChange, handleSubmit, saveStudent, handleSlider, createStudentRandom } = this;
-    const { firstName, lastName, gpa, schoolId, editing } = this.state;
-    const { type, school, schools, formDialog, toggleFormDialog, updateStudent, createStudent, student, classes } = this.props;
+    const { handleChange, saveStudent, handleSlider, createStudentRandom } = this;
+    const { firstName, lastName, gpa, schoolId } = this.state;
+    const { type, school, schools, formDialog, toggleFormDialog, classes } = this.props;
     const isEmpty = firstName && lastName ? false : true;
     return (
       <Dialog open={formDialog}>
-        <DialogTitle>{ type === 'create' ? 'Create Student' : 'Edit Student'}</DialogTitle>
-        <DialogContent>
 
+        <DialogTitle>{ type === 'create' ? 'Create Student' : 'Edit Student' }</DialogTitle>
+        
+        <DialogContent>
           <FormControl>
             <div>
-              <TextField name='firstName' value={firstName} label="First Name" onChange={handleChange} required autoFocus/>
+              <TextField
+                name='firstName'
+                value={firstName}
+                label="First Name"
+                onChange={handleChange}
+                required
+                autoFocus
+              />
             </div>
-
             <div>
-              <TextField name='lastName' value={lastName} label="Last Name" required onChange={handleChange}/>
+              <TextField
+                name='lastName'
+                value={lastName}
+                label="Last Name"
+                onChange={handleChange}
+                required
+              />
             </div>
-
             <div>
-              <Typography id='slider' variant='caption'>GPA: {gpa.toFixed(2)}</Typography>
-              <Slider name='gpa' value={gpa} aria-labelledby='slider' min={0} max={4} step={0.01} onChange={handleSlider}/>
+              <Typography id='slider' variant='caption'>
+                GPA: {gpa.toFixed(2)}
+              </Typography>
+              <Slider
+                name='gpa'
+                value={gpa}
+                label='slider'
+                min={0} max={4} step={0.01}
+                onChange={handleSlider}
+              />
             </div>
-
             {
               school ? (
                 <div>
@@ -97,25 +116,27 @@ class StudentFormDialog extends Component {
                 </div>
               ) : (
                 <div>
-                  <Typography id='school-select' variant='caption'>School</Typography>
-                  <Select value={schoolId || ''} onChange={handleChange} inputProps={{
-                    name: 'schoolId',
-                    id: 'school-select',
-                  }} className={classes.select}>
-                    <MenuItem value=''  ><em>None</em></MenuItem>
+                  <Typography id='school-select' variant='caption'>
+                    School
+                  </Typography>
+                  <Select
+                    value={schoolId || ''}
+                    inputProps={{ name: 'schoolId', id: 'school-select' }}
+                    onChange={handleChange}
+                    className={classes.select}
+                  >
+                    <MenuItem value=''><em>None</em></MenuItem>
                     {
-                      schools.map( school => 
-                        <MenuItem key={school.id} value={school.id}>{school.name}</MenuItem>
-                      )
+                      schools.map( school => {
+                        const { id, name } = school;
+                        return <MenuItem key={id} value={id}>{name}</MenuItem>;
+                      })
                     }
                   </Select>
                 </div>
               )
             }
-
-
           </FormControl>
-
         </DialogContent>
 
         <DialogActions>
@@ -150,7 +171,7 @@ const mapStateToProps = ({ schools }, { schoolId })=> {
   };
 };
 
-const mapDispatchToProps = (dispatch, { history })=> {
+const mapDispatchToProps = (dispatch)=> {
   return {
     createStudent: (student)=> {
       dispatch(createStudent_thunk(student));
@@ -163,7 +184,6 @@ const mapDispatchToProps = (dispatch, { history })=> {
     }
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StudentFormDialog));
 
