@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { getSchool } from '../utils';
+
 import { createStudent_thunk, updateStudent_thunk } from '../store/thunks';
 import { withStyles, Dialog, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Tooltip, TextField, Select, Typography, MenuItem, FormGroup, FormControl, InputLabel } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
@@ -66,7 +68,7 @@ class StudentFormDialog extends Component {
   render() {
     const { handleChange, handleSubmit, saveStudent, handleSlider } = this;
     const { firstName, lastName, gpa, schoolId, editing } = this.state;
-    const { type, schools, formDialog, toggleFormDialog, updateStudent, createStudent, student, classes } = this.props;
+    const { type, school, schools, formDialog, toggleFormDialog, updateStudent, createStudent, student, classes } = this.props;
     const isEmpty = firstName && lastName ? false : true;
     return (
       <Dialog open={formDialog}>
@@ -87,20 +89,32 @@ class StudentFormDialog extends Component {
               <Slider name='gpa' value={gpa} aria-labelledby='slider' min={0} max={4} step={0.01} onChange={handleSlider}/>
             </div>
 
-            <div>
-              <Typography id='school-select' variant='caption'>School</Typography>
-              <Select value={schoolId || ''} onChange={handleChange} inputProps={{
-                name: 'schoolId',
-                id: 'school-select',
-              }} className={classes.select}>
-                <MenuItem value=''  ><em>None</em></MenuItem>
-                {
-                  schools.map( school => 
-                    <MenuItem key={school.id} value={school.id}>{school.name}</MenuItem>
-                  )
-                }
-              </Select>
-            </div>
+            {
+              school ? (
+                <div>
+                  <Typography variant='caption'>
+                    Add this student to {school.name}
+                  </Typography>
+                </div>
+              ) : (
+                <div>
+                  <Typography id='school-select' variant='caption'>School</Typography>
+                  <Select value={schoolId || ''} onChange={handleChange} inputProps={{
+                    name: 'schoolId',
+                    id: 'school-select',
+                  }} className={classes.select}>
+                    <MenuItem value=''  ><em>None</em></MenuItem>
+                    {
+                      schools.map( school => 
+                        <MenuItem key={school.id} value={school.id}>{school.name}</MenuItem>
+                      )
+                    }
+                  </Select>
+                </div>
+              )
+            }
+
+
           </FormControl>
 
         
@@ -121,9 +135,10 @@ class StudentFormDialog extends Component {
   }
 }
 
-const mapStateToProps = ({ schools })=> {
+const mapStateToProps = ({ schools }, { schoolId })=> {
   return {
-    schools
+    schools,
+    school: getSchool(schools, schoolId)
   };
 };
 

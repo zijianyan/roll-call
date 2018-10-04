@@ -18,13 +18,11 @@ import StudentFormDialog from './StudentFormDialog';
 import { Typography, Paper, Divider, Zoom, Fade, Grow, Slide } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-
-
 const styles = {
   root: {
     margin: 20,
     padding: 50,
-    maxWidth: 800,
+    maxWidth: 1000,
   },
   title: {
     marginTop: 0,

@@ -49,6 +49,10 @@ class SchoolInfo extends Component {
     this.toggleDeleteDialog = this.toggleDeleteDialog.bind(this);
   }
 
+  componentDidMount() {
+    window.scroll(0,0);
+  }
+
   toggleFormDialog() {
     this.setState({ formDialog: !this.state.formDialog });
   }
