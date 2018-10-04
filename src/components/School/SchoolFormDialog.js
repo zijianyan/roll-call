@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { createSchool_thunk, updateSchool_thunk, createSchoolRandom_thunk } from '../../store/thunks';
@@ -17,6 +17,7 @@ class SchoolFormDialog extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.saveSchool = this.saveSchool.bind(this);
+    this.createSchoolRandom = this.createSchoolRandom.bind(this);
   }
 
   componentDidMount() {
@@ -44,10 +45,15 @@ class SchoolFormDialog extends Component {
     this.props.toggleFormDialog();
   }
 
+  createSchoolRandom() {
+    this.props.dispatchCreateSchoolRandom();
+    this.props.toggleFormDialog();
+  }
+
   render() {
-    const { handleChange, saveSchool } = this;
+    const { handleChange, saveSchool, createSchoolRandom } = this;
     const { name, address, description } = this.state;
-    const { type, schools, formDialog, toggleFormDialog, updateSchool, createSchool, school, createSchoolRandom } = this.props;
+    const { type, schools, formDialog, toggleFormDialog, updateSchool, createSchool, school } = this.props;
     const isEmpty = name && address ? false : true;
     return (
       <Dialog open={formDialog}>
@@ -74,11 +80,13 @@ class SchoolFormDialog extends Component {
         <DialogActions>
           {
             type === 'create' ? (
-              <Tooltip title='Create Random School'>
-                <IconButton onClick={createSchoolRandom}>
-                  <Toys />
-                </IconButton>
-              </Tooltip>
+              <Fragment>
+                <Tooltip title='Create Random School' >
+                  <IconButton onClick={createSchoolRandom}>
+                    <Toys />
+                  </IconButton>
+                </Tooltip>
+              </Fragment>
             ) : null
 
           }
