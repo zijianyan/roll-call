@@ -242,11 +242,3 @@ describe('senior enrichment project', ()=> {
   });
 
 });
-
-
-
-
-// create components from school row, student row, school card, student card
-
-// abstract text fields, slider, and schoolsect from studentformdialog
-

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { syncAndSeed } = require('../db'); //for /api/reset 
+const { syncAndSeed } = require('../db');
 
 router.use('/schools', require('./schools'));
 router.use('/students', require('./students'));
