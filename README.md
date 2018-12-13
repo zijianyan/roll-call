@@ -4,4 +4,4 @@ A app built to manage the enrollment and disenrollment of students from a databa
 
 Built using SQL, Postgres, Sequelize, Node, Express, React, Redux, and Material-UI.
 
-Currently using seeded data from the npm faker library.
+Built by Zijian Yan.
