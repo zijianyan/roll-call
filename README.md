@@ -1,4 +1,4 @@
-# roll-call
+# Roll Call
 
 A app built to manage the enrollment and disenrollment of students from a database of schools.
 
